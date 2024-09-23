@@ -11,8 +11,9 @@
 📊 A powerful, flexible charting library for Compose Multiplatform applications
 </p>
 
+
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/drafter-demo.gif" alt="Drafter Demo" width="300"/>
+  <img src="https://github.com/user-attachments/assets/c61658e4-cb22-40ae-8050-3bb6f300e3c4" alt="Drafter Demo" width="300"/>
 </p>
 
 ## Features
