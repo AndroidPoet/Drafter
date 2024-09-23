@@ -23,15 +23,15 @@
     android:label="@string/app_name"
     android:roundIcon="@mipmap/ic_launcher_round"
     android:supportsRtl="true"
-    android:theme="@style/Theme.FlexibleDemo">
+    android:theme="@style/Theme.DrafterDemo">
     <profileable
       android:shell="true"
       tools:targetApi="29" />
 
     <activity
-      android:name="io.androidpoet.countrypicker.baselineprofile.app.MainActivity"
+      android:name="io.androidpoet.drafter.baselineprofile.app.MainActivity"
       android:exported="true"
-      android:theme="@style/Theme.FlexibleDemo">
+      android:theme="@style/Theme.DrafterDemo">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
 

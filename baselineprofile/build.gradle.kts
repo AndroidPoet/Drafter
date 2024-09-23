@@ -1,4 +1,4 @@
-import io.androidpoet.countrypicker.Configuration
+import io.androidpoet.drafter.Configuration
 
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
@@ -20,7 +20,7 @@ plugins {
 }
 
 android {
-  namespace = "io.androidpoet.countrypicker.baselineprofile"
+  namespace = "io.androidpoet.drafter.baselineprofile"
   compileSdk = Configuration.compileSdk
 
   compileOptions {

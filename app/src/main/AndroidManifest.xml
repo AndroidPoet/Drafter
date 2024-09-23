@@ -26,13 +26,13 @@
     android:label="@string/app_name"
     android:roundIcon="@mipmap/ic_launcher_round"
     android:supportsRtl="true"
-    android:theme="@style/Theme.CountryPickerDemo"
+    android:theme="@style/Theme.DrafterDemo"
     tools:targetApi="31">
 
     <activity
-      android:name="io.androidpoet.countrypickerdemo.MainActivity"
+      android:name="io.androidpoet.drafterdemo.MainActivity"
       android:exported="true"
-      android:theme="@style/Theme.CountryPickerDemo">
+      android:theme="@style/Theme.DrafterDemo">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
 

@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import io.androidpoet.countrypicker.Configuration
+import io.androidpoet.drafter.Configuration
 
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
@@ -35,9 +35,9 @@ plugins {
 
 android {
   compileSdk = Configuration.compileSdk
-  namespace = "io.androidpoet.countrypickerdemo"
+  namespace = "io.androidpoet.drafterdemo"
   defaultConfig {
-    applicationId = "io.androidpoet.countrypickerdemo"
+    applicationId = "io.androidpoet.drafterdemo"
     minSdk = Configuration.minSdk
     targetSdk = Configuration.targetSdk
     versionCode = Configuration.versionCode
@@ -83,6 +83,6 @@ dependencies {
   implementation(libs.androidx.compose.runtime)
   implementation(libs.androidx.compose.material)
   implementation(libs.androidx.compose.material3)
-  implementation(project(":countrypicker"))
+  implementation(project(":drafter"))
 }
 task("testClasses") {}

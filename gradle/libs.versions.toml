@@ -13,8 +13,6 @@ uiAutomator = "2.3.0"
 spotless = "6.21.0"
 androidxMacroBenchmark = "1.3.0"
 jetbrains-compose = "1.6.11"
-kotlinCodepointsDeluxeVersion = "0.9.0"
-kotlinx-serialization = "1.7.0-RC"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -29,7 +27,6 @@ kotlin-binary-compatibility = { id = "org.jetbrains.kotlinx.binary-compatibility
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 baseline-profile = { id = "androidx.baselineprofile", version.ref = "androidxMacroBenchmark" }
 jetbrains-compose = { id = "org.jetbrains.compose", version.ref = "jetbrains-compose" }
-kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 
 [libraries]
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "androidxComposeBom" }
@@ -40,8 +37,6 @@ androidx-compose-material3 = { group = "androidx.compose.material3", name = "mat
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidxActivity" }
 androidx-compose-foundation = { group = "androidx.compose.foundation", name = "foundation" }
 androidx-compose-runtime = { group = "androidx.compose.runtime", name = "runtime" }
-kotlin-codepoints-deluxe = { module = "de.cketti.unicode:kotlin-codepoints-deluxe", version.ref = "kotlinCodepointsDeluxeVersion" }
-kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
 # unit test
 androidx-test-runner = { group = "androidx.test", name = "runner", version.ref = "androidxTest" }
 androidx-profileinstaller = { module = "androidx.profileinstaller:profileinstaller", version.ref = "baselineProfiles" }
