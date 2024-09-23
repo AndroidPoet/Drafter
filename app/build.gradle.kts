@@ -83,6 +83,6 @@ dependencies {
   implementation(libs.androidx.compose.runtime)
   implementation(libs.androidx.compose.material)
   implementation(libs.androidx.compose.material3)
-  implementation(project(":countrypicker"))
+  implementation(project(":drafter"))
 }
 task("testClasses") {}

@@ -25,11 +25,11 @@ plugins {
 }
 
 android {
-  namespace = "io.androidpoet.countrypicker.baselineprofile.app"
+  namespace = "io.androidpoet.drafter.baselineprofile.app"
   compileSdk = Configuration.compileSdk
 
   defaultConfig {
-    applicationId = "io.androidpoet.countrypicker.baselineprofile.app"
+    applicationId = "io.androidpoet.drafter.baselineprofile.app"
     minSdk = 23
   }
 
@@ -68,7 +68,7 @@ dependencies {
   implementation(libs.androidx.compose.ui.tooling)
   implementation(libs.androidx.compose.foundation)
   implementation(libs.androidx.compose.runtime)
-  implementation(libs.androidx.compose.material)
-  implementation(project(":countrypicker"))
+  implementation(libs.androidx.compose.material3)
+  implementation(project(":drafter"))
   baselineProfile(project(":baselineprofile"))
 }

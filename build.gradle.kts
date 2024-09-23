@@ -25,7 +25,6 @@ plugins {
   alias(libs.plugins.nexus.plugin)
   alias(libs.plugins.spotless)
   alias(libs.plugins.dokka)
-  alias(libs.plugins.kotlinx.serialization) apply false
 }
 
 subprojects {

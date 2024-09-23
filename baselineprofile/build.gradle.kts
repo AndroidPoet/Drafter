@@ -20,7 +20,7 @@ plugins {
 }
 
 android {
-  namespace = "io.androidpoet.countrypicker.baselineprofile"
+  namespace = "io.androidpoet.drafter.baselineprofile"
   compileSdk = Configuration.compileSdk
 
   compileOptions {
