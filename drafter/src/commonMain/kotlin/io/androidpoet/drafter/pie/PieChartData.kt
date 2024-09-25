@@ -17,7 +17,6 @@ package io.androidpoet.drafter.pie
 
 import androidx.compose.ui.graphics.Color
 
-// Pie chart data class
 public data class PieChartData(
   val slices: List<Slice>,
 ) {

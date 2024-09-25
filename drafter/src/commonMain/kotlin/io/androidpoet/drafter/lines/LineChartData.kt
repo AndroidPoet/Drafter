@@ -17,19 +17,16 @@ package io.androidpoet.drafter.lines
 
 import androidx.compose.ui.graphics.Color
 
-// Base interface for line chart data
 public interface LineChartData {
   public val labels: List<String>
 }
 
-// Simple line chart data
 public data class SimpleLineChartData(
   override val labels: List<String>,
   val values: List<Float>,
   val color: Color,
 ) : LineChartData
 
-// Grouped line chart data
 public data class GroupedLineChartData(
   override val labels: List<String>,
   val itemNames: List<String>,
@@ -37,7 +34,6 @@ public data class GroupedLineChartData(
   val colors: List<Color>,
 ) : LineChartData
 
-// Stacked line chart data (similar to area chart)
 public data class StackedLineChartData(
   override val labels: List<String>,
   val stacks: List<List<Float>>,

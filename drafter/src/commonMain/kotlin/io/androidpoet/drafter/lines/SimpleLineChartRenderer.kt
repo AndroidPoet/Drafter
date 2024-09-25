@@ -29,6 +29,7 @@ public class SimpleLineChartRenderer : LineChartRenderer<SimpleLineChartData> {
     chartWidth: Float,
     chartHeight: Float,
     maxValue: Float,
+    animationProgress: Float,
   ) {
     val points =
       data.values.mapIndexed { index, value ->
@@ -37,7 +38,11 @@ public class SimpleLineChartRenderer : LineChartRenderer<SimpleLineChartData> {
         Offset(x, y)
       }
 
-    for (i in 0 until points.size - 1) {
+// Calculate the number of points to draw based on animation progress
+    val animatedPointsCount = (points.size * animationProgress).toInt().coerceAtLeast(2)
+
+// Draw lines up to the animated point count
+    for (i in 0 until animatedPointsCount - 1) {
       drawScope.drawLine(
         color = data.color,
         start = points[i],

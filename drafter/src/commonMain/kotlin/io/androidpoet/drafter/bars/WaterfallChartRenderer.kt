@@ -73,7 +73,6 @@ public class WaterfallChartRenderer : BarChartRenderer<WaterfallChartData> {
       cumulativeValues.add(sum)
     }
 
-    // Starting and ending cumulative values for the bar
     val startValue = cumulativeValues[index]
     val endValue = cumulativeValues[index + 1]
 
@@ -92,7 +91,6 @@ public class WaterfallChartRenderer : BarChartRenderer<WaterfallChartData> {
       size = Size(barWidth, height),
     )
 
-    // Optional: Draw lines connecting bars
     if (index > 0) {
       val previousEndValue = cumulativeValues[index]
       val previousYEnd = chartBottom - ((previousEndValue / maxValue) * chartHeight)

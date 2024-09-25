@@ -51,3 +51,31 @@ public fun PieChart(
     renderer.drawPieChart(this)
   }
 }
+
+@Composable
+public fun DonutChart(
+  data: PieChartData,
+  modifier: Modifier = Modifier,
+  animate: Boolean = true,
+) {
+  val textMeasurer = rememberTextMeasurer()
+  val progress = remember { Animatable(0f) }
+
+  LaunchedEffect(animate) {
+    if (animate) {
+      progress.animateTo(
+        targetValue = 1f,
+        animationSpec = tween(durationMillis = 1000),
+      )
+    } else {
+      progress.snapTo(1f)
+    }
+  }
+
+  Canvas(modifier = modifier) {
+    val size = this.size
+    val renderer = DonutChartRenderer(data, size, textMeasurer, progress.value)
+
+    renderer.drawDonutChart(this)
+  }
+}

@@ -15,37 +15,54 @@
  */
 package io.androidpoet.drafterdemo.pie
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import io.androidpoet.drafter.pie.DonutChart
 import io.androidpoet.drafter.pie.PieChart
 import io.androidpoet.drafter.pie.PieChartData
 import io.androidpoet.drafterdemo.ChartTitle
 
 @Composable
 fun PieChartExample() {
-  ChartTitle(text = "Pie Chart")
-  val data = PieChartData(
-    slices = listOf(
-      PieChartData.Slice(40f, Color.Blue, "Blue"),
-      PieChartData.Slice(30f, Color.Red, "Red"),
-      PieChartData.Slice(20f, Color.Green, "Green"),
-      PieChartData.Slice(10f, Color.Yellow, "Yellow"),
-    ),
-  )
-  Box(
-    modifier = Modifier.size(200.dp).padding(horizontal = 16.dp),
-    contentAlignment = Alignment.Center,
-  ) {
+  Column {
+    ChartTitle(text = "Pie Chart")
+    val data =
+      PieChartData(
+        slices =
+        listOf(
+          PieChartData.Slice(40f, Color.Blue, "Blue"),
+          PieChartData.Slice(30f, Color.Red, "Red"),
+          PieChartData.Slice(20f, Color.Green, "Green"),
+          PieChartData.Slice(10f, Color.Yellow, "Yellow"),
+        ),
+      )
     PieChart(
       data = data,
-      modifier = Modifier.fillMaxSize(),
+      modifier = Modifier.size(200.dp).padding(vertical = 10.dp),
     )
   }
+}
+
+@Composable
+fun DonutCharExample() {
+  ChartTitle(text = "Pie Chart")
+  val data =
+    PieChartData(
+      slices =
+      listOf(
+        PieChartData.Slice(40f, Color.Blue, "Blue"),
+        PieChartData.Slice(30f, Color.Red, "Red"),
+        PieChartData.Slice(20f, Color.Green, "Green"),
+        PieChartData.Slice(10f, Color.Yellow, "Yellow"),
+      ),
+    )
+  DonutChart(
+    data = data,
+    modifier = Modifier.size(200.dp),
+  )
 }

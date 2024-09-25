@@ -76,7 +76,7 @@ public fun createHistogramData(
   color: Color = Color.Blue,
 ): HistogramData {
   val minValue = dataPoints.minOrNull() ?: 0f
-  val maxValue = dataPoints.maxOrNull() ?: minValue // Avoid maxValue < minValue
+  val maxValue = dataPoints.maxOrNull() ?: minValue
   val binSize = if (maxValue > minValue) (maxValue - minValue) / binCount else 1f
 
   val frequencies = MutableList(binCount) { 0f }
@@ -97,5 +97,4 @@ public fun createHistogramData(
   return HistogramData(labels, frequencies, colors)
 }
 
-// Custom formatting function
 internal fun formatToOneDecimal(value: Float): String = ((value * 10).roundToInt() / 10f).toString()

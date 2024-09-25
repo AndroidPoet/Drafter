@@ -18,7 +18,6 @@ package io.androidpoet.drafter.histogram
 import androidx.compose.ui.graphics.Color
 import io.androidpoet.drafter.bars.BarChartData
 
-// Histogram data class
 public data class HistogramData(
   override val labels: List<String>,
   val frequencies: List<Float>,

@@ -24,7 +24,7 @@ import androidx.compose.ui.text.drawText
 import androidx.compose.ui.unit.sp
 
 public interface ScatterPlotRenderer {
-  public fun calculateMaxValues(data: ScatterPlotData): Pair<Float, Float> // Returns maxX and maxY
+  public fun calculateMaxValues(data: ScatterPlotData): Pair<Float, Float>
 
   public fun drawPoints(
     drawScope: DrawScope,
@@ -35,10 +35,10 @@ public interface ScatterPlotRenderer {
     chartHeight: Float,
     maxX: Float,
     maxY: Float,
+    animationProgress: Float,
   )
 }
 
-// Implement the SimpleScatterPlotRenderer class
 public class SimpleScatterPlotRenderer : ScatterPlotRenderer {
   override fun calculateMaxValues(data: ScatterPlotData): Pair<Float, Float> {
     val maxX = data.points.maxOfOrNull { it.first } ?: 0f
@@ -55,21 +55,24 @@ public class SimpleScatterPlotRenderer : ScatterPlotRenderer {
     chartHeight: Float,
     maxX: Float,
     maxY: Float,
+    animationProgress: Float,
   ) {
     data.points.forEachIndexed { index, point ->
       val x = chartLeft + (point.first / maxX) * chartWidth
       val y = chartTop + chartHeight - (point.second / maxY) * chartHeight
+
+      val pointSize = 5f * animationProgress
+
       val color = if (index < data.pointColors.size) data.pointColors[index] else Color.Black
       drawScope.drawCircle(
-        color = color,
-        radius = 5f,
+        color = color.copy(alpha = animationProgress),
+        radius = pointSize,
         center = Offset(x, y),
       )
     }
   }
 }
 
-// Adjust the utility functions
 public fun DrawScope.drawAxes(
   left: Float,
   top: Float,

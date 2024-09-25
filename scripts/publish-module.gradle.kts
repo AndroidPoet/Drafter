@@ -1,4 +1,4 @@
-import io.androidpoet.countrypicker.Configuration
+import io.androidpoet.drafter.Configuration
 
 apply(plugin = "com.vanniktech.maven.publish")
 

@@ -15,13 +15,17 @@
  */
 package io.androidpoet.drafter.scatterplot
 
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.rememberTextMeasurer
 
-// Modify the composable function to ScatterPlot
 @Composable
 public fun ScatterPlot(
   data: ScatterPlotData,
@@ -29,6 +33,19 @@ public fun ScatterPlot(
   modifier: Modifier = Modifier,
 ) {
   val textMeasurer = rememberTextMeasurer()
+  val animationProgress = remember { Animatable(0f) }
+
+  // Trigger the animation
+  LaunchedEffect(Unit) {
+    animationProgress.animateTo(
+      targetValue = 1f,
+      animationSpec =
+      tween(
+        durationMillis = 2000,
+        easing = LinearOutSlowInEasing,
+      ),
+    )
+  }
 
   Canvas(modifier = modifier.fillMaxSize()) {
     val chartHeight = size.height * 0.8f
@@ -43,6 +60,7 @@ public fun ScatterPlot(
     drawYAxisLabels(textMeasurer, chartLeft, chartTop, chartBottom, maxY)
     drawXAxisLabels(textMeasurer, chartLeft, chartBottom, chartWidth, maxX)
 
+    // Draw the points with animation
     renderer.drawPoints(
       drawScope = this,
       data = data,
@@ -52,6 +70,7 @@ public fun ScatterPlot(
       chartHeight = chartHeight,
       maxX = maxX,
       maxY = maxY,
+      animationProgress = animationProgress.value, // Pass animation progress
     )
   }
 }

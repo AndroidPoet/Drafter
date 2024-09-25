@@ -30,32 +30,45 @@ import io.androidpoet.drafter.baselineprofile.app.bars.HistogramChartExample
 import io.androidpoet.drafter.baselineprofile.app.bars.SimpleBarChartExample
 import io.androidpoet.drafter.baselineprofile.app.bars.StackedBarChartExample
 import io.androidpoet.drafter.baselineprofile.app.bars.WaterfallChartExample
+import io.androidpoet.drafter.baselineprofile.app.buble.BubbleChartExample
+import io.androidpoet.drafter.baselineprofile.app.gantt.GanttChartExample
 import io.androidpoet.drafter.baselineprofile.app.line.GroupedLineChartExample
+import io.androidpoet.drafter.baselineprofile.app.line.ScatterPlotChartExample
 import io.androidpoet.drafter.baselineprofile.app.line.SimpleLineChartExample
 import io.androidpoet.drafter.baselineprofile.app.line.StackedLineChartExample
+import io.androidpoet.drafter.baselineprofile.app.pie.DonutCharExample
 import io.androidpoet.drafter.baselineprofile.app.pie.PieChartExample
+import io.androidpoet.drafter.baselineprofile.app.radar.RadarChartExample
+import io.androidpoet.drafter.baselineprofile.app.ui.theme.DrafterDemoTheme
+
 
 class MainActivity : ComponentActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
     setContent {
-      LazyColumn(
-        modifier = Modifier.fillMaxSize(),
-        contentPadding = PaddingValues(vertical = 16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-      ) {
-        item { SimpleBarChartExample() }
-        item { GroupedBarChartExample() }
-        item { StackedBarChartExample() }
-        item { SimpleLineChartExample() }
-        item { GroupedLineChartExample() }
-        item { StackedLineChartExample() }
-        item { HistogramChartExample() }
-        item { PieChartExample() }
-        item { SimpleLineChartExample() }
-        item { WaterfallChartExample() }
+      DrafterDemoTheme {
+        LazyColumn(
+          modifier = Modifier.fillMaxSize(),
+          contentPadding = PaddingValues(vertical = 16.dp),
+          verticalArrangement = Arrangement.spacedBy(16.dp),
+          horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+          item { SimpleBarChartExample() }
+          item { GroupedBarChartExample() }
+          item { StackedBarChartExample() }
+          item { SimpleLineChartExample() }
+          item { GroupedLineChartExample() }
+          item { StackedLineChartExample() }
+          item { HistogramChartExample() }
+          item { PieChartExample() }
+          item { DonutCharExample() }
+          item { ScatterPlotChartExample() }
+          item { WaterfallChartExample() }
+          item { RadarChartExample() }
+          item { GanttChartExample() }
+          item { BubbleChartExample() }
+        }
       }
     }
   }

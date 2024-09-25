@@ -32,24 +32,27 @@ import kotlin.random.Random
 fun ScatterPlotChartExample() {
   ChartTitle(text = "Scatter Plot Chart")
   val numberOfPoints = 30
-  val randomPoints = List(numberOfPoints) {
-    Pair(
-      Random.nextFloat() * 50f,
-      Random.nextFloat() * 50f,
+  val randomPoints =
+    List(numberOfPoints) {
+      Pair(
+        Random.nextFloat() * 50f,
+        Random.nextFloat() * 50f,
+      )
+    }
+  val randomColors =
+    List(numberOfPoints) {
+      Color(
+        red = Random.nextFloat(),
+        green = Random.nextFloat(),
+        blue = Random.nextFloat(),
+        alpha = 1f,
+      )
+    }
+  val data =
+    ScatterPlotData(
+      points = randomPoints,
+      pointColors = randomColors,
     )
-  }
-  val randomColors = List(numberOfPoints) {
-    Color(
-      red = Random.nextFloat(),
-      green = Random.nextFloat(),
-      blue = Random.nextFloat(),
-      alpha = 1f,
-    )
-  }
-  val data = ScatterPlotData(
-    points = randomPoints,
-    pointColors = randomColors,
-  )
   val renderer = SimpleScatterPlotRenderer()
   ChartContainer(modifier = Modifier.height(300.dp)) {
     ScatterPlot(

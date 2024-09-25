@@ -1,4 +1,4 @@
-import io.androidpoet.countrypicker.Configuration
+import io.androidpoet.drafter.Configuration
 
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {

@@ -30,7 +30,8 @@ fun ChartContainer(
   content: @Composable () -> Unit,
 ) {
   Box(
-    modifier = modifier
+    modifier =
+    modifier
       .fillMaxWidth()
       .height(200.dp)
       .padding(horizontal = 16.dp),

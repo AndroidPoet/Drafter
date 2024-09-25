@@ -19,19 +19,17 @@ import androidx.compose.ui.graphics.Color
 
 public data class WaterfallChartData(
   override val labels: List<String>,
-  val values: List<Float>, // The values (positive or negative) for each step
-  val colors: List<Color>, // Colors for each bar
-  val initialValue: Float = 0f, // Optional starting value
+  val values: List<Float>,
+  val colors: List<Color>,
+  val initialValue: Float = 0f,
 ) : BarChartData
 
-// Simple bar chart data
 public data class SimpleBarChartData(
   override val labels: List<String>,
   val values: List<Float>,
   val colors: List<Color>,
 ) : BarChartData
 
-// Grouped bar chart data
 public data class GroupedBarChartData(
   override val labels: List<String>,
   val itemNames: List<String>,
@@ -39,7 +37,6 @@ public data class GroupedBarChartData(
   val colors: List<Color>,
 ) : BarChartData
 
-// Stacked bar chart data
 public data class StackedBarChartData(
   override val labels: List<String>,
   val stacks: List<List<Float>>,

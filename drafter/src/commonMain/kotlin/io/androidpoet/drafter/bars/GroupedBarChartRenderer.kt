@@ -29,10 +29,10 @@ public class GroupedBarChartRenderer : BarChartRenderer<GroupedBarChartData> {
     dataSize: Int,
     barsPerGroup: Int,
   ): Pair<Float, Float> {
-    val totalGroupSpacing = chartWidth * 0.1f // 10% spacing
+    val totalGroupSpacing = chartWidth * 0.1f
     val groupSpacing = totalGroupSpacing / (dataSize + 1)
     val availableWidth = chartWidth - totalGroupSpacing
-    val totalBarSpacingPerGroup = (barsPerGroup - 1) * 4f // Fixed bar spacing
+    val totalBarSpacingPerGroup = (barsPerGroup - 1) * 4f
     val barWidth = (availableWidth / dataSize - totalBarSpacingPerGroup) / barsPerGroup
     return Pair(barWidth, groupSpacing)
   }
@@ -41,7 +41,7 @@ public class GroupedBarChartRenderer : BarChartRenderer<GroupedBarChartData> {
     barWidth: Float,
     barsPerGroup: Int,
   ): Float {
-    val totalBarSpacingPerGroup = (barsPerGroup - 1) * 4f // Fixed bar spacing
+    val totalBarSpacingPerGroup = (barsPerGroup - 1) * 4f
     return barWidth * barsPerGroup + totalBarSpacingPerGroup
   }
 
@@ -59,7 +59,7 @@ public class GroupedBarChartRenderer : BarChartRenderer<GroupedBarChartData> {
   ) {
     val groupValues = data.groupedValues[index]
     val barsPerGroup = groupValues.size
-    val barSpacing = 4f // Fixed bar spacing
+    val barSpacing = 4f
     var currentLeft = left
 
     groupValues.forEachIndexed { barIndex, value ->

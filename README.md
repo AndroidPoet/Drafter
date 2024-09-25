@@ -294,6 +294,84 @@ BarChart(
 )
 ```
 
+## Radar Chart
+
+```kotlin
+@Composable
+fun RadarChartExample() {
+  ChartTitle(text = "Radar Chart")
+  val data = listOf(
+    RadarChartData(
+      mapOf(
+        "Execution" to 0.8f,
+        "Landing" to 0.6f,
+        "Difficulty" to 0.9f,
+        "Style" to 0.7f,
+        "Creativity" to 0.85f,
+      ),
+    ),
+  )
+  val colors = listOf(Color.Blue, Color.Red)
+
+  RadarChart(
+    data = data,
+    colors = colors,
+  )
+}
+```
+
+## Gantt Chart
+
+```kotlin
+@Composable
+fun GanttChartExample() {
+  ChartTitle(text = "Gantt Chart")
+  val tasks = listOf(
+    GanttTask("Planning", 0f, 2f),
+    GanttTask("Design", 2f, 2f),
+    GanttTask("Development", 4f, 3f),
+    GanttTask("Testing", 7f, 2f),
+    GanttTask("Deployment", 9f, 1f),
+  )
+  val data = GanttChartData(tasks)
+  val renderer = SimpleGanttChartRenderer()
+  GanttChart(data = data, renderer = renderer, modifier = Modifier.size(400.dp))
+}
+```
+
+## Bubble Chart
+
+```kotlin
+@Composable
+fun BubbleChartExample() {
+  ChartTitle(text = "Bubble Chart")
+  val data = listOf(
+    listOf(
+      BubbleChartData(10f, 26f, 30f, Color.Blue),
+      BubbleChartData(26f, 30f, 60f, Color.Blue),
+      BubbleChartData(26f, 46f, 45f, Color.Blue),
+    ),
+    listOf(
+      BubbleChartData(14f, 15f, 30f, Color.Green),
+      BubbleChartData(22f, 36f, 45f, Color.Green),
+      BubbleChartData(40f, 57f, 75f, Color.Green),
+    ),
+    listOf(
+      BubbleChartData(8f, 9f, 30f, Color.Yellow),
+      BubbleChartData(20f, 57f, 45f, Color.Yellow),
+      BubbleChartData(40f, 50f, 60f, Color.Yellow),
+    ),
+    listOf(
+      BubbleChartData(8f, 20f, 22.5f, Color.Red),
+      BubbleChartData(12f, 30f, 30f, Color.Red),
+      BubbleChartData(30f, 40f, 45f, Color.Red),
+    )
+  )
+
+  BubbleChart(data, Modifier.size(300.dp))
+}
+```
+
 ## Contributing
 
 Contributions are welcome! If you've found a bug, have an idea for an improvement, or want to contribute new features, please open an issue or submit a pull request.

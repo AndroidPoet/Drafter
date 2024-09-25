@@ -1,4 +1,4 @@
-import io.androidpoet.countrypicker.Configuration
+import io.androidpoet.drafter.Configuration
 
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
@@ -94,7 +94,7 @@ composeCompiler {
 }
 android {
   compileSdk = Configuration.compileSdk
-  namespace = "io.androidpoet.countrypicker"
+  namespace = "io.androidpoet.drafter"
   defaultConfig {
     minSdk = Configuration.minSdk
   }
@@ -123,7 +123,7 @@ android {
 baselineProfile {
   baselineProfileOutputDir = "../../src/androidMain"
   filter {
-    include("io.androidpoet.countrypicker.**")
+    include("io.androidpoet.drafter.**")
   }
 }
 

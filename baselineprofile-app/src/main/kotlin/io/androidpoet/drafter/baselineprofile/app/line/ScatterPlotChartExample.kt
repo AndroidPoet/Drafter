@@ -15,16 +15,16 @@
  */
 package io.androidpoet.drafter.baselineprofile.app.line
 
+import ScatterPlotData
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import io.androidpoet.drafter.scatterplot.ScatterPlot
 import io.androidpoet.drafter.baselineprofile.app.ChartContainer
 import io.androidpoet.drafter.baselineprofile.app.ChartTitle
-import io.androidpoet.drafter.scatterplot.ScatterPlot
-import io.androidpoet.drafter.scatterplot.ScatterPlotData
 import io.androidpoet.drafter.scatterplot.SimpleScatterPlotRenderer
 import kotlin.random.Random
 
@@ -32,24 +32,27 @@ import kotlin.random.Random
 fun ScatterPlotChartExample() {
   ChartTitle(text = "Scatter Plot Chart")
   val numberOfPoints = 30
-  val randomPoints = List(numberOfPoints) {
-    Pair(
-      Random.nextFloat() * 50f,
-      Random.nextFloat() * 50f,
+  val randomPoints =
+    List(numberOfPoints) {
+      Pair(
+        Random.nextFloat() * 50f,
+        Random.nextFloat() * 50f,
+      )
+    }
+  val randomColors =
+    List(numberOfPoints) {
+      Color(
+        red = Random.nextFloat(),
+        green = Random.nextFloat(),
+        blue = Random.nextFloat(),
+        alpha = 1f,
+      )
+    }
+  val data =
+    ScatterPlotData(
+      points = randomPoints,
+      pointColors = randomColors,
     )
-  }
-  val randomColors = List(numberOfPoints) {
-    Color(
-      red = Random.nextFloat(),
-      green = Random.nextFloat(),
-      blue = Random.nextFloat(),
-      alpha = 1f,
-    )
-  }
-  val data = ScatterPlotData(
-    points = randomPoints,
-    pointColors = randomColors,
-  )
   val renderer = SimpleScatterPlotRenderer()
   ChartContainer(modifier = Modifier.height(300.dp)) {
     ScatterPlot(

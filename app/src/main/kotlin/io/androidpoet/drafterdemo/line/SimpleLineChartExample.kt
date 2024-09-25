@@ -27,11 +27,12 @@ import io.androidpoet.drafterdemo.ChartTitle
 @Composable
 fun SimpleLineChartExample() {
   ChartTitle(text = "Simple Line Chart")
-  val data = SimpleLineChartData(
-    labels = listOf("A", "B", "C", "D"),
-    values = listOf(10f, 20f, 15f, 25f),
-    color = Color.Blue,
-  )
+  val data =
+    SimpleLineChartData(
+      labels = listOf("A", "B", "C", "D"),
+      values = listOf(10f, 20f, 15f, 25f),
+      color = Color.Blue,
+    )
   val renderer = SimpleLineChartRenderer()
   ChartContainer {
     LineChart(

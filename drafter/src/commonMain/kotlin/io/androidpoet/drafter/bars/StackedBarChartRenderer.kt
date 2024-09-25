@@ -37,9 +37,7 @@ public class StackedBarChartRenderer : BarChartRenderer<StackedBarChartData> {
   override fun calculateGroupWidth(
     barWidth: Float,
     barsPerGroup: Int,
-  ): Float {
-    return barWidth // Only one bar per group
-  }
+  ): Float = barWidth
 
   override fun drawBars(
     drawScope: DrawScope,

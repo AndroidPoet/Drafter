@@ -15,9 +15,14 @@
  */
 package io.androidpoet.drafter.lines
 
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
@@ -39,6 +44,7 @@ public interface LineChartRenderer<T : LineChartData> {
     chartWidth: Float,
     chartHeight: Float,
     maxValue: Float,
+    animationProgress: Float,
   )
 }
 
@@ -50,6 +56,20 @@ public fun <T : LineChartData> LineChart(
 ) {
   val textMeasurer = rememberTextMeasurer()
 
+  val animationProgress = remember { Animatable(0f) }
+
+  // Animate the line drawing just like in the BarChart
+  LaunchedEffect(Unit) {
+    animationProgress.animateTo(
+      targetValue = 1f,
+      animationSpec =
+      tween(
+        durationMillis = 1000,
+        easing = FastOutSlowInEasing,
+      ),
+    )
+  }
+
   Canvas(modifier = modifier.fillMaxSize()) {
     val chartHeight = size.height * 0.8f
     val chartWidth = size.width * 0.8f
@@ -59,11 +79,9 @@ public fun <T : LineChartData> LineChart(
 
     val maxValue = renderer.calculateMaxValue(data)
 
-    // Draw axes and labels
     drawAxes(chartLeft, chartTop, chartBottom, chartWidth)
     drawYAxisLabels(textMeasurer, chartLeft, chartTop, chartBottom, maxValue)
 
-    // Draw the lines
     renderer.drawLines(
       drawScope = this,
       data = data,
@@ -72,9 +90,9 @@ public fun <T : LineChartData> LineChart(
       chartWidth = chartWidth,
       chartHeight = chartHeight,
       maxValue = maxValue,
+      animationProgress = animationProgress.value,
     )
 
-    // Draw x-axis labels
     data.labels.forEachIndexed { index, label ->
       val x = chartLeft + index * (chartWidth / (data.labels.size - 1))
       drawXAxisLabel(textMeasurer, label, x, chartBottom)

@@ -30,19 +30,23 @@ import io.androidpoet.drafterdemo.bars.HistogramChartExample
 import io.androidpoet.drafterdemo.bars.SimpleBarChartExample
 import io.androidpoet.drafterdemo.bars.StackedBarChartExample
 import io.androidpoet.drafterdemo.bars.WaterfallChartExample
+import io.androidpoet.drafterdemo.buble.BubbleChartExample
+import io.androidpoet.drafterdemo.gantt.GanttChartExample
 import io.androidpoet.drafterdemo.line.GroupedLineChartExample
 import io.androidpoet.drafterdemo.line.ScatterPlotChartExample
 import io.androidpoet.drafterdemo.line.SimpleLineChartExample
 import io.androidpoet.drafterdemo.line.StackedLineChartExample
+import io.androidpoet.drafterdemo.pie.DonutCharExample
 import io.androidpoet.drafterdemo.pie.PieChartExample
-import io.androidpoet.drafterdemo.ui.theme.CountryPickerDemoTheme
+import io.androidpoet.drafterdemo.radar.RadarChartExample
+import io.androidpoet.drafterdemo.ui.theme.DrafterDemoTheme
 
 class MainActivity : ComponentActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
     setContent {
-      CountryPickerDemoTheme {
+      DrafterDemoTheme {
         LazyColumn(
           modifier = Modifier.fillMaxSize(),
           contentPadding = PaddingValues(vertical = 16.dp),
@@ -57,8 +61,12 @@ class MainActivity : ComponentActivity() {
           item { StackedLineChartExample() }
           item { HistogramChartExample() }
           item { PieChartExample() }
+          item { DonutCharExample() }
           item { ScatterPlotChartExample() }
           item { WaterfallChartExample() }
+          item { RadarChartExample() }
+          item { GanttChartExample() }
+          item { BubbleChartExample() }
         }
       }
     }

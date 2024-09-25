@@ -27,16 +27,18 @@ import io.androidpoet.drafterdemo.ChartTitle
 @Composable
 fun StackedBarChartExample() {
   ChartTitle(text = "Stacked Bar Chart")
-  val data = StackedBarChartData(
-    labels = listOf("Jan", "Feb", "Mar", "Apr"),
-    stacks = listOf(
-      listOf(5f, 5f, 2f),
-      listOf(7f, 3f, 4f),
-      listOf(6f, 4f, 3f),
-      listOf(8f, 2f, 5f),
-    ),
-    colors = listOf(Color.Blue, Color.Red, Color.Green),
-  )
+  val data =
+    StackedBarChartData(
+      labels = listOf("Jan", "Feb", "Mar", "Apr"),
+      stacks =
+      listOf(
+        listOf(5f, 5f, 2f),
+        listOf(7f, 3f, 4f),
+        listOf(6f, 4f, 3f),
+        listOf(8f, 2f, 5f),
+      ),
+      colors = listOf(Color.Blue, Color.Red, Color.Green),
+    )
   val renderer = StackedBarChartRenderer()
   ChartContainer {
     BarChart(

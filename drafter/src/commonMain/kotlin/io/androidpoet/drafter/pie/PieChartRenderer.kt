@@ -32,11 +32,11 @@ public class PieChartRenderer(
   private val size: Size,
   private val textMeasurer: TextMeasurer,
   private val animationProgress: Float = 1f,
-  private val labelThreshold: Float = 5f, // Minimum percentage to display labels
+  private val labelThreshold: Float = 5f,
 ) {
   public fun drawPieChart(drawScope: DrawScope) {
     val totalValue = data.slices.sumOf { it.value.toDouble() }.toFloat()
-    var startAngle = -90f // Start from 12 o'clock position
+    var startAngle = -90f
     val radius = size.minDimension / 2
     val center = Offset(size.width / 2, size.height / 2)
 
@@ -53,12 +53,9 @@ public class PieChartRenderer(
         size = size,
       )
 
-      // Calculate percentage
       val percentage = (slice.value / totalValue) * 100
 
-      // Only draw label if percentage is above the threshold
       if (percentage >= labelThreshold && (animationProgress == 1f || sweepAngle > 0f)) {
-        // Show only percentage in the label
         val labelText = "${percentage.toInt()}%"
 
         val angleInRadians = (startAngle + sweepAngle / 2) * (PI / 180f)

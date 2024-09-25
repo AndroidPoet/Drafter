@@ -30,12 +30,13 @@ import io.androidpoet.drafterdemo.ChartTitle
 @Composable
 fun WaterfallChartExample() {
   ChartTitle(text = "Waterfall Chart")
-  val data = WaterfallChartData(
-    labels = listOf("Q1", "Q2", "Q3", "Q4"),
-    values = listOf(500f, -200f, 300f, -100f),
-    colors = listOf(Color.Green, Color.Red, Color.Green, Color.Red),
-    initialValue = 1000f,
-  )
+  val data =
+    WaterfallChartData(
+      labels = listOf("Q1", "Q2", "Q3", "Q4"),
+      values = listOf(500f, -200f, 300f, -100f),
+      colors = listOf(Color.Green, Color.Red, Color.Green, Color.Red),
+      initialValue = 1000f,
+    )
   val renderer = WaterfallChartRenderer()
   ChartContainer(modifier = Modifier.height(300.dp)) {
     BarChart(

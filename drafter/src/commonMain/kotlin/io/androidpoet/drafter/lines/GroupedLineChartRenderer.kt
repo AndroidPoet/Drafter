@@ -31,6 +31,7 @@ public class GroupedLineChartRenderer : LineChartRenderer<GroupedLineChartData> 
     chartWidth: Float,
     chartHeight: Float,
     maxValue: Float,
+    animationProgress: Float,
   ) {
     val numPoints = data.labels.size
     val xPositions =
@@ -47,7 +48,10 @@ public class GroupedLineChartRenderer : LineChartRenderer<GroupedLineChartData> 
           Offset(x, y)
         }
 
-      for (i in 0 until points.size - 1) {
+      val animatedPointsCount = (points.size * animationProgress).toInt().coerceAtLeast(2)
+
+      // Draw lines up to the animated point count
+      for (i in 0 until animatedPointsCount - 1) {
         drawScope.drawLine(
           color = data.colors.getOrElse(itemIndex) { Color.Gray },
           start = points[i],

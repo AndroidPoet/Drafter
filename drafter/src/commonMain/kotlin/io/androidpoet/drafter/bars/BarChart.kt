@@ -35,7 +35,6 @@ import androidx.compose.ui.text.drawText
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.sp
 
-// Base interface for all bar chart data
 public interface BarChartData {
   public val labels: List<String>
 }
@@ -47,7 +46,7 @@ public interface BarChartRenderer<T : BarChartData> {
     chartWidth: Float,
     dataSize: Int,
     barsPerGroup: Int,
-  ): Pair<Float, Float> // Returns barWidth and groupSpacing
+  ): Pair<Float, Float>
 
   public fun calculateGroupWidth(
     barWidth: Float,
@@ -64,7 +63,7 @@ public interface BarChartRenderer<T : BarChartData> {
     chartBottom: Float,
     chartHeight: Float,
     maxValue: Float,
-    animationProgress: Float, // New parameter
+    animationProgress: Float,
   )
 }
 
@@ -77,10 +76,12 @@ public fun <T : BarChartData> BarChart(
 ) {
   val textMeasurer = rememberTextMeasurer()
   val animationProgress = remember { Animatable(0f) }
+
   LaunchedEffect(Unit) {
     animationProgress.animateTo(
       targetValue = 1f,
-      animationSpec = tween(
+      animationSpec =
+      tween(
         durationMillis = 1000,
         easing = LinearOutSlowInEasing,
       ),
@@ -95,18 +96,20 @@ public fun <T : BarChartData> BarChart(
     val chartLeft = size.width * 0.1f
 
     val maxValue = renderer.calculateMaxValue(data)
-    val barsPerGroup = when (data) {
-      is GroupedBarChartData -> data.itemNames.size
-      is StackedBarChartData -> 1
-      is WaterfallChartData -> 1 // Add this case
-      else -> 1
-    }
+    val barsPerGroup =
+      when (data) {
+        is GroupedBarChartData -> data.itemNames.size
+        is StackedBarChartData -> 1
+        is WaterfallChartData -> 1 // Add this case
+        else -> 1
+      }
 
-    val (barWidth, groupSpacing) = renderer.calculateBarAndSpacing(
-      chartWidth,
-      data.labels.size,
-      barsPerGroup,
-    )
+    val (barWidth, groupSpacing) =
+      renderer.calculateBarAndSpacing(
+        chartWidth,
+        data.labels.size,
+        barsPerGroup,
+      )
 
     drawAxes(chartLeft, chartTop, chartBottom, chartWidth)
     drawYAxisLabels(textMeasurer, chartLeft, chartTop, chartBottom, maxValue)
@@ -128,14 +131,11 @@ public fun <T : BarChartData> BarChart(
         animationProgress = animationProgress.value,
       )
 
-      // Calculate label position centered under the group
       val groupWidth = renderer.calculateGroupWidth(barWidth, barsPerGroup)
       val labelX = currentLeft + groupWidth / 2
 
-      // Draw label
       drawXAxisLabel(textMeasurer, label, labelX, chartBottom)
 
-      // Move to the next group position
       currentLeft += groupWidth + groupSpacing
     }
   }
@@ -167,7 +167,8 @@ private fun DrawScope.drawYAxisLabels(
       textMeasurer = textMeasurer,
       text = label,
       style = style,
-      topLeft = Offset(
+      topLeft =
+      Offset(
         left - textLayoutResult.size.width - 5f,
         y - textLayoutResult.size.height / 2,
       ),

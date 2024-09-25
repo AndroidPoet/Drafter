@@ -28,11 +28,12 @@ import io.androidpoet.drafter.baselineprofile.app.ChartTitle
 @Composable
 fun SimpleBarChartExample() {
   ChartTitle(text = "Simple Bar Chart")
-  val data = SimpleBarChartData(
-    labels = listOf("A", "B", "C", "D"),
-    values = listOf(10f, 20f, 15f, 25f),
-    colors = listOf(Color.Red, Color.Green, Color.Blue, Color.Yellow),
-  )
+  val data =
+    SimpleBarChartData(
+      labels = listOf("A", "B", "C", "D"),
+      values = listOf(10f, 20f, 15f, 25f),
+      colors = listOf(Color.Red, Color.Green, Color.Blue, Color.Yellow),
+    )
   val renderer = SimpleBarChartRenderer()
   ChartContainer {
     BarChart(
