@@ -18,11 +18,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import io.androidpoet.drafter.baselineprofile.app.ChartContainer
-import io.androidpoet.drafter.baselineprofile.app.ChartTitle
 import io.androidpoet.drafter.lines.GroupedLineChartData
 import io.androidpoet.drafter.lines.GroupedLineChartRenderer
 import io.androidpoet.drafter.lines.LineChart
+import io.androidpoet.drafter.baselineprofile.app.ChartContainer
+import io.androidpoet.drafter.baselineprofile.app.ChartTitle
 
 @Composable
 fun GroupedLineChartExample() {

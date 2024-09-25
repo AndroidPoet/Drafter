@@ -21,8 +21,8 @@ import androidx.compose.ui.graphics.Color
 import io.androidpoet.drafter.bars.BarChart
 import io.androidpoet.drafter.bars.StackedBarChartData
 import io.androidpoet.drafter.bars.StackedBarChartRenderer
-import io.androidpoet.drafter.baselineprofile.app.ChartContainer
-import io.androidpoet.drafter.baselineprofile.app.ChartTitle
+import io.androidpoet.drafterdemo.ChartContainer
+import io.androidpoet.drafterdemo.ChartTitle
 
 @Composable
 fun StackedBarChartExample() {

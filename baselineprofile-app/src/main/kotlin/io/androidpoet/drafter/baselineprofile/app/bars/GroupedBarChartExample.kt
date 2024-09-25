@@ -23,6 +23,7 @@ import io.androidpoet.drafter.bars.GroupedBarChartData
 import io.androidpoet.drafter.bars.GroupedBarChartRenderer
 import io.androidpoet.drafter.baselineprofile.app.ChartContainer
 import io.androidpoet.drafter.baselineprofile.app.ChartTitle
+import io.androidpoet.drafter.histogram.HistogramChart
 
 @Composable
 fun GroupedBarChartExample() {
