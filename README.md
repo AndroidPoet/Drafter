@@ -33,7 +33,7 @@ Add the dependency below to your **module**'s `build.gradle` file:
 
 ```gradle
 dependencies {
-    implementation("io.github.androidpoet.drafter:$drafter_version")
+    implementation("io.github.androidpoet:drafter:$drafter_version")
 }
 ```
 
@@ -43,7 +43,7 @@ For Kotlin Multiplatform, add the dependency below to your **module**'s `build.g
 sourceSets {
   val commonMain by getting {
     dependencies {
-      implementation("io.github.androidpoet.drafter:$drafter_version")
+      implementation("io.github.androidpoet:drafter:$drafter_version")
     }
   }
 }

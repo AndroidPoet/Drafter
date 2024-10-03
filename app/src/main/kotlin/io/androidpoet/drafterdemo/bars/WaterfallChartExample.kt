@@ -28,7 +28,7 @@ import io.androidpoet.drafterdemo.ChartContainer
 import io.androidpoet.drafterdemo.ChartTitle
 
 @Composable
-fun WaterfallChartExample() {
+fun WaterfallChartExample(modifier: Modifier = Modifier) {
   ChartTitle(text = "Waterfall Chart")
   val data =
     WaterfallChartData(
@@ -38,7 +38,7 @@ fun WaterfallChartExample() {
       initialValue = 1000f,
     )
   val renderer = WaterfallChartRenderer()
-  ChartContainer(modifier = Modifier.height(300.dp)) {
+  ChartContainer(modifier = modifier.height(300.dp)) {
     BarChart(
       data = data,
       renderer = renderer,

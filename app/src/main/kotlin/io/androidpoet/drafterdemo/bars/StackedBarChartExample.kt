@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 package io.androidpoet.drafterdemo.bars
+
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -25,22 +26,22 @@ import io.androidpoet.drafterdemo.ChartContainer
 import io.androidpoet.drafterdemo.ChartTitle
 
 @Composable
-fun StackedBarChartExample() {
+fun StackedBarChartExample(modifier: Modifier = Modifier) {
   ChartTitle(text = "Stacked Bar Chart")
   val data =
     StackedBarChartData(
       labels = listOf("Jan", "Feb", "Mar", "Apr"),
       stacks =
-      listOf(
-        listOf(5f, 5f, 2f),
-        listOf(7f, 3f, 4f),
-        listOf(6f, 4f, 3f),
-        listOf(8f, 2f, 5f),
-      ),
+        listOf(
+          listOf(5f, 5f, 2f),
+          listOf(7f, 3f, 4f),
+          listOf(6f, 4f, 3f),
+          listOf(8f, 2f, 5f),
+        ),
       colors = listOf(Color.Blue, Color.Red, Color.Green),
     )
   val renderer = StackedBarChartRenderer()
-  ChartContainer {
+  ChartContainer(modifier = modifier) {
     BarChart(
       data = data,
       renderer = renderer,

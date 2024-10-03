@@ -23,10 +23,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun ChartTitle(text: String) {
+fun ChartTitle(
+  text: String,
+  modifier: Modifier = Modifier,
+) {
   Text(
     text = text,
-    modifier = Modifier.padding(horizontal = 16.dp),
+    modifier = modifier.padding(horizontal = 16.dp),
     style = MaterialTheme.typography.titleLarge,
   )
 }

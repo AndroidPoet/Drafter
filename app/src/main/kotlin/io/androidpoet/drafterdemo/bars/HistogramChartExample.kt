@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 package io.androidpoet.drafterdemo.bars
+
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -23,11 +24,11 @@ import io.androidpoet.drafterdemo.ChartContainer
 import io.androidpoet.drafterdemo.ChartTitle
 
 @Composable
-fun HistogramChartExample() {
+fun HistogramChartExample(modifier: Modifier = Modifier) {
   ChartTitle(text = "Histogram Chart")
   val dataPoints = listOf(1f, 2f, 2f, 3f, 3f, 3f, 4f, 4f, 5f, 5f, 5f, 5f)
   val binCount = 5
-  ChartContainer {
+  ChartContainer(modifier = modifier) {
     HistogramChart(
       dataPoints = dataPoints,
       binCount = binCount,
