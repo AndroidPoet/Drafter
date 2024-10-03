@@ -32,12 +32,12 @@ fun GroupedBarChartExample() {
       labels = listOf("Q1", "Q2", "Q3", "Q4"),
       itemNames = listOf("Product A", "Product B"),
       groupedValues =
-      listOf(
-        listOf(10f, 15f),
-        listOf(20f, 25f),
-        listOf(15f, 10f),
-        listOf(25f, 20f),
-      ),
+        listOf(
+          listOf(10f, 15f),
+          listOf(20f, 25f),
+          listOf(15f, 10f),
+          listOf(25f, 20f),
+        ),
       colors = listOf(Color.Cyan, Color.Magenta),
     )
   val renderer = GroupedBarChartRenderer()
