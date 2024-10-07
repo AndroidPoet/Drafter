@@ -16,6 +16,13 @@
   <img src="https://github.com/user-attachments/assets/c61658e4-cb22-40ae-8050-3bb6f300e3c4" alt="Drafter Demo" width="300"/>
 </p>
 
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/25e678d0-6276-49f9-b38d-f9fa8c5a75fb" alt="Drafter Desktop Demo" width="900"/>
+</p>
+
+
+
 ## Features
 
 - 📊 Supports multiple chart types (Bar, Line, Pie, Scatter, Histogram, Waterfall)
