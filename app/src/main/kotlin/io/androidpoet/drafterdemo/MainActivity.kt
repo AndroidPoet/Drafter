@@ -32,6 +32,7 @@ import io.androidpoet.drafterdemo.bars.StackedBarChartExample
 import io.androidpoet.drafterdemo.bars.WaterfallChartExample
 import io.androidpoet.drafterdemo.buble.BubbleChartExample
 import io.androidpoet.drafterdemo.gantt.GanttChartExample
+import io.androidpoet.drafterdemo.githubgraph.GithubGraph
 import io.androidpoet.drafterdemo.line.GroupedLineChartExample
 import io.androidpoet.drafterdemo.line.ScatterPlotChartExample
 import io.androidpoet.drafterdemo.line.SimpleLineChartExample
@@ -67,6 +68,7 @@ class MainActivity : ComponentActivity() {
           item { RadarChartExample() }
           item { GanttChartExample() }
           item { BubbleChartExample() }
+          item { GithubGraph() }
         }
       }
     }

@@ -83,6 +83,8 @@ kotlin {
         implementation(compose.material3)
         implementation(compose.runtime)
         implementation(compose.animation)
+        implementation(libs.kotlinx.datetime)
+
       }
     }
   }

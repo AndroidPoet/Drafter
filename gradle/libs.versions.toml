@@ -1,6 +1,7 @@
 [versions]
 agp = "8.5.2"
 dokka = "1.9.10"
+kotlinxDatetime = "0.6.1"
 nexusPlugin = "0.29.0"
 kotlin = "2.0.20"
 kotlinBinaryCompatibility = "0.16.3"
@@ -42,3 +43,4 @@ androidx-test-runner = { group = "androidx.test", name = "runner", version.ref =
 androidx-profileinstaller = { module = "androidx.profileinstaller:profileinstaller", version.ref = "baselineProfiles" }
 androidx-benchmark-macro = { module = "androidx.benchmark:benchmark-macro-junit4", version.ref = "androidxMacroBenchmark" }
 androidx-test-uiautomator = { module = "androidx.test.uiautomator:uiautomator", version.ref = "uiAutomator" }
+kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDatetime" }

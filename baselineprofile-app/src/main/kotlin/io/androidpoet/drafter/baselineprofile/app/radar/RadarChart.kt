@@ -15,12 +15,11 @@
  */
 package io.androidpoet.drafter.baselineprofile.app.radar
 
-import RadarChartData
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import io.androidpoet.drafter.radar.RadarChart
-import io.androidpoet.drafter.baselineprofile.app.ChartContainer
 import io.androidpoet.drafter.baselineprofile.app.ChartTitle
+import io.androidpoet.drafter.radar.RadarChart
+import io.androidpoet.drafter.radar.RadarChartData
 
 @Composable
 fun RadarChartExample() {

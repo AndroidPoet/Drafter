@@ -83,6 +83,7 @@ dependencies {
   implementation(libs.androidx.compose.runtime)
   implementation(libs.androidx.compose.material)
   implementation(libs.androidx.compose.material3)
+  implementation(libs.kotlinx.datetime)
   implementation(project(":drafter"))
 }
 task("testClasses") {}
