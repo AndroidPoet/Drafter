@@ -21,7 +21,9 @@ import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
@@ -61,7 +63,7 @@ public fun ContributionHeatmap(
   }
 
   Box(
-    modifier = modifier
+    modifier = modifier.horizontalScroll(rememberScrollState())
       .background(Color(0xFF0D1117))
       .padding(8.dp)
   ) {
