@@ -19,7 +19,13 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
-import kotlinx.datetime.*
+import kotlinx.datetime.DateTimeUnit
+import kotlinx.datetime.Instant
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.atStartOfDayIn
+import kotlinx.datetime.daysUntil
+import kotlinx.datetime.plus
+import kotlinx.datetime.toLocalDateTime
 
 public interface HeatmapRenderer {
   public fun drawHeatmap(
@@ -34,13 +40,13 @@ public interface HeatmapRenderer {
 }
 
 public class DefaultHeatmapRenderer : HeatmapRenderer {
-
-  // GitHub's actual contribution level colors
-  private val emptyColor = Color(0xFF2D333B)    // Dark background for empty squares
-  private val level1Color = Color(0xFF0E4429)   // Least contributions
-  private val level2Color = Color(0xFF006D32)
-  private val level3Color = Color(0xFF26A641)
-  private val level4Color = Color(0xFF39D353)   // Most contributions
+  private companion object {
+    private val emptyColor = Color(0xFF161B22)    // Lighter empty cell
+    private val level1Color = Color(0xFF0E4429)   // Better contrast for level 1
+    private val level2Color = Color(0xFF006D32)   // More distinct green
+    private val level3Color = Color(0xFF26A641)   // Brighter medium green
+    private val level4Color = Color(0xFF39D353)   // Vivid high activity green
+  }
 
   private fun getContributionColor(count: Int): Color {
     return when {
@@ -66,34 +72,31 @@ public class DefaultHeatmapRenderer : HeatmapRenderer {
       val endDate = endInstant.toLocalDateTime(TimeZone.currentSystemDefault()).date
       val weeks = startDate.daysUntil(endDate) / 7
 
-      val contributionsMap: Map<Long, Int> = data.contributions.associate {
-        it.timestamp.toEpochMilliseconds() to it.count
+      val contributionsMap = data.contributions.groupingBy {
+        // Convert the raw Instant to a LocalDate
+        it.timestamp.toLocalDateTime(TimeZone.currentSystemDefault()).date
+      }.aggregate { _, accumulator: Int?, element, _ ->
+        // If you have multiple contributions per day, sum them up
+        (accumulator ?: 0) + element.count
       }
 
       var currentDate = startDate
       for (week in 0..weeks) {
-        val weekProgress = (week.toFloat() / weeks).coerceIn(0f, 1f)
-        if (weekProgress <= animationProgress) {
-          for (dayOfWeek in 0..6) {
-            if (currentDate <= endDate) {
-              val currentInstant = currentDate
-                .atStartOfDayIn(TimeZone.currentSystemDefault())
+        for (dayOfWeek in 0..6) {
+          if (currentDate <= endDate) {
+            val currentInstant = currentDate.atStartOfDayIn(TimeZone.currentSystemDefault())
+            val contributions = contributionsMap[currentDate] ?: 0
 
-              val contributions = contributionsMap[currentInstant.toEpochMilliseconds()] ?: 0
+            val x = week * (cellSize + cellPadding)
+            val y = dayOfWeek * (cellSize + cellPadding)
 
-              val x = week * (cellSize + cellPadding)
-              val y = dayOfWeek * (cellSize + cellPadding)
+            drawRect(
+              color = getContributionColor(contributions),
+              topLeft = Offset(x, y),
+              size = Size(cellSize, cellSize)
+            )
 
-              // Draw cell with appropriate color based on contributions
-              drawRect(
-                color = getContributionColor(contributions),
-                topLeft = Offset(x, y),
-                size = Size(cellSize, cellSize),
-                alpha = 1f // Full opacity always
-              )
-
-              currentDate = currentDate.plus(1, DateTimeUnit.DAY)
-            }
+            currentDate = currentDate.plus(1, DateTimeUnit.DAY)
           }
         }
       }

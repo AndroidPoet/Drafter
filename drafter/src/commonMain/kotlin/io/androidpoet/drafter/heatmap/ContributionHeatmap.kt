@@ -15,6 +15,7 @@
  */
 package io.androidpoet.drafter.heatmap
 
+
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.tween
@@ -34,18 +35,15 @@ import kotlinx.datetime.*
 public fun ContributionHeatmap(
   data: ContributionHeatmapData,
   modifier: Modifier = Modifier,
-  renderer: HeatmapRenderer = DefaultHeatmapRenderer(),
-  startDate: LocalDate = Clock.System.now()
-    .toLocalDateTime(TimeZone.currentSystemDefault())
-    .date
-    .minus(1, DateTimeUnit.YEAR),
-  endDate: LocalDate = Clock.System.now()
-    .toLocalDateTime(TimeZone.currentSystemDefault())
-    .date
+  renderer: HeatmapRenderer = DefaultHeatmapRenderer()
 ) {
   val density = LocalDensity.current
-  val cellSize = with(density) { 11.dp.toPx() }  // Slightly larger cells
-  val cellPadding = with(density) { 3.dp.toPx() }  // More padding between cells
+  val cellSize = with(density) { 8.dp.toPx() }
+  val cellPadding = with(density) { 2.dp.toPx() }
+
+  val now = Clock.System.now()
+  val endDate = now.toLocalDateTime(TimeZone.currentSystemDefault()).date
+  val startDate = endDate.minus(1, DateTimeUnit.YEAR)
 
   val startInstant = startDate.atStartOfDayIn(TimeZone.currentSystemDefault())
   val endInstant = endDate.atStartOfDayIn(TimeZone.currentSystemDefault())
@@ -64,13 +62,13 @@ public fun ContributionHeatmap(
 
   Box(
     modifier = modifier
-      .background(Color(0xFF0D1117))  // GitHub dark theme background
-      .padding(16.dp)
+      .background(Color(0xFF0D1117))
+      .padding(8.dp)
   ) {
     Canvas(
       modifier = Modifier
         .fillMaxSize()
-        .padding(start = 16.dp, top = 16.dp)  // Add padding for labels
+        .padding(4.dp)
     ) {
       renderer.drawHeatmap(
         drawScope = this,
