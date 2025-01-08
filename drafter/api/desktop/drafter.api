@@ -1,102 +1,83 @@
-public abstract interface class io/androidpoet/drafter/bars/BarChartData {
+public abstract interface class io/androidpoet/drafter/bars/BarChartDataRenderer {
+	public abstract fun barsPerGroup ()I
+	public abstract fun calculateBarAndSpacing (FII)Lkotlin/Pair;
+	public abstract fun calculateGroupWidth (FI)F
+	public abstract fun calculateMaxValue ()F
+	public abstract fun drawBars (Landroidx/compose/ui/graphics/drawscope/DrawScope;IFFFFFFF)V
 	public abstract fun getLabels ()Ljava/util/List;
 }
 
 public final class io/androidpoet/drafter/bars/BarChartKt {
-	public static final fun BarChart (Lio/androidpoet/drafter/bars/BarChartData;Lio/androidpoet/drafter/bars/BarChartRenderer;Landroidx/compose/ui/Modifier;ZLandroidx/compose/runtime/Composer;II)V
+	public static final fun BarChart (Lio/androidpoet/drafter/bars/BarChartDataRenderer;Landroidx/compose/ui/Modifier;ZLandroidx/compose/runtime/Composer;II)V
 }
 
-public abstract interface class io/androidpoet/drafter/bars/BarChartRenderer {
-	public abstract fun calculateBarAndSpacing (FII)Lkotlin/Pair;
-	public abstract fun calculateGroupWidth (FI)F
-	public abstract fun calculateMaxValue (Lio/androidpoet/drafter/bars/BarChartData;)F
-	public abstract fun drawBars (Landroidx/compose/ui/graphics/drawscope/DrawScope;Lio/androidpoet/drafter/bars/BarChartData;IFFFFFFF)V
-}
-
-public final class io/androidpoet/drafter/bars/GroupedBarChartData : io/androidpoet/drafter/bars/BarChartData {
+public final class io/androidpoet/drafter/bars/model/GroupedBarChartData {
 	public static final field $stable I
 	public fun <init> (Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;)V
 	public final fun component1 ()Ljava/util/List;
 	public final fun component2 ()Ljava/util/List;
 	public final fun component3 ()Ljava/util/List;
 	public final fun component4 ()Ljava/util/List;
-	public final fun copy (Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;)Lio/androidpoet/drafter/bars/GroupedBarChartData;
-	public static synthetic fun copy$default (Lio/androidpoet/drafter/bars/GroupedBarChartData;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;ILjava/lang/Object;)Lio/androidpoet/drafter/bars/GroupedBarChartData;
+	public final fun copy (Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;)Lio/androidpoet/drafter/bars/model/GroupedBarChartData;
+	public static synthetic fun copy$default (Lio/androidpoet/drafter/bars/model/GroupedBarChartData;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;ILjava/lang/Object;)Lio/androidpoet/drafter/bars/model/GroupedBarChartData;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getColors ()Ljava/util/List;
 	public final fun getGroupedValues ()Ljava/util/List;
 	public final fun getItemNames ()Ljava/util/List;
-	public fun getLabels ()Ljava/util/List;
+	public final fun getLabelsList ()Ljava/util/List;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class io/androidpoet/drafter/bars/GroupedBarChartRenderer : io/androidpoet/drafter/bars/BarChartRenderer {
-	public static final field $stable I
-	public fun <init> ()V
-	public fun calculateBarAndSpacing (FII)Lkotlin/Pair;
-	public fun calculateGroupWidth (FI)F
-	public synthetic fun calculateMaxValue (Lio/androidpoet/drafter/bars/BarChartData;)F
-	public fun calculateMaxValue (Lio/androidpoet/drafter/bars/GroupedBarChartData;)F
-	public synthetic fun drawBars (Landroidx/compose/ui/graphics/drawscope/DrawScope;Lio/androidpoet/drafter/bars/BarChartData;IFFFFFFF)V
-	public fun drawBars (Landroidx/compose/ui/graphics/drawscope/DrawScope;Lio/androidpoet/drafter/bars/GroupedBarChartData;IFFFFFFF)V
-}
-
-public final class io/androidpoet/drafter/bars/SimpleBarChartData : io/androidpoet/drafter/bars/BarChartData {
+public final class io/androidpoet/drafter/bars/model/HistogramData {
 	public static final field $stable I
 	public fun <init> (Ljava/util/List;Ljava/util/List;Ljava/util/List;)V
 	public final fun component1 ()Ljava/util/List;
 	public final fun component2 ()Ljava/util/List;
 	public final fun component3 ()Ljava/util/List;
-	public final fun copy (Ljava/util/List;Ljava/util/List;Ljava/util/List;)Lio/androidpoet/drafter/bars/SimpleBarChartData;
-	public static synthetic fun copy$default (Lio/androidpoet/drafter/bars/SimpleBarChartData;Ljava/util/List;Ljava/util/List;Ljava/util/List;ILjava/lang/Object;)Lio/androidpoet/drafter/bars/SimpleBarChartData;
+	public final fun copy (Ljava/util/List;Ljava/util/List;Ljava/util/List;)Lio/androidpoet/drafter/bars/model/HistogramData;
+	public static synthetic fun copy$default (Lio/androidpoet/drafter/bars/model/HistogramData;Ljava/util/List;Ljava/util/List;Ljava/util/List;ILjava/lang/Object;)Lio/androidpoet/drafter/bars/model/HistogramData;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getColors ()Ljava/util/List;
-	public fun getLabels ()Ljava/util/List;
+	public final fun getFrequencies ()Ljava/util/List;
+	public final fun getLabels ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class io/androidpoet/drafter/bars/model/SimpleBarChartData {
+	public static final field $stable I
+	public fun <init> (Ljava/util/List;Ljava/util/List;Ljava/util/List;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun component2 ()Ljava/util/List;
+	public final fun component3 ()Ljava/util/List;
+	public final fun copy (Ljava/util/List;Ljava/util/List;Ljava/util/List;)Lio/androidpoet/drafter/bars/model/SimpleBarChartData;
+	public static synthetic fun copy$default (Lio/androidpoet/drafter/bars/model/SimpleBarChartData;Ljava/util/List;Ljava/util/List;Ljava/util/List;ILjava/lang/Object;)Lio/androidpoet/drafter/bars/model/SimpleBarChartData;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getColors ()Ljava/util/List;
+	public final fun getLabelsList ()Ljava/util/List;
 	public final fun getValues ()Ljava/util/List;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class io/androidpoet/drafter/bars/SimpleBarChartRenderer : io/androidpoet/drafter/bars/BarChartRenderer {
-	public static final field $stable I
-	public fun <init> ()V
-	public fun calculateBarAndSpacing (FII)Lkotlin/Pair;
-	public fun calculateGroupWidth (FI)F
-	public synthetic fun calculateMaxValue (Lio/androidpoet/drafter/bars/BarChartData;)F
-	public fun calculateMaxValue (Lio/androidpoet/drafter/bars/SimpleBarChartData;)F
-	public synthetic fun drawBars (Landroidx/compose/ui/graphics/drawscope/DrawScope;Lio/androidpoet/drafter/bars/BarChartData;IFFFFFFF)V
-	public fun drawBars (Landroidx/compose/ui/graphics/drawscope/DrawScope;Lio/androidpoet/drafter/bars/SimpleBarChartData;IFFFFFFF)V
-}
-
-public final class io/androidpoet/drafter/bars/StackedBarChartData : io/androidpoet/drafter/bars/BarChartData {
+public final class io/androidpoet/drafter/bars/model/StackedBarChartData {
 	public static final field $stable I
 	public fun <init> (Ljava/util/List;Ljava/util/List;Ljava/util/List;)V
 	public final fun component1 ()Ljava/util/List;
 	public final fun component2 ()Ljava/util/List;
 	public final fun component3 ()Ljava/util/List;
-	public final fun copy (Ljava/util/List;Ljava/util/List;Ljava/util/List;)Lio/androidpoet/drafter/bars/StackedBarChartData;
-	public static synthetic fun copy$default (Lio/androidpoet/drafter/bars/StackedBarChartData;Ljava/util/List;Ljava/util/List;Ljava/util/List;ILjava/lang/Object;)Lio/androidpoet/drafter/bars/StackedBarChartData;
+	public final fun copy (Ljava/util/List;Ljava/util/List;Ljava/util/List;)Lio/androidpoet/drafter/bars/model/StackedBarChartData;
+	public static synthetic fun copy$default (Lio/androidpoet/drafter/bars/model/StackedBarChartData;Ljava/util/List;Ljava/util/List;Ljava/util/List;ILjava/lang/Object;)Lio/androidpoet/drafter/bars/model/StackedBarChartData;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getColors ()Ljava/util/List;
-	public fun getLabels ()Ljava/util/List;
+	public final fun getLabelsList ()Ljava/util/List;
 	public final fun getStacks ()Ljava/util/List;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class io/androidpoet/drafter/bars/StackedBarChartRenderer : io/androidpoet/drafter/bars/BarChartRenderer {
-	public static final field $stable I
-	public fun <init> ()V
-	public fun calculateBarAndSpacing (FII)Lkotlin/Pair;
-	public fun calculateGroupWidth (FI)F
-	public synthetic fun calculateMaxValue (Lio/androidpoet/drafter/bars/BarChartData;)F
-	public fun calculateMaxValue (Lio/androidpoet/drafter/bars/StackedBarChartData;)F
-	public synthetic fun drawBars (Landroidx/compose/ui/graphics/drawscope/DrawScope;Lio/androidpoet/drafter/bars/BarChartData;IFFFFFFF)V
-	public fun drawBars (Landroidx/compose/ui/graphics/drawscope/DrawScope;Lio/androidpoet/drafter/bars/StackedBarChartData;IFFFFFFF)V
-}
-
-public final class io/androidpoet/drafter/bars/WaterfallChartData : io/androidpoet/drafter/bars/BarChartData {
+public final class io/androidpoet/drafter/bars/model/WaterfallChartData {
 	public static final field $stable I
 	public fun <init> (Ljava/util/List;Ljava/util/List;Ljava/util/List;F)V
 	public synthetic fun <init> (Ljava/util/List;Ljava/util/List;Ljava/util/List;FILkotlin/jvm/internal/DefaultConstructorMarker;)V
@@ -104,37 +85,99 @@ public final class io/androidpoet/drafter/bars/WaterfallChartData : io/androidpo
 	public final fun component2 ()Ljava/util/List;
 	public final fun component3 ()Ljava/util/List;
 	public final fun component4 ()F
-	public final fun copy (Ljava/util/List;Ljava/util/List;Ljava/util/List;F)Lio/androidpoet/drafter/bars/WaterfallChartData;
-	public static synthetic fun copy$default (Lio/androidpoet/drafter/bars/WaterfallChartData;Ljava/util/List;Ljava/util/List;Ljava/util/List;FILjava/lang/Object;)Lio/androidpoet/drafter/bars/WaterfallChartData;
+	public final fun copy (Ljava/util/List;Ljava/util/List;Ljava/util/List;F)Lio/androidpoet/drafter/bars/model/WaterfallChartData;
+	public static synthetic fun copy$default (Lio/androidpoet/drafter/bars/model/WaterfallChartData;Ljava/util/List;Ljava/util/List;Ljava/util/List;FILjava/lang/Object;)Lio/androidpoet/drafter/bars/model/WaterfallChartData;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getColors ()Ljava/util/List;
 	public final fun getInitialValue ()F
-	public fun getLabels ()Ljava/util/List;
+	public final fun getLabelsList ()Ljava/util/List;
 	public final fun getValues ()Ljava/util/List;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class io/androidpoet/drafter/bars/WaterfallChartRenderer : io/androidpoet/drafter/bars/BarChartRenderer {
+public final class io/androidpoet/drafter/bars/renderer/BarChartRenderer : io/androidpoet/drafter/bars/BarChartDataRenderer {
 	public static final field $stable I
-	public fun <init> ()V
+	public fun <init> (Lio/androidpoet/drafter/bars/model/SimpleBarChartData;)V
+	public fun barsPerGroup ()I
 	public fun calculateBarAndSpacing (FII)Lkotlin/Pair;
 	public fun calculateGroupWidth (FI)F
-	public synthetic fun calculateMaxValue (Lio/androidpoet/drafter/bars/BarChartData;)F
-	public fun calculateMaxValue (Lio/androidpoet/drafter/bars/WaterfallChartData;)F
-	public synthetic fun drawBars (Landroidx/compose/ui/graphics/drawscope/DrawScope;Lio/androidpoet/drafter/bars/BarChartData;IFFFFFFF)V
-	public fun drawBars (Landroidx/compose/ui/graphics/drawscope/DrawScope;Lio/androidpoet/drafter/bars/WaterfallChartData;IFFFFFFF)V
+	public fun calculateMaxValue ()F
+	public fun drawBars (Landroidx/compose/ui/graphics/drawscope/DrawScope;IFFFFFFF)V
+	public final fun getData ()Lio/androidpoet/drafter/bars/model/SimpleBarChartData;
+	public fun getLabels ()Ljava/util/List;
+}
+
+public final class io/androidpoet/drafter/bars/renderer/GroupedBarChartRenderer : io/androidpoet/drafter/bars/BarChartDataRenderer {
+	public static final field $stable I
+	public fun <init> (Lio/androidpoet/drafter/bars/model/GroupedBarChartData;)V
+	public fun barsPerGroup ()I
+	public fun calculateBarAndSpacing (FII)Lkotlin/Pair;
+	public fun calculateGroupWidth (FI)F
+	public fun calculateMaxValue ()F
+	public fun drawBars (Landroidx/compose/ui/graphics/drawscope/DrawScope;IFFFFFFF)V
+	public final fun getData ()Lio/androidpoet/drafter/bars/model/GroupedBarChartData;
+	public fun getLabels ()Ljava/util/List;
+}
+
+public final class io/androidpoet/drafter/bars/renderer/HistogramRenderer : io/androidpoet/drafter/bars/BarChartDataRenderer {
+	public static final field $stable I
+	public synthetic fun <init> (Ljava/util/List;IJILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/util/List;IJLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun barsPerGroup ()I
+	public fun calculateBarAndSpacing (FII)Lkotlin/Pair;
+	public fun calculateGroupWidth (FI)F
+	public fun calculateMaxValue ()F
+	public fun drawBars (Landroidx/compose/ui/graphics/drawscope/DrawScope;IFFFFFFF)V
+	public final fun getHistogramData ()Lio/androidpoet/drafter/bars/model/HistogramData;
+	public fun getLabels ()Ljava/util/List;
+}
+
+public final class io/androidpoet/drafter/bars/renderer/StackedBarChartRenderer : io/androidpoet/drafter/bars/BarChartDataRenderer {
+	public static final field $stable I
+	public fun <init> (Lio/androidpoet/drafter/bars/model/StackedBarChartData;)V
+	public fun barsPerGroup ()I
+	public fun calculateBarAndSpacing (FII)Lkotlin/Pair;
+	public fun calculateGroupWidth (FI)F
+	public fun calculateMaxValue ()F
+	public fun drawBars (Landroidx/compose/ui/graphics/drawscope/DrawScope;IFFFFFFF)V
+	public final fun getData ()Lio/androidpoet/drafter/bars/model/StackedBarChartData;
+	public fun getLabels ()Ljava/util/List;
+}
+
+public final class io/androidpoet/drafter/bars/renderer/WaterfallChartRenderer : io/androidpoet/drafter/bars/BarChartDataRenderer {
+	public static final field $stable I
+	public fun <init> (Lio/androidpoet/drafter/bars/model/WaterfallChartData;)V
+	public fun barsPerGroup ()I
+	public fun calculateBarAndSpacing (FII)Lkotlin/Pair;
+	public fun calculateGroupWidth (FI)F
+	public fun calculateMaxValue ()F
+	public fun drawBars (Landroidx/compose/ui/graphics/drawscope/DrawScope;IFFFFFFF)V
+	public final fun getData ()Lio/androidpoet/drafter/bars/model/WaterfallChartData;
+	public fun getLabels ()Ljava/util/List;
 }
 
 public final class io/androidpoet/drafter/buble/BubbleChartData {
+	public static final field $stable I
+	public fun <init> (Ljava/util/List;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun copy (Ljava/util/List;)Lio/androidpoet/drafter/buble/BubbleChartData;
+	public static synthetic fun copy$default (Lio/androidpoet/drafter/buble/BubbleChartData;Ljava/util/List;ILjava/lang/Object;)Lio/androidpoet/drafter/buble/BubbleChartData;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getSeries ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class io/androidpoet/drafter/buble/BubbleChartData$BubbleData {
 	public static final field $stable I
 	public synthetic fun <init> (FFFJLkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()F
 	public final fun component2 ()F
 	public final fun component3 ()F
 	public final fun component4-0d7_KjU ()J
-	public final fun copy-g2O1Hgs (FFFJ)Lio/androidpoet/drafter/buble/BubbleChartData;
-	public static synthetic fun copy-g2O1Hgs$default (Lio/androidpoet/drafter/buble/BubbleChartData;FFFJILjava/lang/Object;)Lio/androidpoet/drafter/buble/BubbleChartData;
+	public final fun copy-g2O1Hgs (FFFJ)Lio/androidpoet/drafter/buble/BubbleChartData$BubbleData;
+	public static synthetic fun copy-g2O1Hgs$default (Lio/androidpoet/drafter/buble/BubbleChartData$BubbleData;FFFJILjava/lang/Object;)Lio/androidpoet/drafter/buble/BubbleChartData$BubbleData;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getColor-0d7_KjU ()J
 	public final fun getSize ()F
@@ -144,12 +187,49 @@ public final class io/androidpoet/drafter/buble/BubbleChartData {
 	public fun toString ()Ljava/lang/String;
 }
 
+public abstract interface class io/androidpoet/drafter/buble/BubbleChartDataRenderer {
+	public abstract fun drawBubbles (Landroidx/compose/ui/graphics/drawscope/DrawScope;FFFFF)V
+	public abstract fun getLabels ()Ljava/util/List;
+	public abstract fun getMaxValues ()Lkotlin/Pair;
+	public abstract fun getValueRanges ()Lio/androidpoet/drafter/buble/ValueRanges;
+}
+
 public final class io/androidpoet/drafter/buble/BubbleChartKt {
-	public static final fun BubbleChart (Ljava/util/List;Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;II)V
+	public static final fun BubbleChart (Lio/androidpoet/drafter/buble/BubbleChartDataRenderer;Landroidx/compose/ui/Modifier;ZLandroidx/compose/runtime/Composer;II)V
+}
+
+public final class io/androidpoet/drafter/buble/SimpleBubbleChartDataRenderer : io/androidpoet/drafter/buble/BubbleChartDataRenderer {
+	public static final field $stable I
+	public fun <init> (Lio/androidpoet/drafter/buble/BubbleChartData;)V
+	public fun drawBubbles (Landroidx/compose/ui/graphics/drawscope/DrawScope;FFFFF)V
+	public fun getLabels ()Ljava/util/List;
+	public fun getMaxValues ()Lkotlin/Pair;
+	public fun getValueRanges ()Lio/androidpoet/drafter/buble/ValueRanges;
+}
+
+public final class io/androidpoet/drafter/buble/ValueRanges {
+	public static final field $stable I
+	public fun <init> (FFFF)V
+	public final fun component1 ()F
+	public final fun component2 ()F
+	public final fun component3 ()F
+	public final fun component4 ()F
+	public final fun copy (FFFF)Lio/androidpoet/drafter/buble/ValueRanges;
+	public static synthetic fun copy$default (Lio/androidpoet/drafter/buble/ValueRanges;FFFFILjava/lang/Object;)Lio/androidpoet/drafter/buble/ValueRanges;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getXMax ()F
+	public final fun getXMin ()F
+	public final fun getYMax ()F
+	public final fun getYMin ()F
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
 }
 
 public final class io/androidpoet/drafter/gant/GantChartKt {
-	public static final fun GanttChart (Lio/androidpoet/drafter/gant/GanttChartData;Lio/androidpoet/drafter/gant/GanttChartRenderer;Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;II)V
+	public static final fun GanttChart (Lio/androidpoet/drafter/gant/GanttChartRenderer;Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;II)V
+	public static final fun drawAxes (Landroidx/compose/ui/graphics/drawscope/DrawScope;FFFF)V
+	public static final fun drawXAxisLabels (Landroidx/compose/ui/graphics/drawscope/DrawScope;Landroidx/compose/ui/text/TextMeasurer;FFFFFLjava/util/List;)V
+	public static final fun drawYAxisLabels (Landroidx/compose/ui/graphics/drawscope/DrawScope;Landroidx/compose/ui/text/TextMeasurer;FFFLjava/util/List;)V
 }
 
 public final class io/androidpoet/drafter/gant/GanttChartData {
@@ -167,15 +247,12 @@ public final class io/androidpoet/drafter/gant/GanttChartData {
 	public fun toString ()Ljava/lang/String;
 }
 
-public abstract interface class io/androidpoet/drafter/gant/GanttChartRenderer {
-	public abstract fun calculateMaxValues (Lio/androidpoet/drafter/gant/GanttChartData;)Lkotlin/Pair;
-	public abstract fun drawTasks (Landroidx/compose/ui/graphics/drawscope/DrawScope;Lio/androidpoet/drafter/gant/GanttChartData;FFFFFF)V
-}
-
-public final class io/androidpoet/drafter/gant/GanttChartRendererKt {
-	public static final fun drawAxes (Landroidx/compose/ui/graphics/drawscope/DrawScope;FFFF)V
-	public static final fun drawXAxisLabels (Landroidx/compose/ui/graphics/drawscope/DrawScope;Landroidx/compose/ui/text/TextMeasurer;FFFFF)V
-	public static final fun drawYAxisLabels (Landroidx/compose/ui/graphics/drawscope/DrawScope;Landroidx/compose/ui/text/TextMeasurer;FFFLjava/util/List;)V
+public final class io/androidpoet/drafter/gant/GanttChartRenderer {
+	public static final field $stable I
+	public fun <init> (Lio/androidpoet/drafter/gant/GanttChartData;)V
+	public final fun calculateMaxValues ()Lkotlin/Pair;
+	public final fun drawTasks (Landroidx/compose/ui/graphics/drawscope/DrawScope;FFFFFF)V
+	public final fun getData ()Lio/androidpoet/drafter/gant/GanttChartData;
 }
 
 public final class io/androidpoet/drafter/gant/GanttTask {
@@ -194,58 +271,72 @@ public final class io/androidpoet/drafter/gant/GanttTask {
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class io/androidpoet/drafter/gant/SimpleGanttChartRenderer : io/androidpoet/drafter/gant/GanttChartRenderer {
+public final class io/androidpoet/drafter/heatmap/ContributionData {
 	public static final field $stable I
-	public fun <init> ()V
-	public fun calculateMaxValues (Lio/androidpoet/drafter/gant/GanttChartData;)Lkotlin/Pair;
-	public fun drawTasks (Landroidx/compose/ui/graphics/drawscope/DrawScope;Lio/androidpoet/drafter/gant/GanttChartData;FFFFFF)V
-}
-
-public final class io/androidpoet/drafter/histogram/HistogramData : io/androidpoet/drafter/bars/BarChartData {
-	public static final field $stable I
-	public fun <init> (Ljava/util/List;Ljava/util/List;Ljava/util/List;)V
-	public final fun component1 ()Ljava/util/List;
-	public final fun component2 ()Ljava/util/List;
-	public final fun component3 ()Ljava/util/List;
-	public final fun copy (Ljava/util/List;Ljava/util/List;Ljava/util/List;)Lio/androidpoet/drafter/histogram/HistogramData;
-	public static synthetic fun copy$default (Lio/androidpoet/drafter/histogram/HistogramData;Ljava/util/List;Ljava/util/List;Ljava/util/List;ILjava/lang/Object;)Lio/androidpoet/drafter/histogram/HistogramData;
+	public fun <init> (Lkotlinx/datetime/Instant;I)V
+	public final fun component1 ()Lkotlinx/datetime/Instant;
+	public final fun component2 ()I
+	public final fun copy (Lkotlinx/datetime/Instant;I)Lio/androidpoet/drafter/heatmap/ContributionData;
+	public static synthetic fun copy$default (Lio/androidpoet/drafter/heatmap/ContributionData;Lkotlinx/datetime/Instant;IILjava/lang/Object;)Lio/androidpoet/drafter/heatmap/ContributionData;
 	public fun equals (Ljava/lang/Object;)Z
-	public final fun getColors ()Ljava/util/List;
-	public final fun getFrequencies ()Ljava/util/List;
-	public fun getLabels ()Ljava/util/List;
+	public final fun getCount ()I
+	public final fun getTimestamp ()Lkotlinx/datetime/Instant;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class io/androidpoet/drafter/histogram/HistogramKt {
-	public static final fun HistogramChart-cf5BqRc (Ljava/util/List;IJLandroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;II)V
-}
-
-public final class io/androidpoet/drafter/histogram/HistogramRenderer : io/androidpoet/drafter/bars/BarChartRenderer {
+public final class io/androidpoet/drafter/heatmap/ContributionHeatmapData {
 	public static final field $stable I
-	public fun <init> ()V
-	public fun calculateBarAndSpacing (FII)Lkotlin/Pair;
-	public fun calculateGroupWidth (FI)F
-	public synthetic fun calculateMaxValue (Lio/androidpoet/drafter/bars/BarChartData;)F
-	public fun calculateMaxValue (Lio/androidpoet/drafter/histogram/HistogramData;)F
-	public synthetic fun drawBars (Landroidx/compose/ui/graphics/drawscope/DrawScope;Lio/androidpoet/drafter/bars/BarChartData;IFFFFFFF)V
-	public fun drawBars (Landroidx/compose/ui/graphics/drawscope/DrawScope;Lio/androidpoet/drafter/histogram/HistogramData;IFFFFFFF)V
+	public synthetic fun <init> (Ljava/util/List;JJILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/util/List;JJLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun component2-0d7_KjU ()J
+	public final fun component3-0d7_KjU ()J
+	public final fun copy-WkMS-hQ (Ljava/util/List;JJ)Lio/androidpoet/drafter/heatmap/ContributionHeatmapData;
+	public static synthetic fun copy-WkMS-hQ$default (Lio/androidpoet/drafter/heatmap/ContributionHeatmapData;Ljava/util/List;JJILjava/lang/Object;)Lio/androidpoet/drafter/heatmap/ContributionHeatmapData;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBackgroundSquareColor-0d7_KjU ()J
+	public final fun getBaseColor-0d7_KjU ()J
+	public final fun getContributions ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
 }
 
-public final class io/androidpoet/drafter/histogram/HistogramRendererKt {
-	public static final fun createHistogramData-mxwnekA (Ljava/util/List;IJ)Lio/androidpoet/drafter/histogram/HistogramData;
-	public static synthetic fun createHistogramData-mxwnekA$default (Ljava/util/List;IJILjava/lang/Object;)Lio/androidpoet/drafter/histogram/HistogramData;
+public final class io/androidpoet/drafter/heatmap/ContributionHeatmapKt {
+	public static final fun ContributionHeatmap (Lio/androidpoet/drafter/heatmap/HeatmapRenderer;Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;II)V
 }
 
-public final class io/androidpoet/drafter/lines/GroupedLineChartData : io/androidpoet/drafter/lines/LineChartData {
+public final class io/androidpoet/drafter/heatmap/DefaultHeatmapRenderer : io/androidpoet/drafter/heatmap/HeatmapRenderer {
+	public static final field $stable I
+	public fun <init> (Lio/androidpoet/drafter/heatmap/ContributionHeatmapData;)V
+	public fun drawHeatmap (Landroidx/compose/ui/graphics/drawscope/DrawScope;FFLkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;F)V
+	public fun getData ()Lio/androidpoet/drafter/heatmap/ContributionHeatmapData;
+}
+
+public abstract interface class io/androidpoet/drafter/heatmap/HeatmapRenderer {
+	public abstract fun drawHeatmap (Landroidx/compose/ui/graphics/drawscope/DrawScope;FFLkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;F)V
+	public abstract fun getData ()Lio/androidpoet/drafter/heatmap/ContributionHeatmapData;
+}
+
+public abstract interface class io/androidpoet/drafter/lines/LineChartDataRenderer {
+	public abstract fun calculateMaxValue ()F
+	public abstract fun drawLines (Landroidx/compose/ui/graphics/drawscope/DrawScope;FFFFFF)V
+	public abstract fun getLabels ()Ljava/util/List;
+}
+
+public final class io/androidpoet/drafter/lines/LineChartKt {
+	public static final fun LineChart (Lio/androidpoet/drafter/lines/LineChartDataRenderer;Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;II)V
+}
+
+public final class io/androidpoet/drafter/lines/model/GroupedLineChartData : io/androidpoet/drafter/lines/model/LineChartData {
 	public static final field $stable I
 	public fun <init> (Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;)V
 	public final fun component1 ()Ljava/util/List;
 	public final fun component2 ()Ljava/util/List;
 	public final fun component3 ()Ljava/util/List;
 	public final fun component4 ()Ljava/util/List;
-	public final fun copy (Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;)Lio/androidpoet/drafter/lines/GroupedLineChartData;
-	public static synthetic fun copy$default (Lio/androidpoet/drafter/lines/GroupedLineChartData;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;ILjava/lang/Object;)Lio/androidpoet/drafter/lines/GroupedLineChartData;
+	public final fun copy (Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;)Lio/androidpoet/drafter/lines/model/GroupedLineChartData;
+	public static synthetic fun copy$default (Lio/androidpoet/drafter/lines/model/GroupedLineChartData;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;ILjava/lang/Object;)Lio/androidpoet/drafter/lines/model/GroupedLineChartData;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getColors ()Ljava/util/List;
 	public final fun getGroupedValues ()Ljava/util/List;
@@ -255,36 +346,18 @@ public final class io/androidpoet/drafter/lines/GroupedLineChartData : io/androi
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class io/androidpoet/drafter/lines/GroupedLineChartRenderer : io/androidpoet/drafter/lines/LineChartRenderer {
-	public static final field $stable I
-	public fun <init> ()V
-	public fun calculateMaxValue (Lio/androidpoet/drafter/lines/GroupedLineChartData;)F
-	public synthetic fun calculateMaxValue (Lio/androidpoet/drafter/lines/LineChartData;)F
-	public fun drawLines (Landroidx/compose/ui/graphics/drawscope/DrawScope;Lio/androidpoet/drafter/lines/GroupedLineChartData;FFFFFF)V
-	public synthetic fun drawLines (Landroidx/compose/ui/graphics/drawscope/DrawScope;Lio/androidpoet/drafter/lines/LineChartData;FFFFFF)V
-}
-
-public abstract interface class io/androidpoet/drafter/lines/LineChartData {
+public abstract interface class io/androidpoet/drafter/lines/model/LineChartData {
 	public abstract fun getLabels ()Ljava/util/List;
 }
 
-public abstract interface class io/androidpoet/drafter/lines/LineChartRenderer {
-	public abstract fun calculateMaxValue (Lio/androidpoet/drafter/lines/LineChartData;)F
-	public abstract fun drawLines (Landroidx/compose/ui/graphics/drawscope/DrawScope;Lio/androidpoet/drafter/lines/LineChartData;FFFFFF)V
-}
-
-public final class io/androidpoet/drafter/lines/LineChartRendererKt {
-	public static final fun LineChart (Lio/androidpoet/drafter/lines/LineChartData;Lio/androidpoet/drafter/lines/LineChartRenderer;Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;II)V
-}
-
-public final class io/androidpoet/drafter/lines/SimpleLineChartData : io/androidpoet/drafter/lines/LineChartData {
+public final class io/androidpoet/drafter/lines/model/SimpleLineChartData : io/androidpoet/drafter/lines/model/LineChartData {
 	public static final field $stable I
 	public synthetic fun <init> (Ljava/util/List;Ljava/util/List;JLkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/util/List;
 	public final fun component2 ()Ljava/util/List;
 	public final fun component3-0d7_KjU ()J
-	public final fun copy-mxwnekA (Ljava/util/List;Ljava/util/List;J)Lio/androidpoet/drafter/lines/SimpleLineChartData;
-	public static synthetic fun copy-mxwnekA$default (Lio/androidpoet/drafter/lines/SimpleLineChartData;Ljava/util/List;Ljava/util/List;JILjava/lang/Object;)Lio/androidpoet/drafter/lines/SimpleLineChartData;
+	public final fun copy-mxwnekA (Ljava/util/List;Ljava/util/List;J)Lio/androidpoet/drafter/lines/model/SimpleLineChartData;
+	public static synthetic fun copy-mxwnekA$default (Lio/androidpoet/drafter/lines/model/SimpleLineChartData;Ljava/util/List;Ljava/util/List;JILjava/lang/Object;)Lio/androidpoet/drafter/lines/model/SimpleLineChartData;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getColor-0d7_KjU ()J
 	public fun getLabels ()Ljava/util/List;
@@ -293,23 +366,14 @@ public final class io/androidpoet/drafter/lines/SimpleLineChartData : io/android
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class io/androidpoet/drafter/lines/SimpleLineChartRenderer : io/androidpoet/drafter/lines/LineChartRenderer {
-	public static final field $stable I
-	public fun <init> ()V
-	public synthetic fun calculateMaxValue (Lio/androidpoet/drafter/lines/LineChartData;)F
-	public fun calculateMaxValue (Lio/androidpoet/drafter/lines/SimpleLineChartData;)F
-	public synthetic fun drawLines (Landroidx/compose/ui/graphics/drawscope/DrawScope;Lio/androidpoet/drafter/lines/LineChartData;FFFFFF)V
-	public fun drawLines (Landroidx/compose/ui/graphics/drawscope/DrawScope;Lio/androidpoet/drafter/lines/SimpleLineChartData;FFFFFF)V
-}
-
-public final class io/androidpoet/drafter/lines/StackedLineChartData : io/androidpoet/drafter/lines/LineChartData {
+public final class io/androidpoet/drafter/lines/model/StackedLineChartData : io/androidpoet/drafter/lines/model/LineChartData {
 	public static final field $stable I
 	public fun <init> (Ljava/util/List;Ljava/util/List;Ljava/util/List;)V
 	public final fun component1 ()Ljava/util/List;
 	public final fun component2 ()Ljava/util/List;
 	public final fun component3 ()Ljava/util/List;
-	public final fun copy (Ljava/util/List;Ljava/util/List;Ljava/util/List;)Lio/androidpoet/drafter/lines/StackedLineChartData;
-	public static synthetic fun copy$default (Lio/androidpoet/drafter/lines/StackedLineChartData;Ljava/util/List;Ljava/util/List;Ljava/util/List;ILjava/lang/Object;)Lio/androidpoet/drafter/lines/StackedLineChartData;
+	public final fun copy (Ljava/util/List;Ljava/util/List;Ljava/util/List;)Lio/androidpoet/drafter/lines/model/StackedLineChartData;
+	public static synthetic fun copy$default (Lio/androidpoet/drafter/lines/model/StackedLineChartData;Ljava/util/List;Ljava/util/List;Ljava/util/List;ILjava/lang/Object;)Lio/androidpoet/drafter/lines/model/StackedLineChartData;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getColors ()Ljava/util/List;
 	public fun getLabels ()Ljava/util/List;
@@ -318,42 +382,54 @@ public final class io/androidpoet/drafter/lines/StackedLineChartData : io/androi
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class io/androidpoet/drafter/lines/StackedLineChartRenderer : io/androidpoet/drafter/lines/LineChartRenderer {
+public final class io/androidpoet/drafter/lines/renderer/GroupedLineChartRenderer : io/androidpoet/drafter/lines/LineChartDataRenderer {
 	public static final field $stable I
-	public fun <init> ()V
-	public synthetic fun calculateMaxValue (Lio/androidpoet/drafter/lines/LineChartData;)F
-	public fun calculateMaxValue (Lio/androidpoet/drafter/lines/StackedLineChartData;)F
-	public synthetic fun drawLines (Landroidx/compose/ui/graphics/drawscope/DrawScope;Lio/androidpoet/drafter/lines/LineChartData;FFFFFF)V
-	public fun drawLines (Landroidx/compose/ui/graphics/drawscope/DrawScope;Lio/androidpoet/drafter/lines/StackedLineChartData;FFFFFF)V
+	public fun <init> (Lio/androidpoet/drafter/lines/model/GroupedLineChartData;)V
+	public fun calculateMaxValue ()F
+	public fun drawLines (Landroidx/compose/ui/graphics/drawscope/DrawScope;FFFFFF)V
+	public fun getLabels ()Ljava/util/List;
 }
 
-public final class io/androidpoet/drafter/pie/DonutChartRenderer {
+public final class io/androidpoet/drafter/lines/renderer/LineChartRenderer : io/androidpoet/drafter/lines/LineChartDataRenderer {
 	public static final field $stable I
-	public synthetic fun <init> (Lio/androidpoet/drafter/pie/PieChartData;JLandroidx/compose/ui/text/TextMeasurer;FFFILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public synthetic fun <init> (Lio/androidpoet/drafter/pie/PieChartData;JLandroidx/compose/ui/text/TextMeasurer;FFFLkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun drawDonutChart (Landroidx/compose/ui/graphics/drawscope/DrawScope;)V
+	public fun <init> (Lio/androidpoet/drafter/lines/model/SimpleLineChartData;)V
+	public fun calculateMaxValue ()F
+	public fun drawLines (Landroidx/compose/ui/graphics/drawscope/DrawScope;FFFFFF)V
+	public fun getLabels ()Ljava/util/List;
 }
 
-public final class io/androidpoet/drafter/pie/PieChartData {
+public final class io/androidpoet/drafter/lines/renderer/StackedLineChartRenderer : io/androidpoet/drafter/lines/LineChartDataRenderer {
+	public static final field $stable I
+	public fun <init> (Lio/androidpoet/drafter/lines/model/StackedLineChartData;)V
+	public fun calculateMaxValue ()F
+	public fun drawLines (Landroidx/compose/ui/graphics/drawscope/DrawScope;FFFFFF)V
+	public fun getLabels ()Ljava/util/List;
+}
+
+public final class io/androidpoet/drafter/pie/PieChartKt {
+	public static final fun PieChart (Lio/androidpoet/drafter/pie/renderer/PieChartDataRenderer;Landroidx/compose/ui/Modifier;ZLandroidx/compose/runtime/Composer;II)V
+}
+
+public final class io/androidpoet/drafter/pie/model/PieChartData {
 	public static final field $stable I
 	public fun <init> (Ljava/util/List;)V
 	public final fun component1 ()Ljava/util/List;
-	public final fun copy (Ljava/util/List;)Lio/androidpoet/drafter/pie/PieChartData;
-	public static synthetic fun copy$default (Lio/androidpoet/drafter/pie/PieChartData;Ljava/util/List;ILjava/lang/Object;)Lio/androidpoet/drafter/pie/PieChartData;
+	public final fun copy (Ljava/util/List;)Lio/androidpoet/drafter/pie/model/PieChartData;
+	public static synthetic fun copy$default (Lio/androidpoet/drafter/pie/model/PieChartData;Ljava/util/List;ILjava/lang/Object;)Lio/androidpoet/drafter/pie/model/PieChartData;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getSlices ()Ljava/util/List;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class io/androidpoet/drafter/pie/PieChartData$Slice {
+public final class io/androidpoet/drafter/pie/model/PieChartData$Slice {
 	public static final field $stable I
 	public synthetic fun <init> (FJLjava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()F
 	public final fun component2-0d7_KjU ()J
 	public final fun component3 ()Ljava/lang/String;
-	public final fun copy-bw27NRU (FJLjava/lang/String;)Lio/androidpoet/drafter/pie/PieChartData$Slice;
-	public static synthetic fun copy-bw27NRU$default (Lio/androidpoet/drafter/pie/PieChartData$Slice;FJLjava/lang/String;ILjava/lang/Object;)Lio/androidpoet/drafter/pie/PieChartData$Slice;
+	public final fun copy-bw27NRU (FJLjava/lang/String;)Lio/androidpoet/drafter/pie/model/PieChartData$Slice;
+	public static synthetic fun copy-bw27NRU$default (Lio/androidpoet/drafter/pie/model/PieChartData$Slice;FJLjava/lang/String;ILjava/lang/Object;)Lio/androidpoet/drafter/pie/model/PieChartData$Slice;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getColor-0d7_KjU ()J
 	public final fun getLabel ()Ljava/lang/String;
@@ -362,16 +438,46 @@ public final class io/androidpoet/drafter/pie/PieChartData$Slice {
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class io/androidpoet/drafter/pie/PieChartKt {
-	public static final fun DonutChart (Lio/androidpoet/drafter/pie/PieChartData;Landroidx/compose/ui/Modifier;ZLandroidx/compose/runtime/Composer;II)V
-	public static final fun PieChart (Lio/androidpoet/drafter/pie/PieChartData;Landroidx/compose/ui/Modifier;ZLandroidx/compose/runtime/Composer;II)V
+public final class io/androidpoet/drafter/pie/renderer/DonutChartRenderer : io/androidpoet/drafter/pie/renderer/PieChartDataRenderer {
+	public static final field $stable I
+	public fun <init> (Lio/androidpoet/drafter/pie/model/PieChartData;FF)V
+	public synthetic fun <init> (Lio/androidpoet/drafter/pie/model/PieChartData;FFILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun drawChart-x_KDEd0 (Landroidx/compose/ui/graphics/drawscope/DrawScope;JFLandroidx/compose/ui/text/TextMeasurer;)V
+	public fun getData ()Lio/androidpoet/drafter/pie/model/PieChartData;
 }
 
-public final class io/androidpoet/drafter/pie/PieChartRenderer {
+public abstract interface class io/androidpoet/drafter/pie/renderer/PieChartDataRenderer {
+	public abstract fun drawChart-x_KDEd0 (Landroidx/compose/ui/graphics/drawscope/DrawScope;JFLandroidx/compose/ui/text/TextMeasurer;)V
+	public abstract fun getData ()Lio/androidpoet/drafter/pie/model/PieChartData;
+}
+
+public final class io/androidpoet/drafter/pie/renderer/PieChartRenderer : io/androidpoet/drafter/pie/renderer/PieChartDataRenderer {
 	public static final field $stable I
-	public synthetic fun <init> (Lio/androidpoet/drafter/pie/PieChartData;JLandroidx/compose/ui/text/TextMeasurer;FFILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public synthetic fun <init> (Lio/androidpoet/drafter/pie/PieChartData;JLandroidx/compose/ui/text/TextMeasurer;FFLkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun drawPieChart (Landroidx/compose/ui/graphics/drawscope/DrawScope;)V
+	public fun <init> (Lio/androidpoet/drafter/pie/model/PieChartData;F)V
+	public synthetic fun <init> (Lio/androidpoet/drafter/pie/model/PieChartData;FILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun drawChart-x_KDEd0 (Landroidx/compose/ui/graphics/drawscope/DrawScope;JFLandroidx/compose/ui/text/TextMeasurer;)V
+	public fun getData ()Lio/androidpoet/drafter/pie/model/PieChartData;
+}
+
+public final class io/androidpoet/drafter/popup/HoverState {
+	public static final field $stable I
+	public synthetic fun <init> (ZJLjava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (ZJLjava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Z
+	public final fun component2-F1C5BW0 ()J
+	public final fun component3 ()Ljava/lang/String;
+	public final fun copy-d-4ec7I (ZJLjava/lang/String;)Lio/androidpoet/drafter/popup/HoverState;
+	public static synthetic fun copy-d-4ec7I$default (Lio/androidpoet/drafter/popup/HoverState;ZJLjava/lang/String;ILjava/lang/Object;)Lio/androidpoet/drafter/popup/HoverState;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getPosition-F1C5BW0 ()J
+	public final fun getValue ()Ljava/lang/String;
+	public fun hashCode ()I
+	public final fun isHovered ()Z
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class io/androidpoet/drafter/popup/TooltipKt {
+	public static final fun Tooltip-ubNVwUQ (Ljava/lang/String;JLandroidx/compose/runtime/Composer;I)V
 }
 
 public final class io/androidpoet/drafter/radar/RadarChartData {
@@ -391,7 +497,7 @@ public final class io/androidpoet/drafter/radar/RadarChartKt {
 }
 
 public final class io/androidpoet/drafter/scatterplot/ScatterPlotChartKt {
-	public static final fun ScatterPlot (Lio/androidpoet/drafter/scatterplot/ScatterPlotData;Lio/androidpoet/drafter/scatterplot/ScatterPlotRenderer;Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;II)V
+	public static final fun ScatterPlot (Lio/androidpoet/drafter/scatterplot/ScatterPlotRenderer;Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;II)V
 }
 
 public final class io/androidpoet/drafter/scatterplot/ScatterPlotChartRendererKt {
@@ -400,30 +506,31 @@ public final class io/androidpoet/drafter/scatterplot/ScatterPlotChartRendererKt
 	public static final fun drawYAxisLabels (Landroidx/compose/ui/graphics/drawscope/DrawScope;Landroidx/compose/ui/text/TextMeasurer;FFFF)V
 }
 
-public final class io/androidpoet/drafter/scatterplot/ScatterPlotData {
+public abstract interface class io/androidpoet/drafter/scatterplot/ScatterPlotRenderer {
+	public abstract fun calculateMaxValues ()Lkotlin/Pair;
+	public abstract fun drawPoints (Landroidx/compose/ui/graphics/drawscope/DrawScope;FFFFFFF)V
+}
+
+public final class io/androidpoet/drafter/scatterplot/SimpleScatterPlotRenderer : io/androidpoet/drafter/scatterplot/ScatterPlotRenderer {
+	public static final field $stable I
+	public fun <init> (Lio/androidpoet/drafter/scatterplot/model/ScatterPlotData;)V
+	public fun calculateMaxValues ()Lkotlin/Pair;
+	public fun drawPoints (Landroidx/compose/ui/graphics/drawscope/DrawScope;FFFFFFF)V
+	public final fun getData ()Lio/androidpoet/drafter/scatterplot/model/ScatterPlotData;
+}
+
+public final class io/androidpoet/drafter/scatterplot/model/ScatterPlotData {
 	public static final field $stable I
 	public fun <init> (Ljava/util/List;Ljava/util/List;)V
 	public synthetic fun <init> (Ljava/util/List;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/util/List;
 	public final fun component2 ()Ljava/util/List;
-	public final fun copy (Ljava/util/List;Ljava/util/List;)Lio/androidpoet/drafter/scatterplot/ScatterPlotData;
-	public static synthetic fun copy$default (Lio/androidpoet/drafter/scatterplot/ScatterPlotData;Ljava/util/List;Ljava/util/List;ILjava/lang/Object;)Lio/androidpoet/drafter/scatterplot/ScatterPlotData;
+	public final fun copy (Ljava/util/List;Ljava/util/List;)Lio/androidpoet/drafter/scatterplot/model/ScatterPlotData;
+	public static synthetic fun copy$default (Lio/androidpoet/drafter/scatterplot/model/ScatterPlotData;Ljava/util/List;Ljava/util/List;ILjava/lang/Object;)Lio/androidpoet/drafter/scatterplot/model/ScatterPlotData;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getPointColors ()Ljava/util/List;
 	public final fun getPoints ()Ljava/util/List;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
-}
-
-public abstract interface class io/androidpoet/drafter/scatterplot/ScatterPlotRenderer {
-	public abstract fun calculateMaxValues (Lio/androidpoet/drafter/scatterplot/ScatterPlotData;)Lkotlin/Pair;
-	public abstract fun drawPoints (Landroidx/compose/ui/graphics/drawscope/DrawScope;Lio/androidpoet/drafter/scatterplot/ScatterPlotData;FFFFFFF)V
-}
-
-public final class io/androidpoet/drafter/scatterplot/SimpleScatterPlotRenderer : io/androidpoet/drafter/scatterplot/ScatterPlotRenderer {
-	public static final field $stable I
-	public fun <init> ()V
-	public fun calculateMaxValues (Lio/androidpoet/drafter/scatterplot/ScatterPlotData;)Lkotlin/Pair;
-	public fun drawPoints (Landroidx/compose/ui/graphics/drawscope/DrawScope;Lio/androidpoet/drafter/scatterplot/ScatterPlotData;FFFFFFF)V
 }
 

@@ -13,13 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.androidpoet.drafter.histogram
+package io.androidpoet.drafter.scatterplot.model
 
 import androidx.compose.ui.graphics.Color
-import io.androidpoet.drafter.bars.BarChartData
 
-public data class HistogramData(
-  override val labels: List<String>,
-  val frequencies: List<Float>,
-  val colors: List<Color>,
-) : BarChartData
+public data class ScatterPlotData(
+  val points: List<Pair<Float, Float>>,
+  val pointColors: List<Color> = listOf(Color.Black),
+)

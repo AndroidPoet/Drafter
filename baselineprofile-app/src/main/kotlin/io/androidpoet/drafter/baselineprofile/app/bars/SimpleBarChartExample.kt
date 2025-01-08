@@ -15,31 +15,34 @@
  */
 package io.androidpoet.drafter.baselineprofile.app.bars
 
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import io.androidpoet.drafter.bars.BarChart
-import io.androidpoet.drafter.bars.SimpleBarChartData
-import io.androidpoet.drafter.bars.SimpleBarChartRenderer
-import io.androidpoet.drafter.baselineprofile.app.ChartContainer
+import io.androidpoet.drafter.bars.model.SimpleBarChartData
+import io.androidpoet.drafter.bars.renderer.BarChartRenderer
 import io.androidpoet.drafter.baselineprofile.app.ChartTitle
+
+private fun getBarChartData() = SimpleBarChartData(
+  labelsList = listOf("Jan", "Feb", "Mar", "Apr"),
+  values = listOf(10f, 30f, 15f, 45f),
+  colors = listOf(Color.Red, Color.Green, Color.Blue, Color.Magenta),
+)
+
+private fun getSimpleBarChartRenderer() = BarChartRenderer(getBarChartData())
 
 @Composable
 fun SimpleBarChartExample() {
   ChartTitle(text = "Simple Bar Chart")
-  val data =
-    SimpleBarChartData(
-      labels = listOf("A", "B", "C", "D"),
-      values = listOf(10f, 20f, 15f, 25f),
-      colors = listOf(Color.Red, Color.Green, Color.Blue, Color.Yellow),
-    )
-  val renderer = SimpleBarChartRenderer()
-  ChartContainer {
-    BarChart(
-      data = data,
-      renderer = renderer,
-      modifier = Modifier.fillMaxSize(),
-    )
-  }
+
+  BarChart(
+    renderer = getSimpleBarChartRenderer(),
+    modifier = Modifier
+      .height(300.dp)
+      .fillMaxWidth(),
+    animate = true,
+  )
 }

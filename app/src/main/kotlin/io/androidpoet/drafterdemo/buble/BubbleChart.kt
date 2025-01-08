@@ -22,33 +22,41 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import io.androidpoet.drafter.buble.BubbleChart
 import io.androidpoet.drafter.buble.BubbleChartData
+import io.androidpoet.drafter.buble.SimpleBubbleChartDataRenderer
 import io.androidpoet.drafterdemo.ChartTitle
+
+private fun getBubbleChartData() = BubbleChartData(
+  series = listOf(
+    listOf(
+      BubbleChartData.BubbleData(10f, 26f, 30f, Color.Blue),
+      BubbleChartData.BubbleData(26f, 30f, 60f, Color.Blue),
+      BubbleChartData.BubbleData(26f, 46f, 45f, Color.Blue),
+    ),
+    listOf(
+      BubbleChartData.BubbleData(14f, 15f, 30f, Color.Green),
+      BubbleChartData.BubbleData(22f, 36f, 45f, Color.Green),
+      BubbleChartData.BubbleData(90f, 57f, 75f, Color.Green),
+    ),
+    listOf(
+      BubbleChartData.BubbleData(8f, 9f, 90f, Color.Yellow),
+      BubbleChartData.BubbleData(20f, 57f, 45f, Color.Yellow),
+      BubbleChartData.BubbleData(40f, 50f, 60f, Color.Yellow),
+    ),
+    listOf(
+      BubbleChartData.BubbleData(8f, 20f, 22.5f, Color.Red),
+      BubbleChartData.BubbleData(12f, 30f, 30f, Color.Red),
+      BubbleChartData.BubbleData(30f, 40f, 45f, Color.Red),
+    ),
+  ),
+)
+
+private fun getBubbleChartRenderer() = SimpleBubbleChartDataRenderer(getBubbleChartData())
 
 @Composable
 fun BubbleChartExample() {
   ChartTitle(text = "Bubble Chart")
-  val data = listOf(
-    listOf(
-      BubbleChartData(10f, 26f, 30f, Color.Blue),
-      BubbleChartData(26f, 30f, 60f, Color.Blue),
-      BubbleChartData(26f, 46f, 45f, Color.Blue),
-    ),
-    listOf(
-      BubbleChartData(14f, 15f, 30f, Color.Green),
-      BubbleChartData(22f, 36f, 45f, Color.Green),
-      BubbleChartData(40f, 57f, 75f, Color.Green),
-    ),
-    listOf(
-      BubbleChartData(8f, 9f, 30f, Color.Yellow),
-      BubbleChartData(20f, 57f, 45f, Color.Yellow),
-      BubbleChartData(40f, 50f, 60f, Color.Yellow),
-    ),
-    listOf(
-      BubbleChartData(8f, 20f, 22.5f, Color.Red),
-      BubbleChartData(12f, 30f, 30f, Color.Red),
-      BubbleChartData(30f, 40f, 45f, Color.Red),
-    ),
+  BubbleChart(
+    renderer = getBubbleChartRenderer(),
+    modifier = Modifier.size(300.dp),
   )
-
-  BubbleChart(data, Modifier.size(300.dp))
 }

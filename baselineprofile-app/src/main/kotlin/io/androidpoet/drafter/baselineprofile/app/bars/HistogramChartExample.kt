@@ -14,25 +14,29 @@
  * limitations under the License.
  */
 package io.androidpoet.drafter.baselineprofile.app.bars
-import androidx.compose.foundation.layout.fillMaxSize
+
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import io.androidpoet.drafter.baselineprofile.app.ChartContainer
-import io.androidpoet.drafter.baselineprofile.app.ChartTitle
-import io.androidpoet.drafter.histogram.HistogramChart
+import io.androidpoet.drafter.bars.BarChart
+import io.androidpoet.drafter.bars.renderer.HistogramRenderer
+
+private fun getHistogramData() = listOf(0.3f, 1.1f, 2.7f, 1.9f)
+
+private fun getHistogramRenderer() = HistogramRenderer(
+  dataPoints = getHistogramData(),
+  binCount = 5,
+  color = Color.Blue,
+)
 
 @Composable
-fun HistogramChartExample() {
-  ChartTitle(text = "Histogram Chart")
-  val dataPoints = listOf(1f, 2f, 2f, 3f, 3f, 3f, 4f, 4f, 5f, 5f, 5f, 5f)
-  val binCount = 5
-  ChartContainer {
-    HistogramChart(
-      dataPoints = dataPoints,
-      binCount = binCount,
-      color = Color.Magenta,
-      modifier = Modifier.fillMaxSize(),
-    )
-  }
+public fun HistogramChartExample(
+  modifier: Modifier = Modifier,
+  animate: Boolean = true,
+) {
+  BarChart(
+    renderer = getHistogramRenderer(),
+    modifier = modifier,
+    animate = animate,
+  )
 }

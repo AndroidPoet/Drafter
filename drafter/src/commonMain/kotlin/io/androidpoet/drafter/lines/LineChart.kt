@@ -32,39 +32,25 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.drawText
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.sp
-
-public interface LineChartRenderer<T : LineChartData> {
-  public fun calculateMaxValue(data: T): Float
-
-  public fun drawLines(
-    drawScope: DrawScope,
-    data: T,
-    chartLeft: Float,
-    chartTop: Float,
-    chartWidth: Float,
-    chartHeight: Float,
-    maxValue: Float,
-    animationProgress: Float,
-  )
-}
+import kotlin.math.floor
+import kotlin.math.log10
+import kotlin.math.pow
 
 @Composable
-public fun <T : LineChartData> LineChart(
-  data: T,
-  renderer: LineChartRenderer<T>,
+public fun LineChart(
+  renderer: LineChartDataRenderer,
   modifier: Modifier = Modifier,
 ) {
   val textMeasurer = rememberTextMeasurer()
+  val animationProgress = remember {
+    Animatable(0f)
+  }
 
-  val animationProgress = remember { Animatable(0f) }
-
-  // Animate the line drawing just like in the BarChart
   LaunchedEffect(Unit) {
     animationProgress.animateTo(
       targetValue = 1f,
-      animationSpec =
-      tween(
-        durationMillis = 1000,
+      animationSpec = tween(
+        durationMillis = 3000, // Increased duration
         easing = FastOutSlowInEasing,
       ),
     )
@@ -77,24 +63,26 @@ public fun <T : LineChartData> LineChart(
     val chartBottom = chartTop + chartHeight
     val chartLeft = size.width * 0.1f
 
-    val maxValue = renderer.calculateMaxValue(data)
+    val maxValue = renderer.calculateMaxValue()
 
     drawAxes(chartLeft, chartTop, chartBottom, chartWidth)
     drawYAxisLabels(textMeasurer, chartLeft, chartTop, chartBottom, maxValue)
 
+    // Animate with FastOutSlowInEasing for smoother appearance
+    val currentProgress = FastOutSlowInEasing.transform(animationProgress.value)
+
     renderer.drawLines(
       drawScope = this,
-      data = data,
       chartLeft = chartLeft,
       chartTop = chartTop,
       chartWidth = chartWidth,
       chartHeight = chartHeight,
       maxValue = maxValue,
-      animationProgress = animationProgress.value,
+      animationProgress = currentProgress,
     )
 
-    data.labels.forEachIndexed { index, label ->
-      val x = chartLeft + index * (chartWidth / (data.labels.size - 1))
+    renderer.getLabels().forEachIndexed { index, label ->
+      val x = chartLeft + index * (chartWidth / (renderer.getLabels().size - 1))
       drawXAxisLabel(textMeasurer, label, x, chartBottom)
     }
   }
@@ -134,19 +122,38 @@ private fun DrawScope.drawYAxisLabels(
   maxValue: Float,
 ) {
   val style = TextStyle(fontSize = 10.sp, color = Color.Black)
-  (0..4).forEach { i ->
-    val y = bottom - (i * (bottom - top) / 4f)
-    val label = "${(maxValue * i / 4).toInt()}"
+
+  // Calculate a nice step size based on the max value
+  val step = calculateGridStep(maxValue)
+  val numSteps = (maxValue / step).toInt()
+
+  // Draw labels for each step
+  for (i in 0..numSteps) {
+    val value = i * step
+    val ratio = value / maxValue
+    val y = bottom - (ratio * (bottom - top))
+    val label = value.toInt().toString()
+
     val textLayoutResult = textMeasurer.measure(label, style)
     drawText(
       textMeasurer = textMeasurer,
       text = label,
       style = style,
-      topLeft =
-      Offset(
+      topLeft = Offset(
         left - textLayoutResult.size.width - 5f,
         y - textLayoutResult.size.height / 2,
       ),
     )
+  }
+}
+
+private fun calculateGridStep(maxValue: Float): Float {
+  val magnitude = floor(log10(maxValue.toDouble())).toFloat()
+  val baseStep = 10.0f.pow(magnitude)
+
+  return when {
+    maxValue / baseStep > 5 -> baseStep * 2
+    maxValue / baseStep > 2 -> baseStep
+    else -> baseStep / 2
   }
 }

@@ -13,26 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.androidpoet.drafter.histogram
+package io.androidpoet.drafter.lines
 
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import io.androidpoet.drafter.bars.BarChart
+import androidx.compose.ui.graphics.drawscope.DrawScope
 
-@Composable
-public fun HistogramChart(
-  dataPoints: List<Float>,
-  binCount: Int,
-  color: Color = Color.Blue,
-  modifier: Modifier = Modifier,
-) {
-  val histogramData = createHistogramData(dataPoints, binCount, color)
-  val histogramRenderer = HistogramRenderer()
-
-  BarChart(
-    data = histogramData,
-    renderer = histogramRenderer,
-    modifier = modifier,
+public interface LineChartDataRenderer {
+  public fun getLabels(): List<String>
+  public fun calculateMaxValue(): Float
+  public fun drawLines(
+    drawScope: DrawScope,
+    chartLeft: Float,
+    chartTop: Float,
+    chartWidth: Float,
+    chartHeight: Float,
+    maxValue: Float,
+    animationProgress: Float,
   )
 }

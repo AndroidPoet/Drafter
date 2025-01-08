@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.androidpoet.drafter.pie
+package io.androidpoet.drafter.pie.renderer
 
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
@@ -23,27 +23,37 @@ import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.drawText
 import androidx.compose.ui.unit.sp
+import io.androidpoet.drafter.pie.model.PieChartData
 import kotlin.math.PI
 import kotlin.math.cos
+import kotlin.math.max
 import kotlin.math.sin
 
 public class PieChartRenderer(
-  private val data: PieChartData,
-  private val size: Size,
-  private val textMeasurer: TextMeasurer,
-  private val animationProgress: Float = 1f,
+  override val data: PieChartData,
   private val labelThreshold: Float = 5f,
-) {
-  public fun drawPieChart(drawScope: DrawScope) {
-    val totalValue = data.slices.sumOf { it.value.toDouble() }.toFloat()
+) : PieChartDataRenderer {
+
+  public override fun drawChart(
+    drawScope: DrawScope,
+    size: Size,
+    progress: Float,
+    textMeasurer: TextMeasurer,
+  ) {
+    val totalValue = max(
+      data.slices.sumOf { slice -> slice.value.toDouble() }.toFloat(),
+      1f,
+    )
+
     var startAngle = -90f
     val radius = size.minDimension / 2
     val center = Offset(size.width / 2, size.height / 2)
 
     data.slices.forEach { slice ->
-      val sweepAngle = (slice.value / totalValue) * 360f * animationProgress
+      val slicePercentage = slice.value / totalValue
+      val sweepAngle = slicePercentage * 360f * progress
 
-      // Draw the slice
+      // Draw the arc
       drawScope.drawArc(
         color = slice.color,
         startAngle = startAngle,
@@ -53,26 +63,28 @@ public class PieChartRenderer(
         size = size,
       )
 
-      val percentage = (slice.value / totalValue) * 100
+      // Optionally draw label if slice is >= threshold
+      val percentage = slicePercentage * 100
+      if (percentage >= labelThreshold && sweepAngle > 0f) {
+        val angleMid = startAngle + sweepAngle / 2
+        val angleRad = angleMid * (PI / 180)
 
-      if (percentage >= labelThreshold && (animationProgress == 1f || sweepAngle > 0f)) {
-        val labelText = "${percentage.toInt()}%"
-
-        val angleInRadians = (startAngle + sweepAngle / 2) * (PI / 180f)
+        // 70% of the radius to place the label
         val labelRadius = radius * 0.7f
-        val labelX = center.x + (labelRadius * cos(angleInRadians)).toFloat()
-        val labelY = center.y + (labelRadius * sin(angleInRadians)).toFloat()
+        val labelX = center.x + (labelRadius * cos(angleRad)).toFloat()
+        val labelY = center.y + (labelRadius * sin(angleRad)).toFloat()
 
+        val labelText = "${percentage.toInt()}%"
         val style = TextStyle(fontSize = 12.sp, color = Color.Black)
-        val textLayoutResult = textMeasurer.measure(labelText, style)
+        val textLayout = textMeasurer.measure(labelText, style)
+
         drawScope.drawText(
           textMeasurer = textMeasurer,
           text = labelText,
           style = style,
-          topLeft =
-          Offset(
-            labelX - textLayoutResult.size.width / 2,
-            labelY - textLayoutResult.size.height / 2,
+          topLeft = Offset(
+            x = labelX - textLayout.size.width / 2,
+            y = labelY - textLayout.size.height / 2,
           ),
         )
       }

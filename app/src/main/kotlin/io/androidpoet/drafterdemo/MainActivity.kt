@@ -37,7 +37,7 @@ import io.androidpoet.drafterdemo.line.GroupedLineChartExample
 import io.androidpoet.drafterdemo.line.ScatterPlotChartExample
 import io.androidpoet.drafterdemo.line.SimpleLineChartExample
 import io.androidpoet.drafterdemo.line.StackedLineChartExample
-import io.androidpoet.drafterdemo.pie.DonutCharExample
+import io.androidpoet.drafterdemo.pie.DonutChartExample
 import io.androidpoet.drafterdemo.pie.PieChartExample
 import io.androidpoet.drafterdemo.radar.RadarChartExample
 import io.androidpoet.drafterdemo.ui.theme.DrafterDemoTheme
@@ -62,7 +62,7 @@ class MainActivity : ComponentActivity() {
           item { StackedLineChartExample() }
           item { HistogramChartExample() }
           item { PieChartExample() }
-          item { DonutCharExample() }
+          item { DonutChartExample() }
           item { ScatterPlotChartExample() }
           item { WaterfallChartExample() }
           item { RadarChartExample() }

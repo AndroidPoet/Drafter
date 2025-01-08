@@ -13,32 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.androidpoet.drafter.bars
+package io.androidpoet.drafter.lines.model
 
 import androidx.compose.ui.graphics.Color
 
-public data class WaterfallChartData(
+public interface LineChartData {
+  public val labels: List<String>
+}
+
+public data class SimpleLineChartData(
   override val labels: List<String>,
   val values: List<Float>,
-  val colors: List<Color>,
-  val initialValue: Float = 0f,
-) : BarChartData
+  val color: Color,
+) : LineChartData
 
-public data class SimpleBarChartData(
-  override val labels: List<String>,
-  val values: List<Float>,
-  val colors: List<Color>,
-) : BarChartData
-
-public data class GroupedBarChartData(
+public data class GroupedLineChartData(
   override val labels: List<String>,
   val itemNames: List<String>,
   val groupedValues: List<List<Float>>,
   val colors: List<Color>,
-) : BarChartData
+) : LineChartData
 
-public data class StackedBarChartData(
+public data class StackedLineChartData(
   override val labels: List<String>,
   val stacks: List<List<Float>>,
   val colors: List<Color>,
-) : BarChartData
+) : LineChartData

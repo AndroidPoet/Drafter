@@ -14,37 +14,39 @@
  * limitations under the License.
  */
 package io.androidpoet.drafter.baselineprofile.app.bars
-import androidx.compose.foundation.layout.fillMaxSize
+
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import io.androidpoet.drafter.bars.BarChart
-import io.androidpoet.drafter.bars.StackedBarChartData
-import io.androidpoet.drafter.bars.StackedBarChartRenderer
-import io.androidpoet.drafter.baselineprofile.app.ChartContainer
+import io.androidpoet.drafter.bars.model.StackedBarChartData
+import io.androidpoet.drafter.bars.renderer.StackedBarChartRenderer
 import io.androidpoet.drafter.baselineprofile.app.ChartTitle
 
+private fun getStackedBarChartData() = StackedBarChartData(
+  labelsList = listOf("Q1", "Q2", "Q3"),
+  stacks = listOf(
+    listOf(10f, 15f, 5f), // Q1
+    listOf(8f, 12f, 20f), // Q2
+    listOf(18f, 10f, 15f), // Q3
+  ),
+  colors = listOf(Color.Red, Color.Green, Color.Blue),
+)
+
+private fun getStackedBarChartRenderer() = StackedBarChartRenderer(getStackedBarChartData())
+
 @Composable
-fun StackedBarChartExample() {
+fun StackedBarChartExample(modifier: Modifier = Modifier) {
   ChartTitle(text = "Stacked Bar Chart")
-  val data =
-    StackedBarChartData(
-      labels = listOf("Jan", "Feb", "Mar", "Apr"),
-      stacks =
-      listOf(
-        listOf(5f, 5f, 2f),
-        listOf(7f, 3f, 4f),
-        listOf(6f, 4f, 3f),
-        listOf(8f, 2f, 5f),
-      ),
-      colors = listOf(Color.Blue, Color.Red, Color.Green),
-    )
-  val renderer = StackedBarChartRenderer()
-  ChartContainer {
-    BarChart(
-      data = data,
-      renderer = renderer,
-      modifier = Modifier.fillMaxSize(),
-    )
-  }
+
+  BarChart(
+    renderer = getStackedBarChartRenderer(),
+    modifier = Modifier
+      .height(300.dp)
+      .fillMaxWidth(),
+    animate = true,
+  )
 }

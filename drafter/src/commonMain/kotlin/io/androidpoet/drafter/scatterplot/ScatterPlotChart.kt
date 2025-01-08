@@ -28,19 +28,16 @@ import androidx.compose.ui.text.rememberTextMeasurer
 
 @Composable
 public fun ScatterPlot(
-  data: ScatterPlotData,
   renderer: ScatterPlotRenderer,
   modifier: Modifier = Modifier,
 ) {
   val textMeasurer = rememberTextMeasurer()
   val animationProgress = remember { Animatable(0f) }
 
-  // Trigger the animation
   LaunchedEffect(Unit) {
     animationProgress.animateTo(
       targetValue = 1f,
-      animationSpec =
-      tween(
+      animationSpec = tween(
         durationMillis = 2000,
         easing = LinearOutSlowInEasing,
       ),
@@ -54,23 +51,21 @@ public fun ScatterPlot(
     val chartBottom = chartTop + chartHeight
     val chartLeft = size.width * 0.1f
 
-    val (maxX, maxY) = renderer.calculateMaxValues(data)
+    val (maxX, maxY) = renderer.calculateMaxValues()
 
     drawAxes(chartLeft, chartTop, chartBottom, chartWidth)
     drawYAxisLabels(textMeasurer, chartLeft, chartTop, chartBottom, maxY)
     drawXAxisLabels(textMeasurer, chartLeft, chartBottom, chartWidth, maxX)
 
-    // Draw the points with animation
     renderer.drawPoints(
       drawScope = this,
-      data = data,
       chartLeft = chartLeft,
       chartTop = chartTop,
       chartWidth = chartWidth,
       chartHeight = chartHeight,
       maxX = maxX,
       maxY = maxY,
-      animationProgress = animationProgress.value, // Pass animation progress
+      animationProgress = animationProgress.value,
     )
   }
 }

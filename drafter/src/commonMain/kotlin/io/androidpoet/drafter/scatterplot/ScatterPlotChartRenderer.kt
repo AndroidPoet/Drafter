@@ -22,13 +22,13 @@ import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.drawText
 import androidx.compose.ui.unit.sp
+import io.androidpoet.drafter.scatterplot.model.ScatterPlotData
 
 public interface ScatterPlotRenderer {
-  public fun calculateMaxValues(data: ScatterPlotData): Pair<Float, Float>
+  public fun calculateMaxValues(): Pair<Float, Float>
 
   public fun drawPoints(
     drawScope: DrawScope,
-    data: ScatterPlotData,
     chartLeft: Float,
     chartTop: Float,
     chartWidth: Float,
@@ -39,8 +39,10 @@ public interface ScatterPlotRenderer {
   )
 }
 
-public class SimpleScatterPlotRenderer : ScatterPlotRenderer {
-  override fun calculateMaxValues(data: ScatterPlotData): Pair<Float, Float> {
+public class SimpleScatterPlotRenderer(
+  public val data: ScatterPlotData,
+) : ScatterPlotRenderer {
+  override fun calculateMaxValues(): Pair<Float, Float> {
     val maxX = data.points.maxOfOrNull { it.first } ?: 0f
     val maxY = data.points.maxOfOrNull { it.second } ?: 0f
     return Pair(maxX, maxY)
@@ -48,7 +50,6 @@ public class SimpleScatterPlotRenderer : ScatterPlotRenderer {
 
   override fun drawPoints(
     drawScope: DrawScope,
-    data: ScatterPlotData,
     chartLeft: Float,
     chartTop: Float,
     chartWidth: Float,

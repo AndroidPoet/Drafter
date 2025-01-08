@@ -21,43 +21,39 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import io.androidpoet.drafter.scatterplot.ScatterPlot
 import io.androidpoet.drafter.baselineprofile.app.ChartContainer
 import io.androidpoet.drafter.baselineprofile.app.ChartTitle
-import io.androidpoet.drafter.scatterplot.ScatterPlotData
+import io.androidpoet.drafter.scatterplot.ScatterPlot
 import io.androidpoet.drafter.scatterplot.SimpleScatterPlotRenderer
+import io.androidpoet.drafter.scatterplot.model.ScatterPlotData
 import kotlin.random.Random
 
-@Composable
-fun ScatterPlotChartExample() {
-  ChartTitle(text = "Scatter Plot Chart")
-  val numberOfPoints = 30
-  val randomPoints =
-    List(numberOfPoints) {
+private fun getScatterPlotRenderer() = SimpleScatterPlotRenderer(
+  ScatterPlotData(
+    points = List(30) {
       Pair(
         Random.nextFloat() * 50f,
         Random.nextFloat() * 50f,
       )
-    }
-  val randomColors =
-    List(numberOfPoints) {
+    },
+    pointColors = List(30) {
       Color(
         red = Random.nextFloat(),
         green = Random.nextFloat(),
         blue = Random.nextFloat(),
         alpha = 1f,
       )
-    }
-  val data =
-    ScatterPlotData(
-      points = randomPoints,
-      pointColors = randomColors,
-    )
-  val renderer = SimpleScatterPlotRenderer()
+    },
+  ),
+)
+
+@Composable
+fun ScatterPlotChartExample() {
+  ChartTitle(text = "Scatter Plot Chart")
+
   ChartContainer(modifier = Modifier.height(300.dp)) {
     ScatterPlot(
-      data = data,
-      renderer = renderer,
+      renderer = getScatterPlotRenderer(),
       modifier = Modifier.fillMaxSize(),
     )
   }

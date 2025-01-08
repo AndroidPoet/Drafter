@@ -23,16 +23,19 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.rememberTextMeasurer
+import io.androidpoet.drafter.pie.renderer.PieChartDataRenderer
 
 @Composable
 public fun PieChart(
-  data: PieChartData,
+  renderer: PieChartDataRenderer,
   modifier: Modifier = Modifier,
   animate: Boolean = true,
 ) {
+  // 1) We set up textMeasurer
   val textMeasurer = rememberTextMeasurer()
-  val progress = remember { Animatable(0f) }
 
+  // 2) Animate the chart from 0..1 if requested
+  val progress = remember { Animatable(0f) }
   LaunchedEffect(animate) {
     if (animate) {
       progress.animateTo(
@@ -44,38 +47,13 @@ public fun PieChart(
     }
   }
 
+  // 3) We draw on a Canvas
   Canvas(modifier = modifier) {
-    val size = this.size
-    val renderer = PieChartRenderer(data, size, textMeasurer, progress.value)
-
-    renderer.drawPieChart(this)
-  }
-}
-
-@Composable
-public fun DonutChart(
-  data: PieChartData,
-  modifier: Modifier = Modifier,
-  animate: Boolean = true,
-) {
-  val textMeasurer = rememberTextMeasurer()
-  val progress = remember { Animatable(0f) }
-
-  LaunchedEffect(animate) {
-    if (animate) {
-      progress.animateTo(
-        targetValue = 1f,
-        animationSpec = tween(durationMillis = 1000),
-      )
-    } else {
-      progress.snapTo(1f)
-    }
-  }
-
-  Canvas(modifier = modifier) {
-    val size = this.size
-    val renderer = DonutChartRenderer(data, size, textMeasurer, progress.value)
-
-    renderer.drawDonutChart(this)
+    renderer.drawChart(
+      drawScope = this,
+      size = size,
+      progress = progress.value,
+      textMeasurer = textMeasurer,
+    )
   }
 }

@@ -14,39 +14,39 @@
  * limitations under the License.
  */
 package io.androidpoet.drafter.baselineprofile.app.bars
-import androidx.compose.foundation.layout.fillMaxSize
+
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import io.androidpoet.drafter.bars.BarChart
-import io.androidpoet.drafter.bars.GroupedBarChartData
-import io.androidpoet.drafter.bars.GroupedBarChartRenderer
-import io.androidpoet.drafter.baselineprofile.app.ChartContainer
+import io.androidpoet.drafter.bars.model.GroupedBarChartData
+import io.androidpoet.drafter.bars.renderer.GroupedBarChartRenderer
 import io.androidpoet.drafter.baselineprofile.app.ChartTitle
-import io.androidpoet.drafter.histogram.HistogramChart
+
+private fun getBarChartRenderer() = GroupedBarChartRenderer(
+  GroupedBarChartData(
+    labelsList = listOf("2020", "2021", "2022"),
+    itemNames = listOf("Product A", "Product B", "Product C"),
+    groupedValues = listOf(
+      listOf(10f, 20f, 15f), // 2020
+      listOf(25f, 5f, 30f), // 2021
+      listOf(12f, 28f, 10f), // 2022
+    ),
+    colors = listOf(Color.Red, Color.Green, Color.Blue),
+  ),
+)
 
 @Composable
 fun GroupedBarChartExample() {
   ChartTitle(text = "Grouped Bar Chart")
-  val data =
-    GroupedBarChartData(
-      labels = listOf("Q1", "Q2", "Q3", "Q4"),
-      itemNames = listOf("Product A", "Product B"),
-      groupedValues =
-      listOf(
-        listOf(10f, 15f),
-        listOf(20f, 25f),
-        listOf(15f, 10f),
-        listOf(25f, 20f),
-      ),
-      colors = listOf(Color.Cyan, Color.Magenta),
-    )
-  val renderer = GroupedBarChartRenderer()
-  ChartContainer {
-    BarChart(
-      data = data,
-      renderer = renderer,
-      modifier = Modifier.fillMaxSize(),
-    )
-  }
+  BarChart(
+    renderer = getBarChartRenderer(),
+    modifier = Modifier
+      .height(300.dp)
+      .fillMaxWidth(),
+    animate = true,
+  )
 }

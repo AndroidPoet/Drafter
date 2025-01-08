@@ -13,21 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.androidpoet.drafter.lines
+package io.androidpoet.drafter.lines.renderer
 
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Fill
+import io.androidpoet.drafter.lines.LineChartDataRenderer
+import io.androidpoet.drafter.lines.model.StackedLineChartData
 
-public class StackedLineChartRenderer : LineChartRenderer<StackedLineChartData> {
-  override fun calculateMaxValue(data: StackedLineChartData): Float =
+public class StackedLineChartRenderer(
+  private val data: StackedLineChartData,
+) : LineChartDataRenderer {
+
+  override fun getLabels(): List<String> = data.labels
+
+  override fun calculateMaxValue(): Float =
     data.stacks.map { it.sum() }.maxOrNull() ?: 0f
 
   override fun drawLines(
     drawScope: DrawScope,
-    data: StackedLineChartData,
     chartLeft: Float,
     chartTop: Float,
     chartWidth: Float,
@@ -36,14 +42,13 @@ public class StackedLineChartRenderer : LineChartRenderer<StackedLineChartData> 
     animationProgress: Float,
   ) {
     val numPoints = data.labels.size
-    val xPositions =
-      List(numPoints) { index ->
-        chartLeft + index * (chartWidth / (numPoints - 1))
-      }
+    val xPositions = List(numPoints) { index ->
+      chartLeft + index * (chartWidth / (numPoints - 1))
+    }
 
     val accumulatedValues = MutableList(numPoints) { 0f }
 
-// Draw the areas from bottom to top
+    // Draw the areas from bottom to top
     val stackCount = data.stacks[0].size
     for (stackIndex in 0 until stackCount) {
       val previousAccumulatedValues = accumulatedValues.toList()
@@ -54,38 +59,33 @@ public class StackedLineChartRenderer : LineChartRenderer<StackedLineChartData> 
       }
 
       // Apply animation progress to the accumulated values
-      val upperPoints =
-        List(numPoints) { i ->
-          val x = xPositions[i]
-          // Linearly interpolate the y-value based on animation progress
-          val y =
-            chartTop + chartHeight -
-              ((accumulatedValues[i] * animationProgress) / maxValue) * chartHeight
-          Offset(x, y)
-        }
+      val upperPoints = List(numPoints) { i ->
+        val x = xPositions[i]
+        // Linearly interpolate the y-value based on animation progress
+        val y = chartTop + chartHeight -
+          ((accumulatedValues[i] * animationProgress) / maxValue) * chartHeight
+        Offset(x, y)
+      }
 
-      val lowerPoints =
-        List(numPoints) { i ->
-          val x = xPositions[i]
-          // Linearly interpolate the previous accumulated y-value based on animation progress
-          val y =
-            chartTop + chartHeight -
-              ((previousAccumulatedValues[i] * animationProgress) / maxValue) * chartHeight
-          Offset(x, y)
-        }
+      val lowerPoints = List(numPoints) { i ->
+        val x = xPositions[i]
+        // Linearly interpolate the previous accumulated y-value based on animation progress
+        val y = chartTop + chartHeight -
+          ((previousAccumulatedValues[i] * animationProgress) / maxValue) * chartHeight
+        Offset(x, y)
+      }
 
       // Create path for the filled area
-      val path =
-        Path().apply {
-          moveTo(upperPoints.first().x, upperPoints.first().y)
-          for (point in upperPoints.drop(1)) {
-            lineTo(point.x, point.y)
-          }
-          for (point in lowerPoints.reversed()) {
-            lineTo(point.x, point.y)
-          }
-          close()
+      val path = Path().apply {
+        moveTo(upperPoints.first().x, upperPoints.first().y)
+        for (point in upperPoints.drop(1)) {
+          lineTo(point.x, point.y)
         }
+        for (point in lowerPoints.reversed()) {
+          lineTo(point.x, point.y)
+        }
+        close()
+      }
 
       // Draw the path with animation
       drawScope.drawPath(

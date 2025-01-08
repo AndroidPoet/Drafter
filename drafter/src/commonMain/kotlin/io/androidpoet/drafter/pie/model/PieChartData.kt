@@ -13,29 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.androidpoet.drafter.lines
+package io.androidpoet.drafter.pie.model
 
 import androidx.compose.ui.graphics.Color
 
-public interface LineChartData {
-  public val labels: List<String>
+public data class PieChartData(
+  val slices: List<Slice>,
+) {
+  public data class Slice(
+    val value: Float,
+    val color: Color,
+    val label: String,
+  )
 }
-
-public data class SimpleLineChartData(
-  override val labels: List<String>,
-  val values: List<Float>,
-  val color: Color,
-) : LineChartData
-
-public data class GroupedLineChartData(
-  override val labels: List<String>,
-  val itemNames: List<String>,
-  val groupedValues: List<List<Float>>,
-  val colors: List<Color>,
-) : LineChartData
-
-public data class StackedLineChartData(
-  override val labels: List<String>,
-  val stacks: List<List<Float>>,
-  val colors: List<Color>,
-) : LineChartData

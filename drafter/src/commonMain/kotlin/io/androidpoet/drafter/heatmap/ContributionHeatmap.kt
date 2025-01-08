@@ -15,14 +15,15 @@
  */
 package io.androidpoet.drafter.heatmap
 
-
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -31,13 +32,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
-import kotlinx.datetime.*
+import kotlinx.datetime.Clock
+import kotlinx.datetime.DateTimeUnit
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.atStartOfDayIn
+import kotlinx.datetime.minus
+import kotlinx.datetime.toLocalDateTime
 
 @Composable
 public fun ContributionHeatmap(
-  data: ContributionHeatmapData,
+  renderer: HeatmapRenderer,
   modifier: Modifier = Modifier,
-  renderer: HeatmapRenderer = DefaultHeatmapRenderer()
 ) {
   val density = LocalDensity.current
   val cellSize = with(density) { 8.dp.toPx() }
@@ -57,29 +62,29 @@ public fun ContributionHeatmap(
       targetValue = 1f,
       animationSpec = tween(
         durationMillis = 1000,
-        easing = FastOutSlowInEasing
-      )
+        easing = FastOutSlowInEasing,
+      ),
     )
   }
 
   Box(
-    modifier = modifier.horizontalScroll(rememberScrollState())
+    modifier = modifier
+      .horizontalScroll(rememberScrollState())
       .background(Color(0xFF0D1117))
-      .padding(8.dp)
+      .padding(8.dp),
   ) {
     Canvas(
       modifier = Modifier
         .fillMaxSize()
-        .padding(4.dp)
+        .padding(4.dp),
     ) {
       renderer.drawHeatmap(
         drawScope = this,
-        data = data,
         cellSize = cellSize,
         cellPadding = cellPadding,
         startInstant = startInstant,
         endInstant = endInstant,
-        animationProgress = animationProgress.value
+        animationProgress = animationProgress.value,
       )
     }
   }

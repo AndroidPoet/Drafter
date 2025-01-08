@@ -22,30 +22,32 @@ import androidx.compose.ui.graphics.drawscope.DrawScope
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
-import kotlinx.datetime.atStartOfDayIn
 import kotlinx.datetime.daysUntil
 import kotlinx.datetime.plus
 import kotlinx.datetime.toLocalDateTime
 
 public interface HeatmapRenderer {
+  public val data: ContributionHeatmapData
+
   public fun drawHeatmap(
     drawScope: DrawScope,
-    data: ContributionHeatmapData,
     cellSize: Float,
     cellPadding: Float,
     startInstant: Instant,
     endInstant: Instant,
-    animationProgress: Float
+    animationProgress: Float,
   )
 }
 
-public class DefaultHeatmapRenderer : HeatmapRenderer {
+public class DefaultHeatmapRenderer(
+  override val data: ContributionHeatmapData,
+) : HeatmapRenderer {
   private companion object {
-    private val emptyColor = Color(0xFF161B22)    // Lighter empty cell
-    private val level1Color = Color(0xFF0E4429)   // Better contrast for level 1
-    private val level2Color = Color(0xFF006D32)   // More distinct green
-    private val level3Color = Color(0xFF26A641)   // Brighter medium green
-    private val level4Color = Color(0xFF39D353)   // Vivid high activity green
+    private val emptyColor = Color(0xFF161B22)
+    private val level1Color = Color(0xFF0E4429)
+    private val level2Color = Color(0xFF006D32)
+    private val level3Color = Color(0xFF26A641)
+    private val level4Color = Color(0xFF39D353)
   }
 
   private fun getContributionColor(count: Int): Color {
@@ -60,12 +62,11 @@ public class DefaultHeatmapRenderer : HeatmapRenderer {
 
   override fun drawHeatmap(
     drawScope: DrawScope,
-    data: ContributionHeatmapData,
     cellSize: Float,
     cellPadding: Float,
     startInstant: Instant,
     endInstant: Instant,
-    animationProgress: Float
+    animationProgress: Float,
   ) {
     with(drawScope) {
       val startDate = startInstant.toLocalDateTime(TimeZone.currentSystemDefault()).date
@@ -73,10 +74,8 @@ public class DefaultHeatmapRenderer : HeatmapRenderer {
       val weeks = startDate.daysUntil(endDate) / 7
 
       val contributionsMap = data.contributions.groupingBy {
-        // Convert the raw Instant to a LocalDate
         it.timestamp.toLocalDateTime(TimeZone.currentSystemDefault()).date
       }.aggregate { _, accumulator: Int?, element, _ ->
-        // If you have multiple contributions per day, sum them up
         (accumulator ?: 0) + element.count
       }
 
@@ -84,7 +83,6 @@ public class DefaultHeatmapRenderer : HeatmapRenderer {
       for (week in 0..weeks) {
         for (dayOfWeek in 0..6) {
           if (currentDate <= endDate) {
-            val currentInstant = currentDate.atStartOfDayIn(TimeZone.currentSystemDefault())
             val contributions = contributionsMap[currentDate] ?: 0
 
             val x = week * (cellSize + cellPadding)
@@ -93,7 +91,7 @@ public class DefaultHeatmapRenderer : HeatmapRenderer {
             drawRect(
               color = getContributionColor(contributions),
               topLeft = Offset(x, y),
-              size = Size(cellSize, cellSize)
+              size = Size(cellSize, cellSize),
             )
 
             currentDate = currentDate.plus(1, DateTimeUnit.DAY)

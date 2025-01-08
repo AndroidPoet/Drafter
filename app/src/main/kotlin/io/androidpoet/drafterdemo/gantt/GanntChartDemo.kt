@@ -21,21 +21,28 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import io.androidpoet.drafter.gant.GanttChart
 import io.androidpoet.drafter.gant.GanttChartData
+import io.androidpoet.drafter.gant.GanttChartRenderer
 import io.androidpoet.drafter.gant.GanttTask
-import io.androidpoet.drafter.gant.SimpleGanttChartRenderer
 import io.androidpoet.drafterdemo.ChartTitle
+
+private fun getGanttChartRenderer() = GanttChartRenderer(
+  GanttChartData(
+    listOf(
+      GanttTask("Planning", 0f, 2f),
+      GanttTask("Design", 2f, 2f),
+      GanttTask("Development", 4f, 3f),
+      GanttTask("Testing", 7f, 2f),
+      GanttTask("Deployment", 9f, 1f),
+    ),
+  ),
+)
 
 @Composable
 fun GanttChartExample() {
   ChartTitle(text = "Gantt Chart")
-  val tasks = listOf(
-    GanttTask("Planning", 0f, 2f),
-    GanttTask("Design", 2f, 2f),
-    GanttTask("Development", 4f, 3f),
-    GanttTask("Testing", 7f, 2f),
-    GanttTask("Deployment", 9f, 1f),
+
+  GanttChart(
+    renderer = getGanttChartRenderer(),
+    modifier = Modifier.size(400.dp),
   )
-  val data = GanttChartData(tasks)
-  val renderer = SimpleGanttChartRenderer()
-  GanttChart(data = data, renderer = renderer, modifier = Modifier.size(400.dp))
 }

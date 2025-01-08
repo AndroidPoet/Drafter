@@ -18,8 +18,12 @@ package io.androidpoet.drafter.buble
 import androidx.compose.ui.graphics.Color
 
 public data class BubbleChartData(
-  val x: Float,
-  val y: Float,
-  val size: Float,
-  val color: Color,
-)
+  val series: List<List<BubbleData>>,
+) {
+  public data class BubbleData(
+    val x: Float,
+    val y: Float,
+    val size: Float,
+    val color: Color,
+  )
+}

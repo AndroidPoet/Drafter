@@ -21,24 +21,26 @@ import io.androidpoet.drafter.baselineprofile.app.ChartTitle
 import io.androidpoet.drafter.radar.RadarChart
 import io.androidpoet.drafter.radar.RadarChartData
 
+private fun getRadarChartData() = listOf(
+  RadarChartData(
+    mapOf(
+      "Execution" to 0.8f,
+      "Landing" to 0.6f,
+      "Difficulty" to 0.9f,
+      "Style" to 0.7f,
+      "Creativity" to 0.85f,
+    ),
+  ),
+)
+
+private fun getRadarChartColors() = listOf(Color.Blue, Color.Red)
+
 @Composable
 fun RadarChartExample() {
   ChartTitle(text = "Radar Chart")
-  val data = listOf(
-    RadarChartData(
-      mapOf(
-        "Execution" to 0.8f,
-        "Landing" to 0.6f,
-        "Difficulty" to 0.9f,
-        "Style" to 0.7f,
-        "Creativity" to 0.85f,
-      ),
-    ),
-  )
-  val colors = listOf(Color.Blue, Color.Red)
 
   RadarChart(
-    data = data,
-    colors = colors,
+    data = getRadarChartData(),
+    colors = getRadarChartColors(),
   )
 }

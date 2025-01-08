@@ -13,16 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.androidpoet.drafter.pie
+package io.androidpoet.drafter.buble
 
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.drawscope.DrawScope
 
-public data class PieChartData(
-  val slices: List<Slice>,
-) {
-  public data class Slice(
-    val value: Float,
-    val color: Color,
-    val label: String,
+public interface BubbleChartDataRenderer {
+  public fun getLabels(): List<String>
+  public fun getMaxValues(): Pair<Float, Float> // x, y
+  public fun getValueRanges(): ValueRanges
+  public fun drawBubbles(
+    drawScope: DrawScope,
+    chartWidth: Float,
+    chartHeight: Float,
+    originX: Float,
+    originY: Float,
+    animationProgress: Float,
   )
 }

@@ -36,11 +36,10 @@ import io.androidpoet.drafter.baselineprofile.app.line.GroupedLineChartExample
 import io.androidpoet.drafter.baselineprofile.app.line.ScatterPlotChartExample
 import io.androidpoet.drafter.baselineprofile.app.line.SimpleLineChartExample
 import io.androidpoet.drafter.baselineprofile.app.line.StackedLineChartExample
-import io.androidpoet.drafter.baselineprofile.app.pie.DonutCharExample
+import io.androidpoet.drafter.baselineprofile.app.pie.DonutChartExample
 import io.androidpoet.drafter.baselineprofile.app.pie.PieChartExample
 import io.androidpoet.drafter.baselineprofile.app.radar.RadarChartExample
 import io.androidpoet.drafter.baselineprofile.app.ui.theme.DrafterDemoTheme
-
 
 class MainActivity : ComponentActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,7 +61,7 @@ class MainActivity : ComponentActivity() {
           item { StackedLineChartExample() }
           item { HistogramChartExample() }
           item { PieChartExample() }
-          item { DonutCharExample() }
+          item { DonutChartExample() }
           item { ScatterPlotChartExample() }
           item { WaterfallChartExample() }
           item { RadarChartExample() }

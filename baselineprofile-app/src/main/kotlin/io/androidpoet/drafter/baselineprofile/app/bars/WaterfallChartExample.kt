@@ -15,34 +15,35 @@
  */
 package io.androidpoet.drafter.baselineprofile.app.bars
 
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import io.androidpoet.drafter.bars.BarChart
-import io.androidpoet.drafter.bars.WaterfallChartData
-import io.androidpoet.drafter.bars.WaterfallChartRenderer
-import io.androidpoet.drafter.baselineprofile.app.ChartContainer
+import io.androidpoet.drafter.bars.model.WaterfallChartData
+import io.androidpoet.drafter.bars.renderer.WaterfallChartRenderer
 import io.androidpoet.drafter.baselineprofile.app.ChartTitle
 
+private fun getWaterfallChartRenderer() = WaterfallChartRenderer(
+  WaterfallChartData(
+    labelsList = listOf("Start", "Revenue", "Cost", "Profit"),
+    values = listOf(+50f, -20f, +30f), // Changes from 'Start'
+    colors = listOf(Color.Green, Color.Red, Color.Green),
+    initialValue = 100f, // Start from 100
+  ),
+)
+
 @Composable
-fun WaterfallChartExample() {
+fun WaterfallChartExample(modifier: Modifier = Modifier) {
   ChartTitle(text = "Waterfall Chart")
-  val data =
-    WaterfallChartData(
-      labels = listOf("Q1", "Q2", "Q3", "Q4"),
-      values = listOf(500f, -200f, 300f, -100f),
-      colors = listOf(Color.Green, Color.Red, Color.Green, Color.Red),
-      initialValue = 1000f,
-    )
-  val renderer = WaterfallChartRenderer()
-  ChartContainer(modifier = Modifier.height(300.dp)) {
-    BarChart(
-      data = data,
-      renderer = renderer,
-      modifier = Modifier.fillMaxSize(),
-    )
-  }
+
+  BarChart(
+    renderer = getWaterfallChartRenderer(),
+    modifier = Modifier
+      .height(300.dp)
+      .fillMaxWidth(),
+    animate = true,
+  )
 }
