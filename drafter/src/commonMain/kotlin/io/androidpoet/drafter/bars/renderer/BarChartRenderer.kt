@@ -31,7 +31,6 @@ import io.androidpoet.drafter.bars.model.SimpleBarChartData
 public class BarChartRenderer(
   public val data: SimpleBarChartData,
 ) : BarChartDataRenderer {
-
   /**
    * Returns the list of labels for the X-axis.
    */
@@ -46,8 +45,7 @@ public class BarChartRenderer(
    * Calculates the maximum value across all bars for scaling purposes.
    * Returns 0 if there are no values.
    */
-  override fun calculateMaxValue(): Float =
-    data.values.maxOrNull() ?: 0f
+  override fun calculateMaxValue(): Float = data.values.maxOrNull() ?: 0f
 
   /**
    * Calculates the width of bars and spacing between them based on chart dimensions.
@@ -77,7 +75,10 @@ public class BarChartRenderer(
    * Returns the width of a single bar as the group width.
    * For simple bar charts, group width equals bar width.
    */
-  override fun calculateGroupWidth(barWidth: Float, barsPerGroup: Int): Float = barWidth
+  override fun calculateGroupWidth(
+    barWidth: Float,
+    barsPerGroup: Int,
+  ): Float = barWidth
 
   /**
    * Draws a single bar at the specified position.

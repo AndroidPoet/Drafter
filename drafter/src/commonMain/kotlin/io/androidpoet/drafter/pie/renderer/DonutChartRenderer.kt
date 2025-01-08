@@ -38,17 +38,17 @@ public class DonutChartRenderer(
   private val labelThreshold: Float = 5f,
   private val holeRadiusFraction: Float = 0.5f,
 ) : PieChartDataRenderer {
-
   public override fun drawChart(
     drawScope: DrawScope,
     size: Size,
     progress: Float,
     textMeasurer: TextMeasurer,
   ) {
-    val totalValue = max(
-      data.slices.sumOf { slice -> slice.value.toDouble() }.toFloat(),
-      1f,
-    )
+    val totalValue =
+      max(
+        data.slices.sumOf { slice -> slice.value.toDouble() }.toFloat(),
+        1f,
+      )
     var startAngle = -90f
 
     val outerRadius = (size.minDimension / 2) * 0.6f
@@ -98,10 +98,11 @@ public class DonutChartRenderer(
           textMeasurer = textMeasurer,
           text = labelText,
           style = style,
-          topLeft = Offset(
-            x = baseX + xOffset + radialOffsetX,
-            y = baseY + yOffset + radialOffsetY,
-          ),
+          topLeft =
+            Offset(
+              x = baseX + xOffset + radialOffsetX,
+              y = baseY + yOffset + radialOffsetY,
+            ),
         )
       }
 

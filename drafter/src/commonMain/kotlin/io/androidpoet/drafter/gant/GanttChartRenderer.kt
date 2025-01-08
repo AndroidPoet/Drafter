@@ -53,11 +53,12 @@ public class GanttChartRenderer(
       val y = chartTop + index * taskHeight
 
       // Pick a color; default to Blue if index is out of range
-      val color = if (index < data.taskColors.size) {
-        data.taskColors[index]
-      } else {
-        Color.Blue
-      }
+      val color =
+        if (index < data.taskColors.size) {
+          data.taskColors[index]
+        } else {
+          Color.Blue
+        }
 
       // Draw a rectangle representing this task
       drawScope.drawRect(

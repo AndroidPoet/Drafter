@@ -26,11 +26,9 @@ import io.androidpoet.drafter.lines.model.StackedLineChartData
 public class StackedLineChartRenderer(
   private val data: StackedLineChartData,
 ) : LineChartDataRenderer {
-
   override fun getLabels(): List<String> = data.labels
 
-  override fun calculateMaxValue(): Float =
-    data.stacks.map { it.sum() }.maxOrNull() ?: 0f
+  override fun calculateMaxValue(): Float = data.stacks.map { it.sum() }.maxOrNull() ?: 0f
 
   override fun drawLines(
     drawScope: DrawScope,
@@ -42,9 +40,10 @@ public class StackedLineChartRenderer(
     animationProgress: Float,
   ) {
     val numPoints = data.labels.size
-    val xPositions = List(numPoints) { index ->
-      chartLeft + index * (chartWidth / (numPoints - 1))
-    }
+    val xPositions =
+      List(numPoints) { index ->
+        chartLeft + index * (chartWidth / (numPoints - 1))
+      }
 
     val accumulatedValues = MutableList(numPoints) { 0f }
 
@@ -59,33 +58,38 @@ public class StackedLineChartRenderer(
       }
 
       // Apply animation progress to the accumulated values
-      val upperPoints = List(numPoints) { i ->
-        val x = xPositions[i]
-        // Linearly interpolate the y-value based on animation progress
-        val y = chartTop + chartHeight -
-          ((accumulatedValues[i] * animationProgress) / maxValue) * chartHeight
-        Offset(x, y)
-      }
+      val upperPoints =
+        List(numPoints) { i ->
+          val x = xPositions[i]
+          // Linearly interpolate the y-value based on animation progress
+          val y =
+            chartTop + chartHeight -
+              ((accumulatedValues[i] * animationProgress) / maxValue) * chartHeight
+          Offset(x, y)
+        }
 
-      val lowerPoints = List(numPoints) { i ->
-        val x = xPositions[i]
-        // Linearly interpolate the previous accumulated y-value based on animation progress
-        val y = chartTop + chartHeight -
-          ((previousAccumulatedValues[i] * animationProgress) / maxValue) * chartHeight
-        Offset(x, y)
-      }
+      val lowerPoints =
+        List(numPoints) { i ->
+          val x = xPositions[i]
+          // Linearly interpolate the previous accumulated y-value based on animation progress
+          val y =
+            chartTop + chartHeight -
+              ((previousAccumulatedValues[i] * animationProgress) / maxValue) * chartHeight
+          Offset(x, y)
+        }
 
       // Create path for the filled area
-      val path = Path().apply {
-        moveTo(upperPoints.first().x, upperPoints.first().y)
-        for (point in upperPoints.drop(1)) {
-          lineTo(point.x, point.y)
+      val path =
+        Path().apply {
+          moveTo(upperPoints.first().x, upperPoints.first().y)
+          for (point in upperPoints.drop(1)) {
+            lineTo(point.x, point.y)
+          }
+          for (point in lowerPoints.reversed()) {
+            lineTo(point.x, point.y)
+          }
+          close()
         }
-        for (point in lowerPoints.reversed()) {
-          lineTo(point.x, point.y)
-        }
-        close()
-      }
 
       // Draw the path with animation
       drawScope.drawPath(

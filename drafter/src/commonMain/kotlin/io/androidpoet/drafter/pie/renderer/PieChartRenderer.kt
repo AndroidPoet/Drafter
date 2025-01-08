@@ -33,17 +33,17 @@ public class PieChartRenderer(
   override val data: PieChartData,
   private val labelThreshold: Float = 5f,
 ) : PieChartDataRenderer {
-
   public override fun drawChart(
     drawScope: DrawScope,
     size: Size,
     progress: Float,
     textMeasurer: TextMeasurer,
   ) {
-    val totalValue = max(
-      data.slices.sumOf { slice -> slice.value.toDouble() }.toFloat(),
-      1f,
-    )
+    val totalValue =
+      max(
+        data.slices.sumOf { slice -> slice.value.toDouble() }.toFloat(),
+        1f,
+      )
 
     var startAngle = -90f
     val radius = size.minDimension / 2
@@ -82,10 +82,11 @@ public class PieChartRenderer(
           textMeasurer = textMeasurer,
           text = labelText,
           style = style,
-          topLeft = Offset(
-            x = labelX - textLayout.size.width / 2,
-            y = labelY - textLayout.size.height / 2,
-          ),
+          topLeft =
+            Offset(
+              x = labelX - textLayout.size.width / 2,
+              y = labelY - textLayout.size.height / 2,
+            ),
         )
       }
 

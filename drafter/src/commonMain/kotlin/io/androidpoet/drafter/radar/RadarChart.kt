@@ -63,7 +63,16 @@ public fun RadarChart(
     val radius = size.width.coerceAtMost(size.height) / 2 * 0.8f
 
     // Draw background circles and axes
-    drawBackgroundAndAxes(centerX, centerY, radius, textMeasurer, data.first().values.keys.toList())
+    drawBackgroundAndAxes(
+      centerX,
+      centerY,
+      radius,
+      textMeasurer,
+      data
+        .first()
+        .values.keys
+        .toList(),
+    )
 
     // Draw data polygons with animation
     data.forEachIndexed { index, chartData ->
@@ -105,20 +114,23 @@ private fun DrawScope.drawBackgroundAndAxes(
     )
 
     // Draw axis labels using TextMeasurer
-    val textLayoutResult = textMeasurer.measure(
-      text = axisLabels[i],
-      style = TextStyle(
-        color = Color.Black,
-        fontSize = 12.sp,
-      ),
-    )
+    val textLayoutResult =
+      textMeasurer.measure(
+        text = axisLabels[i],
+        style =
+          TextStyle(
+            color = Color.Black,
+            fontSize = 12.sp,
+          ),
+      )
 
     drawText(
       textLayoutResult = textLayoutResult,
-      topLeft = Offset(
-        x = endX - textLayoutResult.size.width / 2,
-        y = endY - textLayoutResult.size.height / 2,
-      ),
+      topLeft =
+        Offset(
+          x = endX - textLayoutResult.size.width / 2,
+          y = endY - textLayoutResult.size.height / 2,
+        ),
     )
   }
 }
@@ -131,18 +143,20 @@ private fun DrawScope.drawDataPolygon(
   color: Color,
   progress: Float,
 ) {
-  val points = data.values.values.mapIndexed { index, value ->
-    val angle = index * 2 * PI / data.values.size - PI / 2
-    val x = centerX + radius * value * progress * cos(angle).toFloat()
-    val y = centerY + radius * value * progress * sin(angle).toFloat()
-    Offset(x, y)
-  }
+  val points =
+    data.values.values.mapIndexed { index, value ->
+      val angle = index * 2 * PI / data.values.size - PI / 2
+      val x = centerX + radius * value * progress * cos(angle).toFloat()
+      val y = centerY + radius * value * progress * sin(angle).toFloat()
+      Offset(x, y)
+    }
 
-  val path = Path().apply {
-    moveTo(points.first().x, points.first().y)
-    points.forEach { lineTo(it.x, it.y) }
-    close()
-  }
+  val path =
+    Path().apply {
+      moveTo(points.first().x, points.first().y)
+      points.forEach { lineTo(it.x, it.y) }
+      close()
+    }
 
   drawPath(
     path = path,

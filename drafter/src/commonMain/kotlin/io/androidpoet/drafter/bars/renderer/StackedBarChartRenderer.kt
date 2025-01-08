@@ -31,13 +31,11 @@ import io.androidpoet.drafter.bars.model.StackedBarChartData
 public class StackedBarChartRenderer(
   public val data: StackedBarChartData,
 ) : BarChartDataRenderer {
-
   override fun getLabels(): List<String> = data.labelsList
 
   override fun barsPerGroup(): Int = 1
 
-  override fun calculateMaxValue(): Float =
-    data.stacks.maxOf { it.sum() }
+  override fun calculateMaxValue(): Float = data.stacks.maxOf { it.sum() }
 
   /**
    * Calculates the width of bars and spacing between them to fill the entire chart width.
@@ -68,7 +66,10 @@ public class StackedBarChartRenderer(
     return Pair(barWidth, groupSpacing)
   }
 
-  override fun calculateGroupWidth(barWidth: Float, barsPerGroup: Int): Float = barWidth
+  override fun calculateGroupWidth(
+    barWidth: Float,
+    barsPerGroup: Int,
+  ): Float = barWidth
 
   /**
    * Draws a stacked bar with multiple segments, ensuring proper vertical stacking

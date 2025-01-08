@@ -31,7 +31,6 @@ import io.androidpoet.drafter.bars.model.GroupedBarChartData
 public class GroupedBarChartRenderer(
   public val data: GroupedBarChartData,
 ) : BarChartDataRenderer {
-
   /**
    * Returns the list of labels for the X-axis.
    */
@@ -45,8 +44,7 @@ public class GroupedBarChartRenderer(
   /**
    * Calculates the maximum value across all bars for scaling purposes.
    */
-  override fun calculateMaxValue(): Float =
-    data.groupedValues.flatten().maxOrNull() ?: 0f
+  override fun calculateMaxValue(): Float = data.groupedValues.flatten().maxOrNull() ?: 0f
 
   /**
    * Calculates the width of individual bars and spacing between groups based on the chart dimensions.
@@ -81,7 +79,10 @@ public class GroupedBarChartRenderer(
    * @param barsPerGroup Number of bars in each group
    * @return Total width of the group
    */
-  override fun calculateGroupWidth(barWidth: Float, barsPerGroup: Int): Float {
+  override fun calculateGroupWidth(
+    barWidth: Float,
+    barsPerGroup: Int,
+  ): Float {
     val totalBarSpacingPerGroup = (barsPerGroup - 1) * 4f
     return (barWidth * barsPerGroup) + totalBarSpacingPerGroup
   }

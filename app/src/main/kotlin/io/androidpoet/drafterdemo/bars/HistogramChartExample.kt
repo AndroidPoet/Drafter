@@ -23,14 +23,15 @@ import io.androidpoet.drafter.bars.renderer.HistogramRenderer
 
 private fun getHistogramData() = listOf(0.3f, 1.1f, 2.7f, 1.9f)
 
-private fun getHistogramRenderer() = HistogramRenderer(
-  dataPoints = getHistogramData(),
-  binCount = 5,
-  color = Color.Blue,
-)
+private fun getHistogramRenderer() =
+  HistogramRenderer(
+    dataPoints = getHistogramData(),
+    binCount = 5,
+    color = Color.Blue,
+  )
 
 @Composable
-public fun HistogramChartExample(
+fun HistogramChartExample(
   modifier: Modifier = Modifier,
   animate: Boolean = true,
 ) {

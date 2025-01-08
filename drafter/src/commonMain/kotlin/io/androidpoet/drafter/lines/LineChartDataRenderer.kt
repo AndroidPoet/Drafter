@@ -19,7 +19,9 @@ import androidx.compose.ui.graphics.drawscope.DrawScope
 
 public interface LineChartDataRenderer {
   public fun getLabels(): List<String>
+
   public fun calculateMaxValue(): Float
+
   public fun drawLines(
     drawScope: DrawScope,
     chartLeft: Float,

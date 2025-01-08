@@ -21,7 +21,6 @@ import androidx.compose.ui.graphics.drawscope.DrawScope
 public class SimpleBubbleChartDataRenderer(
   private val data: BubbleChartData,
 ) : BubbleChartDataRenderer {
-
   override fun getLabels(): List<String> = emptyList()
 
   override fun getValueRanges(): ValueRanges {

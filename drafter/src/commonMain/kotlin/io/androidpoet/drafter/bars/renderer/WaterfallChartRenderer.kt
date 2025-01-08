@@ -36,7 +36,6 @@ import kotlin.math.absoluteValue
 public class WaterfallChartRenderer(
   public val data: WaterfallChartData,
 ) : BarChartDataRenderer {
-
   override fun getLabels(): List<String> = data.labelsList
 
   /**
@@ -94,7 +93,10 @@ public class WaterfallChartRenderer(
    * Returns the width of a single bar as the group width.
    * For waterfall charts, group width equals bar width.
    */
-  override fun calculateGroupWidth(barWidth: Float, barsPerGroup: Int): Float = barWidth
+  override fun calculateGroupWidth(
+    barWidth: Float,
+    barsPerGroup: Int,
+  ): Float = barWidth
 
   /**
    * Draws a bar representing a change and optionally connects it to the previous value.

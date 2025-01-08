@@ -29,18 +29,19 @@ import kotlinx.datetime.Clock
 import kotlin.random.Random
 import kotlin.time.Duration.Companion.days
 
-private fun getHeatmapRenderer() = DefaultHeatmapRenderer(
-  ContributionHeatmapData(
-    buildList {
-      val now = Clock.System.now()
-      repeat(365) { day ->
-        val date = now.minus(day.days)
-        val count = if (Random.nextFloat() > 0.6f) Random.nextInt(1, 15) else 0
-        add(ContributionData(date, count))
-      }
-    },
-  ),
-)
+private fun getHeatmapRenderer() =
+  DefaultHeatmapRenderer(
+    ContributionHeatmapData(
+      buildList {
+        val now = Clock.System.now()
+        repeat(365) { day ->
+          val date = now.minus(day.days)
+          val count = if (Random.nextFloat() > 0.6f) Random.nextInt(1, 15) else 0
+          add(ContributionData(date, count))
+        }
+      },
+    ),
+  )
 
 @Composable
 fun GithubGraph() {
@@ -48,8 +49,9 @@ fun GithubGraph() {
 
   ContributionHeatmap(
     renderer = getHeatmapRenderer(),
-    modifier = Modifier
-      .fillMaxWidth()
-      .height(112.dp),
+    modifier =
+      Modifier
+        .fillMaxWidth()
+        .height(112.dp),
   )
 }

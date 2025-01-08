@@ -17,7 +17,11 @@ package io.androidpoet.drafter.gant
 
 import androidx.compose.ui.graphics.Color
 
-public data class GanttTask(val name: String, val startMonth: Float, val duration: Float)
+public data class GanttTask(
+  val name: String,
+  val startMonth: Float,
+  val duration: Float,
+)
 
 public data class GanttChartData(
   val tasks: List<GanttTask>,

@@ -37,10 +37,11 @@ public fun ScatterPlot(
   LaunchedEffect(Unit) {
     animationProgress.animateTo(
       targetValue = 1f,
-      animationSpec = tween(
-        durationMillis = 2000,
-        easing = LinearOutSlowInEasing,
-      ),
+      animationSpec =
+        tween(
+          durationMillis = 2000,
+          easing = LinearOutSlowInEasing,
+        ),
     )
   }
 

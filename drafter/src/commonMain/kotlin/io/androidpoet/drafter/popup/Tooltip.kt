@@ -30,17 +30,15 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Popup
 
 @Composable
-public fun Tooltip(
-  text: String,
-  position: Offset,
-) {
+public fun Tooltip(text: String) {
   Popup(
     alignment = Alignment.TopStart,
   ) {
     Surface(
-      modifier = Modifier
-        .shadow(4.dp)
-        .padding(4.dp),
+      modifier =
+        Modifier
+          .shadow(4.dp)
+          .padding(4.dp),
       color = Color.White,
       shape = RoundedCornerShape(4.dp),
     ) {

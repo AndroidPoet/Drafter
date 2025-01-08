@@ -60,23 +60,26 @@ public fun ContributionHeatmap(
   LaunchedEffect(Unit) {
     animationProgress.animateTo(
       targetValue = 1f,
-      animationSpec = tween(
-        durationMillis = 1000,
-        easing = FastOutSlowInEasing,
-      ),
+      animationSpec =
+        tween(
+          durationMillis = 1000,
+          easing = FastOutSlowInEasing,
+        ),
     )
   }
 
   Box(
-    modifier = modifier
-      .horizontalScroll(rememberScrollState())
-      .background(Color(0xFF0D1117))
-      .padding(8.dp),
+    modifier =
+      modifier
+        .horizontalScroll(rememberScrollState())
+        .background(Color(0xFF0D1117))
+        .padding(8.dp),
   ) {
     Canvas(
-      modifier = Modifier
-        .fillMaxSize()
-        .padding(4.dp),
+      modifier =
+        Modifier
+          .fillMaxSize()
+          .padding(4.dp),
     ) {
       renderer.drawHeatmap(
         drawScope = this,

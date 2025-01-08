@@ -24,13 +24,14 @@ import io.androidpoet.drafter.lines.renderer.LineChartRenderer
 import io.androidpoet.drafterdemo.ChartContainer
 import io.androidpoet.drafterdemo.ChartTitle
 
-private fun getLineChartRenderer() = LineChartRenderer(
-  SimpleLineChartData(
-    labels = listOf("A", "B", "C", "D"),
-    values = listOf(10f, 20f, 15f, 25f),
-    color = Color.Blue,
-  ),
-)
+private fun getLineChartRenderer() =
+  LineChartRenderer(
+    SimpleLineChartData(
+      labels = listOf("A", "B", "C", "D"),
+      values = listOf(10f, 20f, 15f, 25f),
+      color = Color.Blue,
+    ),
+  )
 
 @Composable
 fun SimpleLineChartExample() {

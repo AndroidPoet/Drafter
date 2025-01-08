@@ -37,12 +37,11 @@ public class HistogramRenderer(
   binCount: Int,
   color: Color = Color.Blue,
 ) : BarChartDataRenderer {
-
   /**
    * Computed histogram data containing the binned frequencies and labels.
    * This is publicly accessible for reference (e.g., for Y-axis scaling).
    */
-  public val histogramData: HistogramData
+  private val histogramData: HistogramData
 
   init {
     // Process raw data points into binned histogram data
@@ -98,7 +97,10 @@ public class HistogramRenderer(
    * Returns the width of a single bar as the group width.
    * For histograms, group width equals bar width since there's one bar per group.
    */
-  override fun calculateGroupWidth(barWidth: Float, barsPerGroup: Int): Float = barWidth
+  override fun calculateGroupWidth(
+    barWidth: Float,
+    barsPerGroup: Int,
+  ): Float = barWidth
 
   /**
    * Draws a single histogram bar at the specified position.
@@ -185,7 +187,6 @@ public class HistogramRenderer(
    * @param value Float value to format
    * @return String representation with one decimal place
    */
-  private fun formatToOneDecimal(value: Float): String {
-    return ((value * 10).roundToInt() / 10f).toString()
-  }
+  private fun formatToOneDecimal(value: Float): String =
+    ((value * 10).roundToInt() / 10f).toString()
 }

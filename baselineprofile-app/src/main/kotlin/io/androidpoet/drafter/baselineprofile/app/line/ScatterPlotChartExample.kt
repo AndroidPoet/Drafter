@@ -28,24 +28,27 @@ import io.androidpoet.drafter.scatterplot.SimpleScatterPlotRenderer
 import io.androidpoet.drafter.scatterplot.model.ScatterPlotData
 import kotlin.random.Random
 
-private fun getScatterPlotRenderer() = SimpleScatterPlotRenderer(
-  ScatterPlotData(
-    points = List(30) {
-      Pair(
-        Random.nextFloat() * 50f,
-        Random.nextFloat() * 50f,
-      )
-    },
-    pointColors = List(30) {
-      Color(
-        red = Random.nextFloat(),
-        green = Random.nextFloat(),
-        blue = Random.nextFloat(),
-        alpha = 1f,
-      )
-    },
-  ),
-)
+private fun getScatterPlotRenderer() =
+  SimpleScatterPlotRenderer(
+    ScatterPlotData(
+      points =
+        List(30) {
+          Pair(
+            Random.nextFloat() * 50f,
+            Random.nextFloat() * 50f,
+          )
+        },
+      pointColors =
+        List(30) {
+          Color(
+            red = Random.nextFloat(),
+            green = Random.nextFloat(),
+            blue = Random.nextFloat(),
+            alpha = 1f,
+          )
+        },
+    ),
+  )
 
 @Composable
 fun ScatterPlotChartExample() {

@@ -25,17 +25,18 @@ import io.androidpoet.drafter.gant.GanttChartRenderer
 import io.androidpoet.drafter.gant.GanttTask
 import io.androidpoet.drafterdemo.ChartTitle
 
-private fun getGanttChartRenderer() = GanttChartRenderer(
-  GanttChartData(
-    listOf(
-      GanttTask("Planning", 0f, 2f),
-      GanttTask("Design", 2f, 2f),
-      GanttTask("Development", 4f, 3f),
-      GanttTask("Testing", 7f, 2f),
-      GanttTask("Deployment", 9f, 1f),
+private fun getGanttChartRenderer() =
+  GanttChartRenderer(
+    GanttChartData(
+      listOf(
+        GanttTask("Planning", 0f, 2f),
+        GanttTask("Design", 2f, 2f),
+        GanttTask("Development", 4f, 3f),
+        GanttTask("Testing", 7f, 2f),
+        GanttTask("Deployment", 9f, 1f),
+      ),
     ),
-  ),
-)
+  )
 
 @Composable
 fun GanttChartExample() {

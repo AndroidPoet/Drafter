@@ -19,8 +19,11 @@ import androidx.compose.ui.graphics.drawscope.DrawScope
 
 public interface BubbleChartDataRenderer {
   public fun getLabels(): List<String>
+
   public fun getMaxValues(): Pair<Float, Float> // x, y
+
   public fun getValueRanges(): ValueRanges
+
   public fun drawBubbles(
     drawScope: DrawScope,
     chartWidth: Float,

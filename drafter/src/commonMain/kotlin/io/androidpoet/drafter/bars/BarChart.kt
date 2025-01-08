@@ -57,9 +57,10 @@ public fun BarChart(
   val textMeasurer = rememberTextMeasurer()
 
   // Animation progress controller
-  val animationProgress = remember {
-    Animatable(if (animate) 0f else 1f)
-  }
+  val animationProgress =
+    remember {
+      Animatable(if (animate) 0f else 1f)
+    }
   var hoverState by remember { mutableStateOf(HoverState()) }
   val interactionSource = remember { MutableInteractionSource() }
 
@@ -68,10 +69,11 @@ public fun BarChart(
     if (animate) {
       animationProgress.animateTo(
         targetValue = 1f,
-        animationSpec = tween(
-          durationMillis = 1000,
-          easing = LinearOutSlowInEasing,
-        ),
+        animationSpec =
+          tween(
+            durationMillis = 1000,
+            easing = LinearOutSlowInEasing,
+          ),
       )
     }
   }
@@ -82,9 +84,10 @@ public fun BarChart(
   val scrollState = rememberScrollState()
 
   Canvas(
-    modifier = modifier
-      .fillMaxSize()
-      .hoverable(interactionSource),
+    modifier =
+      modifier
+        .fillMaxSize()
+        .hoverable(interactionSource),
   ) {
     // Skip drawing if canvas size is invalid
     if (size.width < 1f || size.height < 1f) return@Canvas
@@ -98,11 +101,12 @@ public fun BarChart(
 
     // Calculate bar dimensions based on data
     val maxValue = renderer.calculateMaxValue()
-    val (barWidth, groupSpacing) = calculateBarDimensions(
-      chartWidth = chartWidth,
-      dataSize = labels.size,
-      barsPerGroup = barsPerGroup,
-    )
+    val (barWidth, groupSpacing) =
+      calculateBarDimensions(
+        chartWidth = chartWidth,
+        dataSize = labels.size,
+        barsPerGroup = barsPerGroup,
+      )
 
     // Draw axis labels and grid lines
     drawYAxisLabels(
@@ -144,7 +148,10 @@ public fun BarChart(
  * Calculates the dimensions for the chart layout.
  * @return Triple of (padding, height, width, top, bottom, left)
  */
-private fun calculateChartDimensions(width: Float, height: Float): ChartDimensions {
+private fun calculateChartDimensions(
+  width: Float,
+  height: Float,
+): ChartDimensions {
   val padding = width * 0.15f
   return ChartDimensions(
     chartPadding = padding,
@@ -201,9 +208,10 @@ private fun DrawScope.drawYAxisLabels(
       textMeasurer = textMeasurer,
       text = label,
       style = style,
-      topLeft = Offset(
-        x = (left - measured.size.width - 8f),
-        y = yPosition - (measured.size.height / 2),
+      topLeft =
+        Offset(
+          x = (left - measured.size.width - 8f),
+          y = yPosition - (measured.size.height / 2),
       ),
     )
   }
@@ -267,9 +275,10 @@ private fun DrawScope.drawXAxisLabels(
       textMeasurer = textMeasurer,
       text = label,
       style = style,
-      topLeft = Offset(
-        x = centerX - (measured.size.width / 2),
-        y = chartBottom + 8f,
+      topLeft =
+        Offset(
+          x = centerX - (measured.size.width / 2),
+          y = chartBottom + 8f,
       ),
     )
 

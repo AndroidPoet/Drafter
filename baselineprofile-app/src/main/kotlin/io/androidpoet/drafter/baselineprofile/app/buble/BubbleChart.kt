@@ -25,30 +25,32 @@ import io.androidpoet.drafter.buble.BubbleChart
 import io.androidpoet.drafter.buble.BubbleChartData
 import io.androidpoet.drafter.buble.SimpleBubbleChartDataRenderer
 
-private fun getBubbleChartData() = BubbleChartData(
-  series = listOf(
-    listOf(
-      BubbleChartData.BubbleData(10f, 26f, 30f, Color.Blue),
-      BubbleChartData.BubbleData(26f, 30f, 60f, Color.Blue),
-      BubbleChartData.BubbleData(26f, 46f, 45f, Color.Blue),
-    ),
-    listOf(
-      BubbleChartData.BubbleData(14f, 15f, 30f, Color.Green),
-      BubbleChartData.BubbleData(22f, 36f, 45f, Color.Green),
-      BubbleChartData.BubbleData(90f, 57f, 75f, Color.Green),
-    ),
-    listOf(
-      BubbleChartData.BubbleData(8f, 9f, 90f, Color.Yellow),
-      BubbleChartData.BubbleData(20f, 57f, 45f, Color.Yellow),
-      BubbleChartData.BubbleData(40f, 50f, 60f, Color.Yellow),
-    ),
-    listOf(
-      BubbleChartData.BubbleData(8f, 20f, 22.5f, Color.Red),
-      BubbleChartData.BubbleData(12f, 30f, 30f, Color.Red),
-      BubbleChartData.BubbleData(30f, 40f, 45f, Color.Red),
-    ),
-  ),
-)
+private fun getBubbleChartData() =
+  BubbleChartData(
+    series =
+      listOf(
+        listOf(
+          BubbleChartData.BubbleData(10f, 26f, 30f, Color.Blue),
+          BubbleChartData.BubbleData(26f, 30f, 60f, Color.Blue),
+          BubbleChartData.BubbleData(26f, 46f, 45f, Color.Blue),
+        ),
+        listOf(
+          BubbleChartData.BubbleData(14f, 15f, 30f, Color.Green),
+          BubbleChartData.BubbleData(22f, 36f, 45f, Color.Green),
+          BubbleChartData.BubbleData(90f, 57f, 75f, Color.Green),
+        ),
+        listOf(
+          BubbleChartData.BubbleData(8f, 9f, 90f, Color.Yellow),
+          BubbleChartData.BubbleData(20f, 57f, 45f, Color.Yellow),
+          BubbleChartData.BubbleData(40f, 50f, 60f, Color.Yellow),
+        ),
+        listOf(
+          BubbleChartData.BubbleData(8f, 20f, 22.5f, Color.Red),
+          BubbleChartData.BubbleData(12f, 30f, 30f, Color.Red),
+          BubbleChartData.BubbleData(30f, 40f, 45f, Color.Red),
+        ),
+      ),
+  )
 
 private fun getBubbleChartRenderer() = SimpleBubbleChartDataRenderer(getBubbleChartData())
 

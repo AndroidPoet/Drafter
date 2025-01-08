@@ -31,10 +31,10 @@ fun ChartContainer(
 ) {
   Box(
     modifier =
-    modifier
-      .fillMaxWidth()
-      .height(200.dp)
-      .padding(horizontal = 16.dp),
+      modifier
+        .fillMaxWidth()
+        .height(200.dp)
+        .padding(horizontal = 16.dp),
     contentAlignment = Alignment.Center,
   ) {
     content()

@@ -40,7 +40,10 @@ public interface BarChartDataRenderer {
   /**
    * For layout, how wide is a single "group" on the X-axis? (barWidth * barsPerGroup + internal spacing).
    */
-  public fun calculateGroupWidth(barWidth: Float, barsPerGroup: Int): Float
+  public fun calculateGroupWidth(
+    barWidth: Float,
+    barsPerGroup: Int,
+  ): Float
 
   /**
    * Draw the bars for group [index]. This is where grouped, stacked, or histogram logic goes.

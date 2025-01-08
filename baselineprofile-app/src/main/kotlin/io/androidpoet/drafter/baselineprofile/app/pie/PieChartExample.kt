@@ -24,27 +24,31 @@ import io.androidpoet.drafter.pie.model.PieChartData
 import io.androidpoet.drafter.pie.renderer.DonutChartRenderer
 import io.androidpoet.drafter.pie.renderer.PieChartRenderer
 
-private fun getPieChartRenderer() = PieChartRenderer(
-  PieChartData(
-    slices = listOf(
-      PieChartData.Slice(value = 40f, color = Color.Red, label = "Red"),
-      PieChartData.Slice(value = 30f, color = Color.Green, label = "Green"),
-      PieChartData.Slice(value = 20f, color = Color.Blue, label = "Blue"),
-      PieChartData.Slice(value = 10f, color = Color.Magenta, label = "Purple"),
+private fun getPieChartRenderer() =
+  PieChartRenderer(
+    PieChartData(
+      slices =
+        listOf(
+          PieChartData.Slice(value = 40f, color = Color.Red, label = "Red"),
+          PieChartData.Slice(value = 30f, color = Color.Green, label = "Green"),
+          PieChartData.Slice(value = 20f, color = Color.Blue, label = "Blue"),
+          PieChartData.Slice(value = 10f, color = Color.Magenta, label = "Purple"),
+        ),
     ),
-  ),
-)
+  )
 
-private fun getDonutPieChartRenderer() = DonutChartRenderer(
-  PieChartData(
-    slices = listOf(
-      PieChartData.Slice(value = 40f, color = Color.Red, label = "Red"),
-      PieChartData.Slice(value = 30f, color = Color.Green, label = "Green"),
-      PieChartData.Slice(value = 20f, color = Color.Blue, label = "Blue"),
-      PieChartData.Slice(value = 10f, color = Color.Magenta, label = "Purple"),
+private fun getDonutPieChartRenderer() =
+  DonutChartRenderer(
+    PieChartData(
+      slices =
+        listOf(
+          PieChartData.Slice(value = 40f, color = Color.Red, label = "Red"),
+          PieChartData.Slice(value = 30f, color = Color.Green, label = "Green"),
+          PieChartData.Slice(value = 20f, color = Color.Blue, label = "Blue"),
+          PieChartData.Slice(value = 10f, color = Color.Magenta, label = "Purple"),
+        ),
     ),
-  ),
-)
+  )
 
 @Composable
 fun PieChartExample() {

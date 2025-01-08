@@ -25,11 +25,9 @@ import kotlin.math.pow
 public class GroupedLineChartRenderer(
   private val data: GroupedLineChartData,
 ) : LineChartDataRenderer {
-
   override fun getLabels(): List<String> = data.labels
 
-  override fun calculateMaxValue(): Float =
-    data.groupedValues.flatten().maxOrNull() ?: 0f
+  override fun calculateMaxValue(): Float = data.groupedValues.flatten().maxOrNull() ?: 0f
 
   override fun drawLines(
     drawScope: DrawScope,
@@ -41,30 +39,36 @@ public class GroupedLineChartRenderer(
     animationProgress: Float,
   ) {
     val numPoints = data.labels.size
-    val xPositions = List(numPoints) { index ->
-      chartLeft + index * (chartWidth / (numPoints - 1))
-    }
-
-    data.itemNames.forEachIndexed { itemIndex, _ ->
-      val points = List(numPoints) { index ->
-        val value = data.groupedValues[index][itemIndex]
-        val x = xPositions[index]
-        val y = chartTop + chartHeight - (value / maxValue) * chartHeight
-        Offset(x, y)
+    val xPositions =
+      List(numPoints) { index ->
+        chartLeft + index * (chartWidth / (numPoints - 1))
       }
 
-      val totalLength = points.zipWithNext().sumOf { (start, end) ->
-        val dx = end.x - start.x
-        val dy = end.y - start.y
-        kotlin.math.sqrt((dx * dx + dy * dy).toDouble())
-      }.toFloat()
+    data.itemNames.forEachIndexed { itemIndex, _ ->
+      val points =
+        List(numPoints) { index ->
+          val value = data.groupedValues[index][itemIndex]
+          val x = xPositions[index]
+          val y = chartTop + chartHeight - (value / maxValue) * chartHeight
+          Offset(x, y)
+        }
+
+      val totalLength =
+        points
+          .zipWithNext()
+          .sumOf { (start, end) ->
+            val dx = end.x - start.x
+            val dy = end.y - start.y
+            kotlin.math.sqrt((dx * dx + dy * dy).toDouble())
+          }.toFloat()
 
       var currentLength = 0f
 
       points.zipWithNext().forEach { (start, end) ->
-        val segmentLength = kotlin.math.sqrt(
-          (end.x - start.x).pow(2) + (end.y - start.y).pow(2),
-        )
+        val segmentLength =
+          kotlin.math.sqrt(
+            (end.x - start.x).pow(2) + (end.y - start.y).pow(2),
+          )
         val segmentProgress = (currentLength + segmentLength) / totalLength
 
         if (segmentProgress <= animationProgress) {
@@ -77,10 +81,11 @@ public class GroupedLineChartRenderer(
         } else if (currentLength / totalLength <= animationProgress) {
           val remainingProgress =
             (animationProgress - currentLength / totalLength) / (segmentLength / totalLength)
-          val partialEnd = Offset(
-            x = start.x + (end.x - start.x) * remainingProgress,
-            y = start.y + (end.y - start.y) * remainingProgress,
-          )
+          val partialEnd =
+            Offset(
+              x = start.x + (end.x - start.x) * remainingProgress,
+              y = start.y + (end.y - start.y) * remainingProgress,
+            )
           drawScope.drawLine(
             color = data.colors.getOrElse(itemIndex) { Color.Gray },
             start = start,

@@ -47,10 +47,11 @@ public fun GanttChart(
   LaunchedEffect(Unit) {
     animationProgress.animateTo(
       targetValue = 1f,
-      animationSpec = tween(
-        durationMillis = 2000,
-        easing = LinearOutSlowInEasing,
-      ),
+      animationSpec =
+        tween(
+          durationMillis = 2000,
+          easing = LinearOutSlowInEasing,
+        ),
     )
   }
 
@@ -138,9 +139,10 @@ public fun DrawScope.drawYAxisLabels(
     // Safely clamp X if you want to avoid negative draws
     val finalX = (left - textLayoutResult.size.width - 5f).coerceAtLeast(0f)
 
-    val finalY = (yCenter - textLayoutResult.size.height / 2)
-      .coerceAtLeast(0f)
-      .coerceAtMost(size.height - textLayoutResult.size.height)
+    val finalY =
+      (yCenter - textLayoutResult.size.height / 2)
+        .coerceAtLeast(0f)
+        .coerceAtMost(size.height - textLayoutResult.size.height)
 
     drawText(
       textMeasurer = textMeasurer,
@@ -168,13 +170,13 @@ public fun DrawScope.drawXAxisLabels(
 
   // 1) Gather months from tasks (integer months for start..end).
   //    e.g., if start=2.5, duration=3.2 => range 2..5
-  val distinctMonths = tasks
-    .flatMap { task ->
-      val start = task.startMonth.toInt()
-      val end = (task.startMonth + task.duration).toInt()
-      (start..end).toList() // all integer months in the range
-    }
-    .toSet()
+  val distinctMonths =
+    tasks
+      .flatMap { task ->
+        val start = task.startMonth.toInt()
+        val end = (task.startMonth + task.duration).toInt()
+        (start..end).toList() // all integer months in the range
+      }.toSet()
 
   // 2) Also ensure we include 0 and the overall max
   val finalMonths = distinctMonths + 0 + safeMaxMonth.toInt()
@@ -193,9 +195,10 @@ public fun DrawScope.drawXAxisLabels(
     val safeBottom = min(bottom + 5f, canvasHeight - textLayoutResult.size.height)
 
     // Center horizontally at X
-    val finalX = (x - textLayoutResult.size.width / 2)
-      .coerceAtLeast(0f)
-      .coerceAtMost(size.width - textLayoutResult.size.width)
+    val finalX =
+      (x - textLayoutResult.size.width / 2)
+        .coerceAtLeast(0f)
+        .coerceAtMost(size.width - textLayoutResult.size.width)
 
     drawText(
       textMeasurer = textMeasurer,

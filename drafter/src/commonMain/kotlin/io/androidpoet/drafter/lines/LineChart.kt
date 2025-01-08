@@ -42,17 +42,19 @@ public fun LineChart(
   modifier: Modifier = Modifier,
 ) {
   val textMeasurer = rememberTextMeasurer()
-  val animationProgress = remember {
-    Animatable(0f)
-  }
+  val animationProgress =
+    remember {
+      Animatable(0f)
+    }
 
   LaunchedEffect(Unit) {
     animationProgress.animateTo(
       targetValue = 1f,
-      animationSpec = tween(
-        durationMillis = 3000, // Increased duration
-        easing = FastOutSlowInEasing,
-      ),
+      animationSpec =
+        tween(
+          durationMillis = 3000, // Increased duration
+          easing = FastOutSlowInEasing,
+        ),
     )
   }
 
@@ -139,10 +141,11 @@ private fun DrawScope.drawYAxisLabels(
       textMeasurer = textMeasurer,
       text = label,
       style = style,
-      topLeft = Offset(
-        left - textLayoutResult.size.width - 5f,
-        y - textLayoutResult.size.height / 2,
-      ),
+      topLeft =
+        Offset(
+          left - textLayoutResult.size.width - 5f,
+          y - textLayoutResult.size.height / 2,
+        ),
     )
   }
 }

@@ -25,18 +25,20 @@ import io.androidpoet.drafter.lines.renderer.StackedLineChartRenderer
 import io.androidpoet.drafterdemo.ChartContainer
 import io.androidpoet.drafterdemo.ChartTitle
 
-private fun getStackedLineChartRenderer() = StackedLineChartRenderer(
-  StackedLineChartData(
-    labels = listOf("Jan", "Feb", "Mar", "Apr"),
-    stacks = listOf(
-      listOf(5f, 5f, 2f),
-      listOf(7f, 3f, 4f),
-      listOf(6f, 4f, 3f),
-      listOf(8f, 2f, 5f),
+private fun getStackedLineChartRenderer() =
+  StackedLineChartRenderer(
+    StackedLineChartData(
+      labels = listOf("Jan", "Feb", "Mar", "Apr"),
+      stacks =
+        listOf(
+          listOf(5f, 5f, 2f),
+          listOf(7f, 3f, 4f),
+          listOf(6f, 4f, 3f),
+          listOf(8f, 2f, 5f),
+        ),
+      colors = listOf(Color.Blue, Color.Red, Color.Green),
     ),
-    colors = listOf(Color.Blue, Color.Red, Color.Green),
-  ),
-)
+  )
 
 @Composable
 fun StackedLineChartExample() {

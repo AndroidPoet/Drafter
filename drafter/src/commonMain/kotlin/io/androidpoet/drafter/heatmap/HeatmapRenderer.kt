@@ -50,15 +50,14 @@ public class DefaultHeatmapRenderer(
     private val level4Color = Color(0xFF39D353)
   }
 
-  private fun getContributionColor(count: Int): Color {
-    return when {
+  private fun getContributionColor(count: Int): Color =
+    when {
       count == 0 -> emptyColor
       count <= 3 -> level1Color
       count <= 6 -> level2Color
       count <= 9 -> level3Color
       else -> level4Color
     }
-  }
 
   override fun drawHeatmap(
     drawScope: DrawScope,
@@ -73,11 +72,13 @@ public class DefaultHeatmapRenderer(
       val endDate = endInstant.toLocalDateTime(TimeZone.currentSystemDefault()).date
       val weeks = startDate.daysUntil(endDate) / 7
 
-      val contributionsMap = data.contributions.groupingBy {
-        it.timestamp.toLocalDateTime(TimeZone.currentSystemDefault()).date
-      }.aggregate { _, accumulator: Int?, element, _ ->
-        (accumulator ?: 0) + element.count
-      }
+      val contributionsMap =
+        data.contributions
+          .groupingBy {
+            it.timestamp.toLocalDateTime(TimeZone.currentSystemDefault()).date
+          }.aggregate { _, accumulator: Int?, element, _ ->
+            (accumulator ?: 0) + element.count
+          }
 
       var currentDate = startDate
       for (week in 0..weeks) {

@@ -26,11 +26,12 @@ import io.androidpoet.drafter.bars.model.SimpleBarChartData
 import io.androidpoet.drafter.bars.renderer.BarChartRenderer
 import io.androidpoet.drafterdemo.ChartTitle
 
-private fun getBarChartData() = SimpleBarChartData(
-  labelsList = listOf("Jan", "Feb", "Mar", "Apr"),
-  values = listOf(10f, 30f, 15f, 45f),
-  colors = listOf(Color.Red, Color.Green, Color.Blue, Color.Magenta),
-)
+private fun getBarChartData() =
+  SimpleBarChartData(
+    labelsList = listOf("Jan", "Feb", "Mar", "Apr"),
+    values = listOf(10f, 30f, 15f, 45f),
+    colors = listOf(Color.Red, Color.Green, Color.Blue, Color.Magenta),
+  )
 
 private fun getSimpleBarChartRenderer() = BarChartRenderer(getBarChartData())
 
@@ -40,9 +41,10 @@ fun SimpleBarChartExample() {
 
   BarChart(
     renderer = getSimpleBarChartRenderer(),
-    modifier = Modifier
-      .height(300.dp)
-      .fillMaxWidth(),
+    modifier =
+      Modifier
+        .height(300.dp)
+        .fillMaxWidth(),
     animate = true,
   )
 }
