@@ -1,4 +1,5 @@
 import io.androidpoet.drafter.Configuration
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
@@ -40,6 +41,12 @@ kotlin {
     browser()
     nodejs()
   }
+  @OptIn(ExperimentalWasmDsl::class)
+  wasmJs {
+    browser()
+    nodejs()
+    binaries.executable()
+  }
   @Suppress("OPT_IN_USAGE")
   applyHierarchyTemplate {
     common {
@@ -62,6 +69,7 @@ kotlin {
             }
           }
           withJs()
+          withWasmJs()
         }
       }
     }

@@ -24,22 +24,25 @@ import io.androidpoet.drafter.lines.renderer.LineChartRenderer
 import io.androidpoet.drafterdemo.ChartContainer
 import io.androidpoet.drafterdemo.ChartTitle
 
-private fun getLineChartRenderer() =
+private fun getLineChartRenderer(colors: List<Color>) =
   LineChartRenderer(
     SimpleLineChartData(
       labels = listOf("A", "B", "C", "D"),
       values = listOf(10f, 20f, 15f, 25f),
-      color = Color.Blue,
+      color = colors.first(),
     ),
   )
 
 @Composable
-fun SimpleLineChartExample() {
+fun SimpleLineChartExample(
+  colors: List<Color>,
+  modifier: Modifier = Modifier,
+) {
   ChartTitle(text = "Simple Line Chart")
 
   ChartContainer {
     LineChart(
-      renderer = getLineChartRenderer(),
+      renderer = getLineChartRenderer(colors = colors),
       modifier = Modifier.fillMaxSize(),
     )
   }

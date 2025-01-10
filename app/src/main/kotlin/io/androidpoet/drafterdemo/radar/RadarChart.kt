@@ -16,6 +16,7 @@
 package io.androidpoet.drafterdemo.radar
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import io.androidpoet.drafter.radar.RadarChart
 import io.androidpoet.drafter.radar.RadarChartData
@@ -34,14 +35,16 @@ private fun getRadarChartData() =
     ),
   )
 
-private fun getRadarChartColors() = listOf(Color.Blue, Color.Red)
 
 @Composable
-fun RadarChartExample() {
+fun RadarChartExample(
+  colors: List<Color>,
+  modifier: Modifier = Modifier,
+) {
   ChartTitle(text = "Radar Chart")
 
   RadarChart(
     data = getRadarChartData(),
-    colors = getRadarChartColors(),
+    colors = colors,
   )
 }

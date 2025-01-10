@@ -28,7 +28,7 @@ import io.androidpoet.drafterdemo.ChartContainer
 import io.androidpoet.drafterdemo.ChartTitle
 import kotlin.random.Random
 
-private fun getScatterPlotRenderer() =
+private fun getScatterPlotRenderer(colors: List<Color>) =
   SimpleScatterPlotRenderer(
     ScatterPlotData(
       points =
@@ -40,24 +40,22 @@ private fun getScatterPlotRenderer() =
         },
       pointColors =
         List(30) {
-          Color(
-            red = Random.nextFloat(),
-            green = Random.nextFloat(),
-            blue = Random.nextFloat(),
-            alpha = 1f,
-          )
+          if (colors.isNotEmpty()) colors[it % colors.size] else Color.Gray
         },
     ),
   )
 
 @Composable
-fun ScatterPlotChartExample() {
+fun ScatterPlotChartExample(
+  colors: List<Color>,
+  modifier: Modifier = Modifier,
+) {
   ChartTitle(text = "Scatter Plot Chart")
 
   ChartContainer(modifier = Modifier.height(300.dp)) {
     ScatterPlot(
-      renderer = getScatterPlotRenderer(),
-      modifier = Modifier.fillMaxSize(),
+      renderer = getScatterPlotRenderer(colors = colors),
+      modifier = modifier.fillMaxSize(),
     )
   }
 }

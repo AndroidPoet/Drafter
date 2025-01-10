@@ -42,7 +42,10 @@ private fun getBarChartRenderer() =
   )
 
 @Composable
-fun GroupedBarChartExample() {
+fun GroupedBarChartExample(
+  colors: List<Color>,
+  modifier: Modifier = Modifier,
+) {
   ChartTitle(text = "Grouped Bar Chart")
   BarChart(
     renderer = getBarChartRenderer(),

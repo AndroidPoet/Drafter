@@ -22,51 +22,43 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import io.androidpoet.drafter.pie.PieChart
 import io.androidpoet.drafter.pie.model.PieChartData
-import io.androidpoet.drafter.pie.renderer.DonutChartRenderer
 import io.androidpoet.drafter.pie.renderer.PieChartRenderer
 import io.androidpoet.drafterdemo.ChartTitle
 
-private fun getPieChartRenderer() =
+private fun getPieChartRenderer(colors: List<Color>) =
   PieChartRenderer(
     PieChartData(
       slices =
         listOf(
-          PieChartData.Slice(value = 40f, color = Color.Red, label = "Red"),
-          PieChartData.Slice(value = 30f, color = Color.Green, label = "Green"),
-          PieChartData.Slice(value = 20f, color = Color.Blue, label = "Blue"),
-          PieChartData.Slice(value = 10f, color = Color.Magenta, label = "Purple"),
-        ),
-    ),
-  )
-
-private fun getDonutPieChartRenderer() =
-  DonutChartRenderer(
-    PieChartData(
-      slices =
-        listOf(
-          PieChartData.Slice(value = 40f, color = Color.Red, label = "Red"),
-          PieChartData.Slice(value = 30f, color = Color.Green, label = "Green"),
-          PieChartData.Slice(value = 20f, color = Color.Blue, label = "Blue"),
-          PieChartData.Slice(value = 10f, color = Color.Magenta, label = "Purple"),
+          PieChartData.Slice(value = 40f, color = colors[0], label = "Red"),
+          PieChartData.Slice(value = 30f, color = colors[1], label = "Green"),
+          PieChartData.Slice(value = 20f, color = colors[2], label = "Blue"),
+          PieChartData.Slice(value = 10f, color = colors[3], label = "Purple"),
         ),
     ),
   )
 
 @Composable
-fun PieChartExample() {
+fun PieChartExample(
+  colors: List<Color>,
+  modifier: Modifier = Modifier,
+) {
   ChartTitle(text = "Pie Chart")
   PieChart(
-    renderer = getPieChartRenderer(),
+    renderer = getPieChartRenderer(colors = colors),
     modifier = Modifier.size(200.dp),
     animate = true,
   )
 }
 
 @Composable
-fun DonutChartExample() {
+fun DonutChartExample(
+  colors: List<Color>,
+  modifier: Modifier = Modifier,
+) {
   ChartTitle(text = "Pie Chart")
   PieChart(
-    renderer = getDonutPieChartRenderer(),
+    renderer = getPieChartRenderer(colors = colors),
     modifier = Modifier.size(200.dp),
     animate = true,
   )

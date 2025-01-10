@@ -26,26 +26,29 @@ import io.androidpoet.drafter.bars.model.WaterfallChartData
 import io.androidpoet.drafter.bars.renderer.WaterfallChartRenderer
 import io.androidpoet.drafterdemo.ChartTitle
 
-private fun getWaterfallChartRenderer() =
+private fun getWaterfallChartRenderer(colors: List<Color>) =
   WaterfallChartRenderer(
     WaterfallChartData(
       labelsList = listOf("Start", "Revenue", "Cost", "Profit"),
       values = listOf(+50f, -20f, +30f), // Changes from 'Start'
-      colors = listOf(Color.Green, Color.Red, Color.Green),
+      colors = colors,
       initialValue = 100f, // Start from 100
     ),
   )
 
 @Composable
-fun WaterfallChartExample(modifier: Modifier = Modifier) {
+fun WaterfallChartExample(
+  colors: List<Color>,
+  modifier: Modifier = Modifier,
+) {
   ChartTitle(text = "Waterfall Chart")
 
   BarChart(
-    renderer = getWaterfallChartRenderer(),
+    renderer = getWaterfallChartRenderer(colors = colors),
     modifier =
-      modifier
-        .height(300.dp)
-        .fillMaxWidth(),
+    modifier
+      .height(300.dp)
+      .fillMaxWidth(),
     animate = true,
   )
 }

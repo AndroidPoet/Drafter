@@ -24,7 +24,7 @@ import io.androidpoet.drafter.lines.renderer.GroupedLineChartRenderer
 import io.androidpoet.drafterdemo.ChartContainer
 import io.androidpoet.drafterdemo.ChartTitle
 
-private fun getGroupedLineChartData() =
+private fun getGroupedLineChartData(colors: List<Color>) =
   GroupedLineChartData(
     labels = listOf("Q1", "Q2", "Q3", "Q4"),
     itemNames = listOf("Product A", "Product B"),
@@ -35,19 +35,23 @@ private fun getGroupedLineChartData() =
         listOf(15f, 10f),
         listOf(25f, 20f),
       ),
-    colors = listOf(Color.Cyan, Color.Magenta),
+    colors = colors,
   )
 
-private fun getGroupedLineChartRenderer() = GroupedLineChartRenderer(getGroupedLineChartData())
+private fun getGroupedLineChartRenderer(colors: List<Color>) =
+  GroupedLineChartRenderer(getGroupedLineChartData(colors = colors))
 
 @Composable
-fun GroupedLineChartExample() {
+fun GroupedLineChartExample(
+  colors: List<Color>,
+  modifier: Modifier = Modifier,
+) {
   ChartTitle(text = "Grouped Line Chart")
 
   ChartContainer {
     LineChart(
-      renderer = getGroupedLineChartRenderer(),
-      modifier = Modifier.fillMaxSize(),
+      renderer = getGroupedLineChartRenderer(colors = colors),
+      modifier = modifier.fillMaxSize(),
     )
   }
 }

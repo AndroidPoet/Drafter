@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import io.androidpoet.drafter.heatmap.ContributionData
 import io.androidpoet.drafter.heatmap.ContributionHeatmap
@@ -29,12 +30,14 @@ import kotlinx.datetime.Clock
 import kotlin.random.Random
 import kotlin.time.Duration.Companion.days
 
-private fun getHeatmapRenderer() =
+private fun getHeatmapRenderer(color: Color) =
   DefaultHeatmapRenderer(
     ContributionHeatmapData(
-      buildList {
-        val now = Clock.System.now()
-        repeat(365) { day ->
+      baseColor = color,
+      contributions =
+        buildList {
+          val now = Clock.System.now()
+          repeat(365) { day ->
           val date = now.minus(day.days)
           val count = if (Random.nextFloat() > 0.6f) Random.nextInt(1, 15) else 0
           add(ContributionData(date, count))
@@ -44,11 +47,14 @@ private fun getHeatmapRenderer() =
   )
 
 @Composable
-fun GithubGraph() {
+fun GithubGraph(
+  modifier: Modifier = Modifier,
+  color: Color,
+) {
   ChartTitle(text = "Github Graph")
 
   ContributionHeatmap(
-    renderer = getHeatmapRenderer(),
+    renderer = getHeatmapRenderer(color = color),
     modifier =
       Modifier
         .fillMaxWidth()
