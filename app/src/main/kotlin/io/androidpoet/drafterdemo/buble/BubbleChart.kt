@@ -15,7 +15,8 @@
  */
 package io.androidpoet.drafterdemo.buble
 
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -23,33 +24,32 @@ import androidx.compose.ui.unit.dp
 import io.androidpoet.drafter.buble.BubbleChart
 import io.androidpoet.drafter.buble.BubbleChartData
 import io.androidpoet.drafter.buble.SimpleBubbleChartDataRenderer
-import io.androidpoet.drafterdemo.ChartTitle
 
 private fun getBubbleChartData(colors: List<Color>) =
   BubbleChartData(
     series =
+    listOf(
       listOf(
-        listOf(
-          BubbleChartData.BubbleData(10f, 26f, 30f, colors[0]),
-          BubbleChartData.BubbleData(26f, 30f, 60f, colors[0]),
-          BubbleChartData.BubbleData(26f, 46f, 45f, colors[0]),
-        ),
-        listOf(
-          BubbleChartData.BubbleData(14f, 15f, 30f, colors[1]),
-          BubbleChartData.BubbleData(22f, 36f, 45f, colors[1]),
-          BubbleChartData.BubbleData(90f, 57f, 75f, colors[1]),
-        ),
-        listOf(
-          BubbleChartData.BubbleData(8f, 9f, 90f, colors[2]),
-          BubbleChartData.BubbleData(20f, 57f, 45f, colors[2]),
-          BubbleChartData.BubbleData(40f, 50f, 60f, colors[2]),
-        ),
-        listOf(
-          BubbleChartData.BubbleData(8f, 20f, 22.5f, colors[3]),
-          BubbleChartData.BubbleData(12f, 30f, 30f, colors[3]),
-          BubbleChartData.BubbleData(30f, 40f, 45f, colors[3]),
-        ),
+        BubbleChartData.BubbleData(10f, 26f, 30f, colors[0]),
+        BubbleChartData.BubbleData(26f, 30f, 60f, colors[0]),
+        BubbleChartData.BubbleData(26f, 46f, 45f, colors[0]),
       ),
+      listOf(
+        BubbleChartData.BubbleData(14f, 15f, 30f, colors[1]),
+        BubbleChartData.BubbleData(22f, 36f, 45f, colors[1]),
+        BubbleChartData.BubbleData(90f, 57f, 75f, colors[1]),
+      ),
+      listOf(
+        BubbleChartData.BubbleData(8f, 9f, 90f, colors[2]),
+        BubbleChartData.BubbleData(20f, 57f, 45f, colors[2]),
+        BubbleChartData.BubbleData(40f, 50f, 60f, colors[2]),
+      ),
+      listOf(
+        BubbleChartData.BubbleData(8f, 20f, 22.5f, colors[3]),
+        BubbleChartData.BubbleData(12f, 30f, 30f, colors[3]),
+        BubbleChartData.BubbleData(30f, 40f, 45f, colors[3]),
+      ),
+    ),
   )
 
 private fun getBubbleChartRenderer(colors: List<Color>) =
@@ -60,9 +60,11 @@ fun BubbleChartExample(
   colors: List<Color>,
   modifier: Modifier = Modifier,
 ) {
-  ChartTitle(text = "Bubble Chart")
   BubbleChart(
     renderer = getBubbleChartRenderer(colors = colors),
-    modifier = modifier.size(300.dp),
+    modifier =
+    modifier
+      .height(300.dp)
+      .fillMaxWidth(),
   )
 }

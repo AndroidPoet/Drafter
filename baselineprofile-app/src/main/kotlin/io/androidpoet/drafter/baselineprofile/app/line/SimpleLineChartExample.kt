@@ -18,29 +18,26 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import io.androidpoet.drafter.baselineprofile.app.ChartContainer
-import io.androidpoet.drafter.baselineprofile.app.ChartTitle
 import io.androidpoet.drafter.lines.LineChart
 import io.androidpoet.drafter.lines.model.SimpleLineChartData
 import io.androidpoet.drafter.lines.renderer.LineChartRenderer
 
-private fun getLineChartRenderer() =
+private fun getLineChartRenderer(colors: List<Color>) =
   LineChartRenderer(
     SimpleLineChartData(
       labels = listOf("A", "B", "C", "D"),
       values = listOf(10f, 20f, 15f, 25f),
-      color = Color.Blue,
+      color = colors.first(),
     ),
   )
 
 @Composable
-fun SimpleLineChartExample() {
-  ChartTitle(text = "Simple Line Chart")
-
-  ChartContainer {
-    LineChart(
-      renderer = getLineChartRenderer(),
-      modifier = Modifier.fillMaxSize(),
-    )
-  }
+fun SimpleLineChartExample(
+  colors: List<Color>,
+  modifier: Modifier = Modifier,
+) {
+  LineChart(
+    renderer = getLineChartRenderer(colors = colors),
+    modifier = modifier.fillMaxSize(),
+  )
 }

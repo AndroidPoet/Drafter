@@ -19,6 +19,7 @@ import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -40,6 +41,7 @@ import kotlin.math.pow
 public fun LineChart(
   renderer: LineChartDataRenderer,
   modifier: Modifier = Modifier,
+  isSystemInDarkTheme: Boolean = isSystemInDarkTheme(),
 ) {
   val textMeasurer = rememberTextMeasurer()
   val animationProgress =
@@ -51,10 +53,10 @@ public fun LineChart(
     animationProgress.animateTo(
       targetValue = 1f,
       animationSpec =
-        tween(
-          durationMillis = 3000, // Increased duration
-          easing = FastOutSlowInEasing,
-        ),
+      tween(
+        durationMillis = 3000, // Increased duration
+        easing = FastOutSlowInEasing,
+      ),
     )
   }
 
@@ -67,8 +69,8 @@ public fun LineChart(
 
     val maxValue = renderer.calculateMaxValue()
 
-    drawAxes(chartLeft, chartTop, chartBottom, chartWidth)
-    drawYAxisLabels(textMeasurer, chartLeft, chartTop, chartBottom, maxValue)
+    drawAxes(chartLeft, chartTop, chartBottom, chartWidth, isSystemInDarkTheme)
+    drawYAxisLabels(textMeasurer, chartLeft, chartTop, chartBottom, maxValue, isSystemInDarkTheme)
 
     // Animate with FastOutSlowInEasing for smoother appearance
     val currentProgress = FastOutSlowInEasing.transform(animationProgress.value)
@@ -85,7 +87,7 @@ public fun LineChart(
 
     renderer.getLabels().forEachIndexed { index, label ->
       val x = chartLeft + index * (chartWidth / (renderer.getLabels().size - 1))
-      drawXAxisLabel(textMeasurer, label, x, chartBottom)
+      drawXAxisLabel(textMeasurer, label, x, chartBottom, isSystemInDarkTheme)
     }
   }
 }
@@ -95,8 +97,10 @@ private fun DrawScope.drawXAxisLabel(
   label: String,
   x: Float,
   y: Float,
+  isSystemInDarkTheme: Boolean,
 ) {
-  val style = TextStyle(fontSize = 10.sp, color = Color.Black)
+  val style =
+    TextStyle(fontSize = 10.sp, color = if (isSystemInDarkTheme) Color.White else Color.Black)
   val textLayoutResult = textMeasurer.measure(label, style)
   drawText(
     textMeasurer = textMeasurer,
@@ -111,9 +115,20 @@ private fun DrawScope.drawAxes(
   top: Float,
   bottom: Float,
   width: Float,
+  isSystemInDarkTheme: Boolean,
 ) {
-  drawLine(Color.Black, Offset(left, top), Offset(left, bottom), strokeWidth = 2f)
-  drawLine(Color.Black, Offset(left, bottom), Offset(left + width, bottom), strokeWidth = 2f)
+  drawLine(
+    if (isSystemInDarkTheme) Color.White else Color.Black,
+    Offset(left, top),
+    Offset(left, bottom),
+    strokeWidth = 2f,
+  )
+  drawLine(
+    if (isSystemInDarkTheme) Color.White else Color.Black,
+    Offset(left, bottom),
+    Offset(left + width, bottom),
+    strokeWidth = 2f,
+  )
 }
 
 private fun DrawScope.drawYAxisLabels(
@@ -122,8 +137,10 @@ private fun DrawScope.drawYAxisLabels(
   top: Float,
   bottom: Float,
   maxValue: Float,
+  isSystemInDarkTheme: Boolean,
 ) {
-  val style = TextStyle(fontSize = 10.sp, color = Color.Black)
+  val style =
+    TextStyle(fontSize = 10.sp, color = if (isSystemInDarkTheme) Color.White else Color.Black)
 
   // Calculate a nice step size based on the max value
   val step = calculateGridStep(maxValue)
@@ -142,10 +159,10 @@ private fun DrawScope.drawYAxisLabels(
       text = label,
       style = style,
       topLeft =
-        Offset(
-          left - textLayoutResult.size.width - 5f,
-          y - textLayoutResult.size.height / 2,
-        ),
+      Offset(
+        left - textLayoutResult.size.width - 5f,
+        y - textLayoutResult.size.height / 2,
+      ),
     )
   }
 }

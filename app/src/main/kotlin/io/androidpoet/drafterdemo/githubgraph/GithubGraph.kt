@@ -22,22 +22,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import io.androidpoet.drafter.heatmap.ContributionData
-import io.androidpoet.drafter.heatmap.ContributionHeatmap
 import io.androidpoet.drafter.heatmap.ContributionHeatmapData
-import io.androidpoet.drafter.heatmap.DefaultHeatmapRenderer
-import io.androidpoet.drafterdemo.ChartTitle
+import io.androidpoet.drafter.heatmap.Heatmap
+import io.androidpoet.drafter.heatmap.HeatmapRenderer
 import kotlinx.datetime.Clock
 import kotlin.random.Random
 import kotlin.time.Duration.Companion.days
 
 private fun getHeatmapRenderer(color: Color) =
-  DefaultHeatmapRenderer(
+  HeatmapRenderer(
     ContributionHeatmapData(
       baseColor = color,
       contributions =
-        buildList {
-          val now = Clock.System.now()
-          repeat(365) { day ->
+      buildList {
+        val now = Clock.System.now()
+        repeat(365) { day ->
           val date = now.minus(day.days)
           val count = if (Random.nextFloat() > 0.6f) Random.nextInt(1, 15) else 0
           add(ContributionData(date, count))
@@ -51,13 +50,11 @@ fun GithubGraph(
   modifier: Modifier = Modifier,
   color: Color,
 ) {
-  ChartTitle(text = "Github Graph")
-
-  ContributionHeatmap(
+  Heatmap(
     renderer = getHeatmapRenderer(color = color),
     modifier =
-      Modifier
-        .fillMaxWidth()
-        .height(112.dp),
+    Modifier
+      .height(300.dp)
+      .fillMaxWidth(),
   )
 }

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.androidpoet.drafterdemo.bars
+package io.androidpoet.drafter.baselineprofile.app.githubgraph
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -21,31 +21,40 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import io.androidpoet.drafter.bars.BarChart
-import io.androidpoet.drafter.bars.model.WaterfallChartData
-import io.androidpoet.drafter.bars.renderer.WaterfallChartRenderer
+import io.androidpoet.drafter.heatmap.ContributionData
+import io.androidpoet.drafter.heatmap.ContributionHeatmapData
+import io.androidpoet.drafter.heatmap.Heatmap
+import io.androidpoet.drafter.heatmap.HeatmapRenderer
+import kotlinx.datetime.Clock
+import kotlin.random.Random
+import kotlin.time.Duration.Companion.days
 
-private fun getWaterfallChartRenderer(colors: List<Color>) =
-  WaterfallChartRenderer(
-    WaterfallChartData(
-      labelsList = listOf("Start", "Revenue", "Cost", "Profit"),
-      values = listOf(+50f, -20f, +30f), // Changes from 'Start'
-      colors = colors,
-      initialValue = 100f, // Start from 100
+private fun getHeatmapRenderer(color: Color) =
+  HeatmapRenderer(
+    ContributionHeatmapData(
+      baseColor = color,
+      contributions =
+      buildList {
+        val now = Clock.System.now()
+        repeat(365) { day ->
+          val date = now.minus(day.days)
+          val count = if (Random.nextFloat() > 0.6f) Random.nextInt(1, 15) else 0
+          add(ContributionData(date, count))
+        }
+      },
     ),
   )
 
 @Composable
-fun WaterfallChartExample(
-  colors: List<Color>,
+fun GithubGraph(
   modifier: Modifier = Modifier,
+  color: Color,
 ) {
-  BarChart(
-    renderer = getWaterfallChartRenderer(colors = colors),
+  Heatmap(
+    renderer = getHeatmapRenderer(color = color),
     modifier =
-    modifier
-      .height(300.dp)
-      .fillMaxWidth(),
-    animate = true,
+    Modifier
+      .fillMaxWidth()
+      .height(112.dp),
   )
 }

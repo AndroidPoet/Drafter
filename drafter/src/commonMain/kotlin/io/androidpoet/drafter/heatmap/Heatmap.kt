@@ -21,6 +21,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -40,9 +41,10 @@ import kotlinx.datetime.minus
 import kotlinx.datetime.toLocalDateTime
 
 @Composable
-public fun ContributionHeatmap(
-  renderer: HeatmapRenderer,
+public fun Heatmap(
+  renderer: HeatmapDataRenderer,
   modifier: Modifier = Modifier,
+  isSystemInDarkTheme: Boolean = isSystemInDarkTheme(),
 ) {
   val density = LocalDensity.current
   val cellSize = with(density) { 8.dp.toPx() }
@@ -61,25 +63,25 @@ public fun ContributionHeatmap(
     animationProgress.animateTo(
       targetValue = 1f,
       animationSpec =
-        tween(
-          durationMillis = 1000,
-          easing = FastOutSlowInEasing,
-        ),
+      tween(
+        durationMillis = 1000,
+        easing = FastOutSlowInEasing,
+      ),
     )
   }
 
   Box(
     modifier =
-      modifier
-        .horizontalScroll(rememberScrollState())
-        .background(Color(0xFF0D1117))
-        .padding(8.dp),
+    modifier
+      .horizontalScroll(rememberScrollState())
+      .background(if (isSystemInDarkTheme) Color.Black else Color.White)
+      .padding(8.dp),
   ) {
     Canvas(
       modifier =
-        Modifier
-          .fillMaxSize()
-          .padding(4.dp),
+      Modifier
+        .fillMaxSize()
+        .padding(4.dp),
     ) {
       renderer.drawHeatmap(
         drawScope = this,
@@ -88,6 +90,7 @@ public fun ContributionHeatmap(
         startInstant = startInstant,
         endInstant = endInstant,
         animationProgress = animationProgress.value,
+        isSystemInDarkTheme = isSystemInDarkTheme,
       )
     }
   }

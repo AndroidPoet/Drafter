@@ -16,38 +16,14 @@ public final class io/androidpoet/drafter/baselineprofile/app/ChartTitleKt {
 public final class io/androidpoet/drafter/baselineprofile/app/ComposableSingletons$MainActivityKt {
 	public static final field INSTANCE Lio/androidpoet/drafter/baselineprofile/app/ComposableSingletons$MainActivityKt;
 	public static field lambda-1 Lkotlin/jvm/functions/Function3;
-	public static field lambda-10 Lkotlin/jvm/functions/Function3;
-	public static field lambda-11 Lkotlin/jvm/functions/Function3;
-	public static field lambda-12 Lkotlin/jvm/functions/Function3;
-	public static field lambda-13 Lkotlin/jvm/functions/Function3;
-	public static field lambda-14 Lkotlin/jvm/functions/Function3;
-	public static field lambda-15 Lkotlin/jvm/functions/Function2;
-	public static field lambda-16 Lkotlin/jvm/functions/Function2;
 	public static field lambda-2 Lkotlin/jvm/functions/Function3;
-	public static field lambda-3 Lkotlin/jvm/functions/Function3;
-	public static field lambda-4 Lkotlin/jvm/functions/Function3;
-	public static field lambda-5 Lkotlin/jvm/functions/Function3;
-	public static field lambda-6 Lkotlin/jvm/functions/Function3;
-	public static field lambda-7 Lkotlin/jvm/functions/Function3;
-	public static field lambda-8 Lkotlin/jvm/functions/Function3;
-	public static field lambda-9 Lkotlin/jvm/functions/Function3;
+	public static field lambda-3 Lkotlin/jvm/functions/Function2;
+	public static field lambda-4 Lkotlin/jvm/functions/Function2;
 	public fun <init> ()V
 	public final fun getLambda-1$baselineprofile_app_release ()Lkotlin/jvm/functions/Function3;
-	public final fun getLambda-10$baselineprofile_app_release ()Lkotlin/jvm/functions/Function3;
-	public final fun getLambda-11$baselineprofile_app_release ()Lkotlin/jvm/functions/Function3;
-	public final fun getLambda-12$baselineprofile_app_release ()Lkotlin/jvm/functions/Function3;
-	public final fun getLambda-13$baselineprofile_app_release ()Lkotlin/jvm/functions/Function3;
-	public final fun getLambda-14$baselineprofile_app_release ()Lkotlin/jvm/functions/Function3;
-	public final fun getLambda-15$baselineprofile_app_release ()Lkotlin/jvm/functions/Function2;
-	public final fun getLambda-16$baselineprofile_app_release ()Lkotlin/jvm/functions/Function2;
 	public final fun getLambda-2$baselineprofile_app_release ()Lkotlin/jvm/functions/Function3;
-	public final fun getLambda-3$baselineprofile_app_release ()Lkotlin/jvm/functions/Function3;
-	public final fun getLambda-4$baselineprofile_app_release ()Lkotlin/jvm/functions/Function3;
-	public final fun getLambda-5$baselineprofile_app_release ()Lkotlin/jvm/functions/Function3;
-	public final fun getLambda-6$baselineprofile_app_release ()Lkotlin/jvm/functions/Function3;
-	public final fun getLambda-7$baselineprofile_app_release ()Lkotlin/jvm/functions/Function3;
-	public final fun getLambda-8$baselineprofile_app_release ()Lkotlin/jvm/functions/Function3;
-	public final fun getLambda-9$baselineprofile_app_release ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda-3$baselineprofile_app_release ()Lkotlin/jvm/functions/Function2;
+	public final fun getLambda-4$baselineprofile_app_release ()Lkotlin/jvm/functions/Function2;
 }
 
 public final class io/androidpoet/drafter/baselineprofile/app/MainActivity : androidx/activity/ComponentActivity {
@@ -56,7 +32,7 @@ public final class io/androidpoet/drafter/baselineprofile/app/MainActivity : and
 }
 
 public final class io/androidpoet/drafter/baselineprofile/app/bars/GroupedBarChartExampleKt {
-	public static final fun GroupedBarChartExample (Landroidx/compose/runtime/Composer;I)V
+	public static final fun GroupedBarChartExample (Ljava/util/List;Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;II)V
 }
 
 public final class io/androidpoet/drafter/baselineprofile/app/bars/HistogramChartExampleKt {
@@ -64,76 +40,71 @@ public final class io/androidpoet/drafter/baselineprofile/app/bars/HistogramChar
 }
 
 public final class io/androidpoet/drafter/baselineprofile/app/bars/SimpleBarChartExampleKt {
-	public static final fun SimpleBarChartExample (Landroidx/compose/runtime/Composer;I)V
+	public static final fun SimpleBarChartExample (Ljava/util/List;Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;II)V
 }
 
 public final class io/androidpoet/drafter/baselineprofile/app/bars/StackedBarChartExampleKt {
-	public static final fun StackedBarChartExample (Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;II)V
+	public static final fun StackedBarChartExample (Ljava/util/List;Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;II)V
 }
 
 public final class io/androidpoet/drafter/baselineprofile/app/bars/WaterfallChartExampleKt {
-	public static final fun WaterfallChartExample (Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;II)V
+	public static final fun WaterfallChartExample (Ljava/util/List;Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;II)V
 }
 
 public final class io/androidpoet/drafter/baselineprofile/app/buble/BubbleChartKt {
-	public static final fun BubbleChartExample (Landroidx/compose/runtime/Composer;I)V
+	public static final fun BubbleChartExample (Ljava/util/List;Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;II)V
 }
 
 public final class io/androidpoet/drafter/baselineprofile/app/gantt/GanntChartDemoKt {
-	public static final fun GanttChartExample (Landroidx/compose/runtime/Composer;I)V
+	public static final fun GanttChartExample (Ljava/util/List;Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;II)V
 }
 
-public final class io/androidpoet/drafter/baselineprofile/app/line/ComposableSingletons$GroupedLineChartExampleKt {
-	public static final field INSTANCE Lio/androidpoet/drafter/baselineprofile/app/line/ComposableSingletons$GroupedLineChartExampleKt;
-	public static field lambda-1 Lkotlin/jvm/functions/Function2;
-	public fun <init> ()V
-	public final fun getLambda-1$baselineprofile_app_release ()Lkotlin/jvm/functions/Function2;
-}
-
-public final class io/androidpoet/drafter/baselineprofile/app/line/ComposableSingletons$ScatterPlotChartExampleKt {
-	public static final field INSTANCE Lio/androidpoet/drafter/baselineprofile/app/line/ComposableSingletons$ScatterPlotChartExampleKt;
-	public static field lambda-1 Lkotlin/jvm/functions/Function2;
-	public fun <init> ()V
-	public final fun getLambda-1$baselineprofile_app_release ()Lkotlin/jvm/functions/Function2;
-}
-
-public final class io/androidpoet/drafter/baselineprofile/app/line/ComposableSingletons$SimpleLineChartExampleKt {
-	public static final field INSTANCE Lio/androidpoet/drafter/baselineprofile/app/line/ComposableSingletons$SimpleLineChartExampleKt;
-	public static field lambda-1 Lkotlin/jvm/functions/Function2;
-	public fun <init> ()V
-	public final fun getLambda-1$baselineprofile_app_release ()Lkotlin/jvm/functions/Function2;
-}
-
-public final class io/androidpoet/drafter/baselineprofile/app/line/ComposableSingletons$StackedLineChartExampleKt {
-	public static final field INSTANCE Lio/androidpoet/drafter/baselineprofile/app/line/ComposableSingletons$StackedLineChartExampleKt;
-	public static field lambda-1 Lkotlin/jvm/functions/Function2;
-	public fun <init> ()V
-	public final fun getLambda-1$baselineprofile_app_release ()Lkotlin/jvm/functions/Function2;
+public final class io/androidpoet/drafter/baselineprofile/app/githubgraph/GithubGraphKt {
+	public static final fun GithubGraph-iJQMabo (Landroidx/compose/ui/Modifier;JLandroidx/compose/runtime/Composer;II)V
 }
 
 public final class io/androidpoet/drafter/baselineprofile/app/line/GroupedLineChartExampleKt {
-	public static final fun GroupedLineChartExample (Landroidx/compose/runtime/Composer;I)V
+	public static final fun GroupedLineChartExample (Ljava/util/List;Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;II)V
 }
 
 public final class io/androidpoet/drafter/baselineprofile/app/line/ScatterPlotChartExampleKt {
-	public static final fun ScatterPlotChartExample (Landroidx/compose/runtime/Composer;I)V
+	public static final fun ScatterPlotChartExample (Ljava/util/List;Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;II)V
 }
 
 public final class io/androidpoet/drafter/baselineprofile/app/line/SimpleLineChartExampleKt {
-	public static final fun SimpleLineChartExample (Landroidx/compose/runtime/Composer;I)V
+	public static final fun SimpleLineChartExample (Ljava/util/List;Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;II)V
 }
 
 public final class io/androidpoet/drafter/baselineprofile/app/line/StackedLineChartExampleKt {
-	public static final fun StackedLineChartExample (Landroidx/compose/runtime/Composer;I)V
+	public static final fun StackedLineChartExample (Ljava/util/List;Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;II)V
+}
+
+public final class io/androidpoet/drafter/baselineprofile/app/manager/ChartThemeManager {
+	public static final field $stable I
+	public static final field INSTANCE Lio/androidpoet/drafter/baselineprofile/app/manager/ChartThemeManager;
+	public final fun getCurrentTheme ()Landroidx/compose/runtime/State;
+	public final fun getGithubColors ()Ljava/util/List;
+	public final fun getPalette ()Landroidx/compose/runtime/State;
+	public final fun setTheme (Lio/androidpoet/drafter/baselineprofile/app/manager/ChartThemeManager$ColorTheme;)V
+}
+
+public final class io/androidpoet/drafter/baselineprofile/app/manager/ChartThemeManager$ColorTheme : java/lang/Enum {
+	public static final field MATERIAL Lio/androidpoet/drafter/baselineprofile/app/manager/ChartThemeManager$ColorTheme;
+	public static final field MODERN Lio/androidpoet/drafter/baselineprofile/app/manager/ChartThemeManager$ColorTheme;
+	public static final field NATURE Lio/androidpoet/drafter/baselineprofile/app/manager/ChartThemeManager$ColorTheme;
+	public static final field PROFESSIONAL Lio/androidpoet/drafter/baselineprofile/app/manager/ChartThemeManager$ColorTheme;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lio/androidpoet/drafter/baselineprofile/app/manager/ChartThemeManager$ColorTheme;
+	public static fun values ()[Lio/androidpoet/drafter/baselineprofile/app/manager/ChartThemeManager$ColorTheme;
 }
 
 public final class io/androidpoet/drafter/baselineprofile/app/pie/PieChartExampleKt {
-	public static final fun DonutChartExample (Landroidx/compose/runtime/Composer;I)V
-	public static final fun PieChartExample (Landroidx/compose/runtime/Composer;I)V
+	public static final fun DonutChartExample (Ljava/util/List;Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;II)V
+	public static final fun PieChartExample (Ljava/util/List;Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;II)V
 }
 
 public final class io/androidpoet/drafter/baselineprofile/app/radar/RadarChartKt {
-	public static final fun RadarChartExample (Landroidx/compose/runtime/Composer;I)V
+	public static final fun RadarChartExample (Ljava/util/List;Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;II)V
 }
 
 public final class io/androidpoet/drafter/baselineprofile/app/ui/theme/ColorKt {

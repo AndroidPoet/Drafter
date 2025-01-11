@@ -15,7 +15,8 @@
  */
 package io.androidpoet.drafterdemo.gantt
 
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -24,20 +25,19 @@ import io.androidpoet.drafter.gant.GanttChart
 import io.androidpoet.drafter.gant.GanttChartData
 import io.androidpoet.drafter.gant.GanttChartRenderer
 import io.androidpoet.drafter.gant.GanttTask
-import io.androidpoet.drafterdemo.ChartTitle
 
 private fun getGanttChartRenderer(colors: List<Color>) =
   GanttChartRenderer(
     GanttChartData(
       taskColors = colors,
       tasks =
-        listOf(
-          GanttTask("Planning", 0f, 2f),
-          GanttTask("Design", 2f, 2f),
-          GanttTask("Development", 4f, 3f),
-          GanttTask("Testing", 7f, 2f),
-          GanttTask("Deployment", 9f, 1f),
-        ),
+      listOf(
+        GanttTask("Planning", 0f, 2f),
+        GanttTask("Design", 2f, 2f),
+        GanttTask("Development", 4f, 3f),
+        GanttTask("Testing", 7f, 2f),
+        GanttTask("Deployment", 9f, 1f),
+      ),
     ),
   )
 
@@ -46,10 +46,11 @@ fun GanttChartExample(
   colors: List<Color>,
   modifier: Modifier = Modifier,
 ) {
-  ChartTitle(text = "Gantt Chart")
-
   GanttChart(
     renderer = getGanttChartRenderer(colors = colors),
-    modifier = modifier.size(400.dp),
+    modifier =
+    modifier
+      .height(300.dp)
+      .fillMaxWidth(),
   )
 }

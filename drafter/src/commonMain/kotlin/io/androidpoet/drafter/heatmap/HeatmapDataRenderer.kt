@@ -26,7 +26,7 @@ import kotlinx.datetime.daysUntil
 import kotlinx.datetime.plus
 import kotlinx.datetime.toLocalDateTime
 
-public interface HeatmapRenderer {
+public interface HeatmapDataRenderer {
   public val data: ContributionHeatmapData
 
   public fun drawHeatmap(
@@ -36,27 +36,28 @@ public interface HeatmapRenderer {
     startInstant: Instant,
     endInstant: Instant,
     animationProgress: Float,
+    isSystemInDarkTheme: Boolean,
   )
 }
 
-public class DefaultHeatmapRenderer(
+public class HeatmapRenderer(
   override val data: ContributionHeatmapData,
-) : HeatmapRenderer {
-  private companion object {
-    private val emptyColor = Color(0xFF161B22)
-    private val level1Color = Color(0xFF0E4429)
-    private val level2Color = Color(0xFF006D32)
-    private val level3Color = Color(0xFF26A641)
-    private val level4Color = Color(0xFF39D353)
-  }
-
-  private fun getContributionColor(count: Int): Color =
+) : HeatmapDataRenderer {
+  private fun getContributionColor(
+    count: Int,
+    isSystemInDarkTheme: Boolean,
+  ): Color =
     when {
-      count == 0 -> emptyColor
-      count <= 3 -> level1Color
-      count <= 6 -> level2Color
-      count <= 9 -> level3Color
-      else -> level4Color
+      count == 0 ->
+        if (isSystemInDarkTheme) {
+          Color(0xFF24292E)
+        } else {
+          Color(0xFFF6F8FA).copy(alpha = 0.5f)
+        }
+      count <= 3 -> data.baseColor.copy(alpha = 0.2f)
+      count <= 6 -> data.baseColor.copy(alpha = 0.4f)
+      count <= 9 -> data.baseColor.copy(alpha = 0.7f)
+      else -> data.baseColor.copy(alpha = 1.0f)
     }
 
   override fun drawHeatmap(
@@ -66,6 +67,7 @@ public class DefaultHeatmapRenderer(
     startInstant: Instant,
     endInstant: Instant,
     animationProgress: Float,
+    isSystemInDarkTheme: Boolean,
   ) {
     with(drawScope) {
       val startDate = startInstant.toLocalDateTime(TimeZone.currentSystemDefault()).date
@@ -90,7 +92,7 @@ public class DefaultHeatmapRenderer(
             val y = dayOfWeek * (cellSize + cellPadding)
 
             drawRect(
-              color = getContributionColor(contributions),
+              color = getContributionColor(contributions, isSystemInDarkTheme),
               topLeft = Offset(x, y),
               size = Size(cellSize, cellSize),
             )

@@ -76,72 +76,99 @@ sourceSets {
 ### Simple Bar Chart
 
 ```kotlin
-val simpleData = SimpleBarChartData(
-  labels = listOf("A", "B", "C", "D"),
-  values = listOf(10f, 20f, 15f, 25f),
-  colors = listOf(Color.Red, Color.Green, Color.Blue, Color.Yellow)
-)
-val simpleRenderer = SimpleBarChartRenderer()
+private fun getBarChartData(colors: List<Color>) =
+  SimpleBarChartData(
+    labelsList = listOf("Jan", "Feb", "Mar", "Apr"),
+    values = listOf(10f, 30f, 15f, 45f),
+    colors = colors,
+  )
 
-BarChart(
-  data = simpleData,
-  renderer = simpleRenderer,
-  modifier = Modifier
-    .fillMaxWidth()
-    .height(200.dp)
-    .padding(horizontal = 16.dp)
-)
+private fun getSimpleBarChartRenderer(colors: List<Color>) =
+  BarChartRenderer(getBarChartData(colors = colors))
+
+@Composable
+fun SimpleBarChartExample(
+  colors: List<Color>,
+  modifier: Modifier = Modifier,
+) {
+  BarChart(
+    renderer = getSimpleBarChartRenderer(colors = colors),
+    modifier =
+    modifier
+      .height(300.dp)
+      .fillMaxWidth(),
+    animate = true,
+  )
+}
+
 ```
 
 ### Grouped Bar Chart
 
 ```kotlin
-val groupedData = GroupedBarChartData(
-  labels = listOf("Q1", "Q2", "Q3", "Q4"),
-  itemNames = listOf("Product A", "Product B"),
-  groupedValues = listOf(
-    listOf(10f, 15f),
-    listOf(20f, 25f),
-    listOf(15f, 10f),
-    listOf(25f, 20f)
-  ),
-  colors = listOf(Color.Cyan, Color.Magenta)
-)
-val groupedRenderer = GroupedBarChartRenderer()
+private fun getBarChartRenderer() =
+  GroupedBarChartRenderer(
+    GroupedBarChartData(
+      labelsList = listOf("2020", "2021", "2022"),
+      itemNames = listOf("Product A", "Product B", "Product C"),
+      groupedValues =
+      listOf(
+        listOf(10f, 20f, 15f), // 2020
+        listOf(25f, 5f, 30f), // 2021
+        listOf(12f, 28f, 10f), // 2022
+      ),
+      colors = listOf(Color.Red, Color.Green, Color.Blue),
+    ),
+  )
 
-BarChart(
-  data = groupedData,
-  renderer = groupedRenderer,
-  modifier = Modifier
-    .fillMaxWidth()
-    .height(200.dp)
-    .padding(horizontal = 16.dp)
-)
+@Composable
+fun GroupedBarChartExample(
+  colors: List<Color>,
+  modifier: Modifier = Modifier,
+) {
+  BarChart(
+    renderer = getBarChartRenderer(),
+    modifier =
+    Modifier
+      .height(300.dp)
+      .fillMaxWidth(),
+    animate = true,
+  )
+}
 ```
 
 ### Stacked Bar Chart
 
 ```kotlin
-val stackedData = StackedBarChartData(
-  labels = listOf("Jan", "Feb", "Mar", "Apr"),
-  stacks = listOf(
-    listOf(5f, 5f, 2f),
-    listOf(7f, 3f, 4f),
-    listOf(6f, 4f, 3f),
-    listOf(8f, 2f, 5f)
-  ),
-  colors = listOf(Color.Blue, Color.Red, Color.Green)
-)
-val stackedRenderer = StackedBarChartRenderer()
+private fun getStackedBarChartData(colors: List<Color>) =
+  StackedBarChartData(
+    labelsList = listOf("Q1", "Q2", "Q3"),
+    stacks =
+    listOf(
+      listOf(10f, 15f, 5f), // Q1
+      listOf(8f, 12f, 20f), // Q2
+      listOf(18f, 10f, 15f), // Q3
+    ),
+    colors = colors,
+  )
 
-BarChart(
-  data = stackedData,
-  renderer = stackedRenderer,
-  modifier = Modifier
-    .fillMaxWidth()
-    .height(200.dp)
-    .padding(horizontal = 16.dp)
-)
+private fun getStackedBarChartRenderer(colors: List<Color>) =
+  StackedBarChartRenderer(getStackedBarChartData(colors = colors))
+
+@Composable
+fun StackedBarChartExample(
+  colors: List<Color>,
+  modifier: Modifier = Modifier,
+) {
+  BarChart(
+    renderer = getStackedBarChartRenderer(colors = colors),
+    modifier =
+    modifier
+      .height(300.dp)
+      .fillMaxWidth(),
+    animate = true,
+  )
+}
 ```
 
 ## Line Charts
@@ -149,180 +176,262 @@ BarChart(
 ### Simple Line Chart
 
 ```kotlin
-val simpleData = SimpleLineChartData(
-  labels = listOf("A", "B", "C", "D"),
-  values = listOf(10f, 20f, 15f, 25f),
-  color = Color.Blue
-)
-val simpleRenderer = SimpleLineChartRenderer()
+private fun getLineChartRenderer(colors: List<Color>) =
+  LineChartRenderer(
+    SimpleLineChartData(
+      labels = listOf("A", "B", "C", "D"),
+      values = listOf(10f, 20f, 15f, 25f),
+      color = colors.first(),
+    ),
+  )
 
-LineChart(
-  data = simpleData,
-  renderer = simpleRenderer,
-  modifier = Modifier
-    .fillMaxWidth()
-    .height(200.dp)
-    .padding(horizontal = 16.dp)
-)
+@Composable
+fun SimpleLineChartExample(
+  colors: List<Color>,
+  modifier: Modifier = Modifier,
+) {
+  LineChart(
+    renderer = getLineChartRenderer(colors = colors),
+    modifier = modifier.fillMaxSize(),
+  )
+}
 ```
 
 ### Grouped Line Chart
 
 ```kotlin
-val groupedData = GroupedLineChartData(
-  labels = listOf("Q1", "Q2", "Q3", "Q4"),
-  itemNames = listOf("Product A", "Product B"),
-  groupedValues = listOf(
-    listOf(10f, 15f),
-    listOf(20f, 25f),
-    listOf(15f, 10f),
-    listOf(25f, 20f)
-  ),
-  colors = listOf(Color.Cyan, Color.Magenta)
-)
-val groupedRenderer = GroupedLineChartRenderer()
+private fun getGroupedLineChartData(colors: List<Color>) =
+  GroupedLineChartData(
+    labels = listOf("Q1", "Q2", "Q3", "Q4"),
+    itemNames = listOf("Product A", "Product B"),
+    groupedValues =
+    listOf(
+      listOf(10f, 15f),
+      listOf(20f, 25f),
+      listOf(15f, 10f),
+      listOf(25f, 20f),
+    ),
+    colors = colors,
+  )
 
-LineChart(
-  data = groupedData,
-  renderer = groupedRenderer,
-  modifier = Modifier
-    .fillMaxWidth()
-    .height(200.dp)
-    .padding(horizontal = 16.dp)
-)
+private fun getGroupedLineChartRenderer(colors: List<Color>) =
+  GroupedLineChartRenderer(getGroupedLineChartData(colors = colors))
+
+@Composable
+fun GroupedLineChartExample(
+  colors: List<Color>,
+  modifier: Modifier = Modifier,
+) {
+  ChartContainer {
+    LineChart(
+      renderer = getGroupedLineChartRenderer(colors = colors),
+      modifier = modifier.fillMaxSize(),
+    )
+  }
+}
 ```
 
 ### Stacked Line Chart (Area Chart)
 
 ```kotlin
-val stackedData = StackedLineChartData(
-  labels = listOf("Jan", "Feb", "Mar", "Apr"),
-  stacks = listOf(
-    listOf(5f, 5f, 2f),
-    listOf(7f, 3f, 4f),
-    listOf(6f, 4f, 3f),
-    listOf(8f, 2f, 5f)
-  ),
-  colors = listOf(Color.Blue, Color.Red, Color.Green)
-)
-val stackedRenderer = StackedLineChartRenderer()
+private fun getStackedLineChartRenderer(colors: List<Color>) =
+  StackedLineChartRenderer(
+    StackedLineChartData(
+      labels = listOf("Jan", "Feb", "Mar", "Apr"),
+      stacks =
+      listOf(
+        listOf(5f, 5f, 2f),
+        listOf(7f, 3f, 4f),
+        listOf(6f, 4f, 3f),
+        listOf(8f, 2f, 5f),
+      ),
+      colors = colors,
+    ),
+  )
 
-LineChart(
-  data = stackedData,
-  renderer = stackedRenderer,
-  modifier = Modifier
-    .fillMaxWidth()
-    .height(200.dp)
-    .padding(horizontal = 16.dp)
-)
+@Composable
+fun StackedLineChartExample(
+  colors: List<Color>,
+  modifier: Modifier = Modifier,
+) {
+  ChartContainer {
+    LineChart(
+      renderer = getStackedLineChartRenderer(colors = colors),
+      modifier = Modifier.fillMaxSize(),
+    )
+  }
+}
 ```
 
 ## Histogram Chart
 
 ```kotlin
-val dataPoints = listOf(1f, 2f, 2f, 3f, 3f, 3f, 4f, 4f, 5f, 5f, 5f, 5f)
-val binCount = 5
+private fun getHistogramData() = listOf(1f, 2f, 2f, 3f, 3f, 3f, 4f, 4f, 5f, 5f, 5f, 5f)
 
-HistogramChart(
-  dataPoints = dataPoints,
-  binCount = binCount,
-  color = Color.Magenta,
-  modifier = Modifier
-    .fillMaxWidth()
-    .height(200.dp)
-    .padding(horizontal = 16.dp)
-)
+private fun getHistogramRenderer() =
+  HistogramRenderer(
+    dataPoints = getHistogramData(),
+    binCount = 5,
+    color = Color.Blue,
+  )
+
+@Composable
+fun HistogramChartExample(
+  modifier: Modifier = Modifier,
+  animate: Boolean = true,
+) {
+  BarChart(
+    renderer = getHistogramRenderer(),
+    modifier = modifier.size(300.dp),
+    animate = animate,
+  )
+}
 ```
 
 ## Pie Chart
 
 ```kotlin
-val pieData = PieChartData(
-  slices = listOf(
-    PieChartData.Slice(40f, Color.Blue, "Blue"),
-    PieChartData.Slice(30f, Color.Red, "Red"),
-    PieChartData.Slice(20f, Color.Green, "Green"),
-    PieChartData.Slice(10f, Color.Yellow, "Yellow")
+private fun getPieChartRenderer(colors: List<Color>) =
+  PieChartRenderer(
+    PieChartData(
+      slices =
+      listOf(
+        PieChartData.Slice(value = 40f, color = colors[0], label = "Red"),
+        PieChartData.Slice(value = 30f, color = colors[1], label = "Green"),
+        PieChartData.Slice(value = 20f, color = colors[2], label = "Blue"),
+        PieChartData.Slice(value = 10f, color = colors[3], label = "Purple"),
+      ),
+    ),
   )
-)
 
-PieChart(
-  data = pieData,
-  modifier = Modifier.size(200.dp)
-)
+private fun getDonutPieChartRenderer(colors: List<Color>) =
+  DonutChartRenderer(
+    PieChartData(
+      slices =
+      listOf(
+        PieChartData.Slice(value = 40f, color = colors[0], label = "Red"),
+        PieChartData.Slice(value = 30f, color = colors[1], label = "Green"),
+        PieChartData.Slice(value = 20f, color = colors[2], label = "Blue"),
+        PieChartData.Slice(value = 10f, color = colors[3], label = "Purple"),
+      ),
+    ),
+  )
+
+@Composable
+fun PieChartExample(
+  colors: List<Color>,
+  modifier: Modifier = Modifier,
+) {
+  PieChart(
+    renderer = getPieChartRenderer(colors = colors),
+    modifier = Modifier.size(200.dp),
+    animate = true,
+  )
+}
+
+@Composable
+fun DonutChartExample(
+  colors: List<Color>,
+  modifier: Modifier = Modifier,
+) {
+  PieChart(
+    renderer = getDonutPieChartRenderer(colors = colors),
+    modifier = Modifier.size(200.dp),
+    animate = true,
+  )
+}
 ```
 
 ## Scatter Plot Chart
 
 ```kotlin
-val numberOfPoints = 30
-val randomPoints = List(numberOfPoints) {
-  Pair(
-    Random.nextFloat() * 50f,
-    Random.nextFloat() * 50f
+private fun getScatterPlotRenderer(colors: List<Color>) =
+  SimpleScatterPlotRenderer(
+    ScatterPlotData(
+      points =
+      List(30) {
+        Pair(
+          Random.nextFloat() * 50f,
+          Random.nextFloat() * 50f,
+        )
+      },
+      pointColors =
+      List(30) {
+        if (colors.isNotEmpty()) colors[it % colors.size] else Color.Gray
+      },
+    ),
   )
-}
-val randomColors = List(numberOfPoints) {
-  Color(
-    red = Random.nextFloat(),
-    green = Random.nextFloat(),
-    blue = Random.nextFloat(),
-    alpha = 1f
-  )
-}
-val data = ScatterPlotData(
-  points = randomPoints,
-  pointColors = randomColors
-)
-val renderer = SimpleScatterPlotRenderer()
 
-ScatterPlot(
-  data = data,
-  renderer = renderer,
-  modifier = Modifier.size(300.dp)
-)
+@Composable
+fun ScatterPlotChartExample(
+  colors: List<Color>,
+  modifier: Modifier = Modifier,
+) {
+  ScatterPlot(
+    modifier = Modifier.size(300.dp),
+    renderer = getScatterPlotRenderer(colors = colors),
+  )
+}
 ```
 
 ## Waterfall Chart
 
 ```kotlin
-val data = WaterfallChartData(
-  labels = listOf("Q1", "Q2", "Q3", "Q4"),
-  values = listOf(500f, -200f, 300f, -100f),
-  colors = listOf(Color.Green, Color.Red, Color.Green, Color.Red),
-  initialValue = 1000f
-)
-val renderer = WaterfallChartRenderer()
+private fun getWaterfallChartRenderer(colors: List<Color>) =
+  WaterfallChartRenderer(
+    WaterfallChartData(
+      labelsList = listOf("Start", "Revenue", "Cost", "Profit"),
+      values = listOf(+50f, -20f, +30f), // Changes from 'Start'
+      colors = colors,
+      initialValue = 100f, // Start from 100
+    ),
+  )
 
-BarChart(
-  data = data,
-  renderer = renderer,
-  modifier = Modifier.size(400.dp, 300.dp)
-)
+@Composable
+fun WaterfallChartExample(
+  colors: List<Color>,
+  modifier: Modifier = Modifier,
+) {
+  BarChart(
+    renderer = getWaterfallChartRenderer(colors = colors),
+    modifier =
+    modifier
+      .height(300.dp)
+      .fillMaxWidth(),
+    animate = true,
+  )
+}
 ```
 
 ## Radar Chart
 
 ```kotlin
-@Composable
-fun RadarChartExample() {
-  ChartTitle(text = "Radar Chart")
-  val data = listOf(
-    RadarChartData(
-      mapOf(
-        "Execution" to 0.8f,
-        "Landing" to 0.6f,
-        "Difficulty" to 0.9f,
-        "Style" to 0.7f,
-        "Creativity" to 0.85f,
+private fun getRadarRenderer(colors: List<Color>) =
+  RadarChartRenderer(
+    data =
+    listOf(
+      RadarChartData(
+        mapOf(
+          "Execution" to 0.8f,
+          "Landing" to 0.6f,
+          "Difficulty" to 0.9f,
+          "Style" to 0.7f,
+          "Creativity" to 0.85f,
+        ),
       ),
     ),
-  )
-  val colors = listOf(Color.Blue, Color.Red)
-
-  RadarChart(
-    data = data,
     colors = colors,
+  )
+
+@Composable
+fun RadarChartExample(
+  colors: List<Color>,
+  modifier: Modifier = Modifier,
+) {
+  RadarChart(
+    modifier = modifier.size(300.dp),
+    renderer = getRadarRenderer(colors),
+    isSystemInDarkTheme = isSystemInDarkTheme()
   )
 }
 ```
@@ -330,52 +439,109 @@ fun RadarChartExample() {
 ## Gantt Chart
 
 ```kotlin
-@Composable
-fun GanttChartExample() {
-  ChartTitle(text = "Gantt Chart")
-  val tasks = listOf(
-    GanttTask("Planning", 0f, 2f),
-    GanttTask("Design", 2f, 2f),
-    GanttTask("Development", 4f, 3f),
-    GanttTask("Testing", 7f, 2f),
-    GanttTask("Deployment", 9f, 1f),
+private fun getGanttChartRenderer(colors: List<Color>) =
+  GanttChartRenderer(
+    GanttChartData(
+      taskColors = colors,
+      tasks =
+      listOf(
+        GanttTask("Planning", 0f, 2f),
+        GanttTask("Design", 2f, 2f),
+        GanttTask("Development", 4f, 3f),
+        GanttTask("Testing", 7f, 2f),
+        GanttTask("Deployment", 9f, 1f),
+      ),
+    ),
   )
-  val data = GanttChartData(tasks)
-  val renderer = SimpleGanttChartRenderer()
-  GanttChart(data = data, renderer = renderer, modifier = Modifier.size(400.dp))
+
+@Composable
+fun GanttChartExample(
+  colors: List<Color>,
+  modifier: Modifier = Modifier,
+) {
+  GanttChart(
+    renderer = getGanttChartRenderer(colors = colors),
+    modifier = modifier.size(400.dp),
+  )
 }
 ```
 
 ## Bubble Chart
 
 ```kotlin
-@Composable
-fun BubbleChartExample() {
-  ChartTitle(text = "Bubble Chart")
-  val data = listOf(
+private fun getBubbleChartData(colors: List<Color>) =
+  BubbleChartData(
+    series =
     listOf(
-      BubbleChartData(10f, 26f, 30f, Color.Blue),
-      BubbleChartData(26f, 30f, 60f, Color.Blue),
-      BubbleChartData(26f, 46f, 45f, Color.Blue),
+      listOf(
+        BubbleChartData.BubbleData(10f, 26f, 30f, colors[0]),
+        BubbleChartData.BubbleData(26f, 30f, 60f, colors[0]),
+        BubbleChartData.BubbleData(26f, 46f, 45f, colors[0]),
+      ),
+      listOf(
+        BubbleChartData.BubbleData(14f, 15f, 30f, colors[1]),
+        BubbleChartData.BubbleData(22f, 36f, 45f, colors[1]),
+        BubbleChartData.BubbleData(90f, 57f, 75f, colors[1]),
+      ),
+      listOf(
+        BubbleChartData.BubbleData(8f, 9f, 90f, colors[2]),
+        BubbleChartData.BubbleData(20f, 57f, 45f, colors[2]),
+        BubbleChartData.BubbleData(40f, 50f, 60f, colors[2]),
+      ),
+      listOf(
+        BubbleChartData.BubbleData(8f, 20f, 22.5f, colors[3]),
+        BubbleChartData.BubbleData(12f, 30f, 30f, colors[3]),
+        BubbleChartData.BubbleData(30f, 40f, 45f, colors[3]),
+      ),
     ),
-    listOf(
-      BubbleChartData(14f, 15f, 30f, Color.Green),
-      BubbleChartData(22f, 36f, 45f, Color.Green),
-      BubbleChartData(40f, 57f, 75f, Color.Green),
-    ),
-    listOf(
-      BubbleChartData(8f, 9f, 30f, Color.Yellow),
-      BubbleChartData(20f, 57f, 45f, Color.Yellow),
-      BubbleChartData(40f, 50f, 60f, Color.Yellow),
-    ),
-    listOf(
-      BubbleChartData(8f, 20f, 22.5f, Color.Red),
-      BubbleChartData(12f, 30f, 30f, Color.Red),
-      BubbleChartData(30f, 40f, 45f, Color.Red),
-    )
   )
 
-  BubbleChart(data, Modifier.size(300.dp))
+private fun getBubbleChartRenderer(colors: List<Color>) =
+  SimpleBubbleChartDataRenderer(getBubbleChartData(colors = colors))
+
+@Composable
+fun BubbleChartExample(
+  colors: List<Color>,
+  modifier: Modifier = Modifier,
+) {
+  BubbleChart(
+    renderer = getBubbleChartRenderer(colors = colors),
+    modifier = modifier.size(300.dp),
+  )
+}
+```
+
+## HeatMap Chart
+
+```kotlin
+private fun getHeatmapRenderer(color: Color) =
+  HeatmapRenderer(
+    ContributionHeatmapData(
+      baseColor = color,
+      contributions =
+      buildList {
+        val now = Clock.System.now()
+        repeat(365) { day ->
+          val date = now.minus(day.days)
+          val count = if (Random.nextFloat() > 0.6f) Random.nextInt(1, 15) else 0
+          add(ContributionData(date, count))
+        }
+      },
+    ),
+  )
+
+@Composable
+fun GithubGraph(
+  modifier: Modifier = Modifier,
+  color: Color,
+) {
+  Heatmap(
+    renderer = getHeatmapRenderer(color = color),
+    modifier =
+    Modifier
+      .fillMaxWidth()
+      .height(112.dp),
+  )
 }
 ```
 

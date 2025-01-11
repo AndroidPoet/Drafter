@@ -24,32 +24,33 @@ import androidx.compose.ui.unit.dp
 import io.androidpoet.drafter.bars.BarChart
 import io.androidpoet.drafter.bars.model.StackedBarChartData
 import io.androidpoet.drafter.bars.renderer.StackedBarChartRenderer
-import io.androidpoet.drafter.baselineprofile.app.ChartTitle
 
-private fun getStackedBarChartData() =
+private fun getStackedBarChartData(colors: List<Color>) =
   StackedBarChartData(
     labelsList = listOf("Q1", "Q2", "Q3"),
     stacks =
-      listOf(
-        listOf(10f, 15f, 5f), // Q1
-        listOf(8f, 12f, 20f), // Q2
-        listOf(18f, 10f, 15f), // Q3
-      ),
-    colors = listOf(Color.Red, Color.Green, Color.Blue),
+    listOf(
+      listOf(10f, 15f, 5f), // Q1
+      listOf(8f, 12f, 20f), // Q2
+      listOf(18f, 10f, 15f), // Q3
+    ),
+    colors = colors,
   )
 
-private fun getStackedBarChartRenderer() = StackedBarChartRenderer(getStackedBarChartData())
+private fun getStackedBarChartRenderer(colors: List<Color>) =
+  StackedBarChartRenderer(getStackedBarChartData(colors = colors))
 
 @Composable
-fun StackedBarChartExample(modifier: Modifier = Modifier) {
-  ChartTitle(text = "Stacked Bar Chart")
-
+fun StackedBarChartExample(
+  colors: List<Color>,
+  modifier: Modifier = Modifier,
+) {
   BarChart(
-    renderer = getStackedBarChartRenderer(),
+    renderer = getStackedBarChartRenderer(colors = colors),
     modifier =
-      modifier
-        .height(300.dp)
-        .fillMaxWidth(),
+    modifier
+      .height(300.dp)
+      .fillMaxWidth(),
     animate = true,
   )
 }

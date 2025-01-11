@@ -18,6 +18,7 @@ package io.androidpoet.drafter.pie
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
@@ -30,6 +31,7 @@ public fun PieChart(
   renderer: PieChartDataRenderer,
   modifier: Modifier = Modifier,
   animate: Boolean = true,
+  isSystemInDarkTheme: Boolean = isSystemInDarkTheme(),
 ) {
   // 1) We set up textMeasurer
   val textMeasurer = rememberTextMeasurer()
@@ -54,6 +56,7 @@ public fun PieChart(
       size = size,
       progress = progress.value,
       textMeasurer = textMeasurer,
+      isSystemInDarkTheme = isSystemInDarkTheme,
     )
   }
 }

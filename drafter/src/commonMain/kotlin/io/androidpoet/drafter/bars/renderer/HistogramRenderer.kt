@@ -21,8 +21,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import io.androidpoet.drafter.bars.BarChartDataRenderer
 import io.androidpoet.drafter.bars.model.HistogramData
+import kotlin.math.absoluteValue
 import kotlin.math.max
-import kotlin.math.roundToInt
+import kotlin.math.round
 
 /**
  * A specialized renderer for histogram charts that automatically bins data points into frequency distributions.
@@ -187,6 +188,24 @@ public class HistogramRenderer(
    * @param value Float value to format
    * @return String representation with one decimal place
    */
-  private fun formatToOneDecimal(value: Float): String =
-    ((value * 10).roundToInt() / 10f).toString()
+}
+
+/**
+ * Formats a float value to exactly one decimal place using platform-independent approach.
+ *
+ * @param value Float value to format
+ * @return String representation with exactly one decimal place
+ */
+private fun formatToOneDecimal(value: Float): String {
+  val multiplied = round(value * 10) // Move decimal point right one place and round
+  val rounded = multiplied / 10 // Move decimal point back left one place
+
+  // Convert to string with exactly one decimal place
+  return buildString {
+    append(rounded.toInt()) // Integer part
+    append('.')
+    // Get decimal part and ensure it's exactly one digit
+    val decimal = ((rounded - rounded.toInt()) * 10).toInt().absoluteValue
+    append(decimal)
+  }
 }

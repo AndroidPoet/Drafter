@@ -18,10 +18,6 @@ package io.androidpoet.drafter.scatterplot
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
-import androidx.compose.ui.text.TextMeasurer
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.drawText
-import androidx.compose.ui.unit.sp
 import io.androidpoet.drafter.scatterplot.model.ScatterPlotData
 
 public interface ScatterPlotRenderer {
@@ -64,7 +60,8 @@ public class SimpleScatterPlotRenderer(
 
       val pointSize = 5f * animationProgress
 
-      val color = if (index < data.pointColors.size) data.pointColors[index] else Color.Black
+      val color =
+        if (index < data.pointColors.size) data.pointColors[index] else Color.Gray
       drawScope.drawCircle(
         color = color.copy(alpha = animationProgress),
         radius = pointSize,
@@ -79,57 +76,18 @@ public fun DrawScope.drawAxes(
   top: Float,
   bottom: Float,
   width: Float,
+  isSystemInDarkTheme: Boolean,
 ) {
-  drawLine(Color.Black, Offset(left, top), Offset(left, bottom), strokeWidth = 2f)
-  drawLine(Color.Black, Offset(left, bottom), Offset(left + width, bottom), strokeWidth = 2f)
-}
-
-public fun DrawScope.drawYAxisLabels(
-  textMeasurer: TextMeasurer,
-  left: Float,
-  top: Float,
-  bottom: Float,
-  maxY: Float,
-) {
-  val style = TextStyle(fontSize = 10.sp, color = Color.Black)
-  (0..4).forEach { i ->
-    val y = bottom - (i * (bottom - top) / 4f)
-    val label = "${(maxY * i / 4)}"
-    val textLayoutResult = textMeasurer.measure(label, style)
-    drawText(
-      textMeasurer = textMeasurer,
-      text = label,
-      style = style,
-      topLeft =
-        Offset(
-          left - textLayoutResult.size.width - 5f,
-          y - textLayoutResult.size.height / 2,
-        ),
-    )
-  }
-}
-
-public fun DrawScope.drawXAxisLabels(
-  textMeasurer: TextMeasurer,
-  left: Float,
-  bottom: Float,
-  width: Float,
-  maxX: Float,
-) {
-  val style = TextStyle(fontSize = 10.sp, color = Color.Black)
-  (0..4).forEach { i ->
-    val x = left + (i * width / 4f)
-    val label = "${(maxX * i / 4)}"
-    val textLayoutResult = textMeasurer.measure(label, style)
-    drawText(
-      textMeasurer = textMeasurer,
-      text = label,
-      style = style,
-      topLeft =
-        Offset(
-          x - textLayoutResult.size.width / 2,
-          bottom + 5f,
-        ),
-    )
-  }
+  drawLine(
+    if (isSystemInDarkTheme) Color.White else Color.Black,
+    Offset(left, top),
+    Offset(left, bottom),
+    strokeWidth = 2f,
+  )
+  drawLine(
+    if (isSystemInDarkTheme) Color.White else Color.Black,
+    Offset(left, bottom),
+    Offset(left + width, bottom),
+    strokeWidth = 2f,
+  )
 }

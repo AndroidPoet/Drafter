@@ -36,9 +36,9 @@ public fun Tooltip(text: String) {
   ) {
     Surface(
       modifier =
-        Modifier
-          .shadow(4.dp)
-          .padding(4.dp),
+      Modifier
+        .shadow(4.dp)
+        .padding(4.dp),
       color = Color.White,
       shape = RoundedCornerShape(4.dp),
     ) {

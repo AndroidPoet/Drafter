@@ -15,36 +15,45 @@
  */
 package io.androidpoet.drafterdemo.radar
 
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import io.androidpoet.drafter.radar.RadarChart
-import io.androidpoet.drafter.radar.RadarChartData
-import io.androidpoet.drafterdemo.ChartTitle
+import io.androidpoet.drafter.radar.model.RadarChartData
+import io.androidpoet.drafter.radar.renderer.RadarChartRenderer
 
-private fun getRadarChartData() =
-  listOf(
-    RadarChartData(
-      mapOf(
-        "Execution" to 0.8f,
-        "Landing" to 0.6f,
-        "Difficulty" to 0.9f,
-        "Style" to 0.7f,
-        "Creativity" to 0.85f,
+private fun getRadarRenderer(colors: List<Color>) =
+  RadarChartRenderer(
+    data =
+    listOf(
+      RadarChartData(
+        mapOf(
+          "Execution" to 0.8f,
+          "Landing" to 0.6f,
+          "Difficulty" to 0.9f,
+          "Style" to 0.7f,
+          "Creativity" to 0.85f,
+        ),
       ),
     ),
+    colors = colors,
   )
-
 
 @Composable
 fun RadarChartExample(
   colors: List<Color>,
   modifier: Modifier = Modifier,
 ) {
-  ChartTitle(text = "Radar Chart")
-
   RadarChart(
-    data = getRadarChartData(),
-    colors = colors,
+    modifier =
+    modifier
+      .height(300.dp)
+      .fillMaxWidth(),
+    renderer = getRadarRenderer(colors),
+    isSystemInDarkTheme = isSystemInDarkTheme(),
   )
 }

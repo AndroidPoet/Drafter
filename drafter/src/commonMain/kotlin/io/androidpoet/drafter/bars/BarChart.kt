@@ -21,6 +21,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.hoverable
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.runtime.Composable
@@ -51,6 +52,7 @@ import io.androidpoet.drafter.popup.HoverState
 public fun BarChart(
   renderer: BarChartDataRenderer,
   modifier: Modifier = Modifier,
+  isSystemInDarkTheme: Boolean = isSystemInDarkTheme(),
   animate: Boolean = true,
 ) {
   // Remember text measurer for consistent text measurements
@@ -70,10 +72,10 @@ public fun BarChart(
       animationProgress.animateTo(
         targetValue = 1f,
         animationSpec =
-          tween(
-            durationMillis = 1000,
-            easing = LinearOutSlowInEasing,
-          ),
+        tween(
+          durationMillis = 1000,
+          easing = LinearOutSlowInEasing,
+        ),
       )
     }
   }
@@ -85,9 +87,9 @@ public fun BarChart(
 
   Canvas(
     modifier =
-      modifier
-        .fillMaxSize()
-        .hoverable(interactionSource),
+    modifier
+      .fillMaxSize()
+      .hoverable(interactionSource),
   ) {
     // Skip drawing if canvas size is invalid
     if (size.width < 1f || size.height < 1f) return@Canvas
@@ -97,7 +99,7 @@ public fun BarChart(
     val (chartPadding, chartHeight, chartWidth, chartTop, chartBottom, chartLeft) = chartDimensions
 
     // Draw the basic chart structure
-    drawAxes(chartLeft, chartTop, chartBottom, chartWidth)
+    drawAxes(chartLeft, chartTop, chartBottom, chartWidth, isSystemInDarkTheme)
 
     // Calculate bar dimensions based on data
     val maxValue = renderer.calculateMaxValue()
@@ -115,6 +117,7 @@ public fun BarChart(
       left = chartLeft,
       top = chartTop,
       bottom = chartBottom,
+      isSystemInDarkTheme = isSystemInDarkTheme,
     )
 
     // Draw the actual bars
@@ -140,6 +143,7 @@ public fun BarChart(
       barWidth = barWidth,
       barsPerGroup = barsPerGroup,
       groupSpacing = groupSpacing,
+      isSystemInDarkTheme = isSystemInDarkTheme,
     )
   }
 }
@@ -192,8 +196,10 @@ private fun DrawScope.drawYAxisLabels(
   left: Float,
   top: Float,
   bottom: Float,
+  isSystemInDarkTheme: Boolean,
 ) {
-  val style = TextStyle(fontSize = 12.sp, color = Color.Black)
+  val style =
+    TextStyle(fontSize = 12.sp, color = if (isSystemInDarkTheme) Color.White else Color.Black)
   val steps = 5
   val stepValue = maxValue / steps
 
@@ -209,9 +215,9 @@ private fun DrawScope.drawYAxisLabels(
       text = label,
       style = style,
       topLeft =
-        Offset(
-          x = (left - measured.size.width - 8f),
-          y = yPosition - (measured.size.height / 2),
+      Offset(
+        x = (left - measured.size.width - 8f),
+        y = yPosition - (measured.size.height / 2),
       ),
     )
   }
@@ -262,8 +268,13 @@ private fun DrawScope.drawXAxisLabels(
   barWidth: Float,
   barsPerGroup: Int,
   groupSpacing: Float,
+  isSystemInDarkTheme: Boolean,
 ) {
-  val style = TextStyle(fontSize = 12.sp, color = Color.Black)
+  val style =
+    TextStyle(
+      fontSize = 12.sp,
+      color = if (isSystemInDarkTheme) Color.White else Color.Black,
+    )
   var currentLeft = chartLeft
 
   labels.forEach { label ->
@@ -276,9 +287,9 @@ private fun DrawScope.drawXAxisLabels(
       text = label,
       style = style,
       topLeft =
-        Offset(
-          x = centerX - (measured.size.width / 2),
-          y = chartBottom + 8f,
+      Offset(
+        x = centerX - (measured.size.width / 2),
+        y = chartBottom + 8f,
       ),
     )
 
@@ -294,17 +305,18 @@ private fun DrawScope.drawAxes(
   top: Float,
   bottom: Float,
   width: Float,
+  isSystemInDarkTheme: Boolean,
 ) {
   // Y-axis
   drawLine(
-    color = Color.Black,
+    color = if (isSystemInDarkTheme) Color.White else Color.Black,
     start = Offset(left, top),
     end = Offset(left, bottom),
     strokeWidth = 2f,
   )
   // X-axis
   drawLine(
-    color = Color.Black,
+    color = if (isSystemInDarkTheme) Color.White else Color.Black,
     start = Offset(left, bottom),
     end = Offset(left + width, bottom),
     strokeWidth = 2f,

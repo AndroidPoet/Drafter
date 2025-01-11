@@ -18,36 +18,34 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import io.androidpoet.drafter.baselineprofile.app.ChartContainer
-import io.androidpoet.drafter.baselineprofile.app.ChartTitle
 import io.androidpoet.drafter.lines.LineChart
 import io.androidpoet.drafter.lines.model.GroupedLineChartData
 import io.androidpoet.drafter.lines.renderer.GroupedLineChartRenderer
 
-private fun getGroupedLineChartData() =
+private fun getGroupedLineChartData(colors: List<Color>) =
   GroupedLineChartData(
     labels = listOf("Q1", "Q2", "Q3", "Q4"),
     itemNames = listOf("Product A", "Product B"),
     groupedValues =
-      listOf(
-        listOf(10f, 15f),
-        listOf(20f, 25f),
-        listOf(15f, 10f),
-        listOf(25f, 20f),
-      ),
-    colors = listOf(Color.Cyan, Color.Magenta),
+    listOf(
+      listOf(10f, 15f),
+      listOf(20f, 25f),
+      listOf(15f, 10f),
+      listOf(25f, 20f),
+    ),
+    colors = colors,
   )
 
-private fun getGroupedLineChartRenderer() = GroupedLineChartRenderer(getGroupedLineChartData())
+private fun getGroupedLineChartRenderer(colors: List<Color>) =
+  GroupedLineChartRenderer(getGroupedLineChartData(colors = colors))
 
 @Composable
-fun GroupedLineChartExample() {
-  ChartTitle(text = "Grouped Line Chart")
-
-  ChartContainer {
-    LineChart(
-      renderer = getGroupedLineChartRenderer(),
-      modifier = Modifier.fillMaxSize(),
-    )
-  }
+fun GroupedLineChartExample(
+  colors: List<Color>,
+  modifier: Modifier = Modifier,
+) {
+  LineChart(
+    renderer = getGroupedLineChartRenderer(colors = colors),
+    modifier = modifier.fillMaxSize(),
+  )
 }

@@ -18,6 +18,7 @@ package io.androidpoet.drafter.buble
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -40,6 +41,7 @@ import kotlin.math.pow
 public fun BubbleChart(
   renderer: BubbleChartDataRenderer,
   modifier: Modifier = Modifier,
+  isSystemInDarkTheme: Boolean = isSystemInDarkTheme(),
   animate: Boolean = true,
 ) {
   val textMeasurer = rememberTextMeasurer()
@@ -61,7 +63,7 @@ public fun BubbleChart(
     val originY = size.height - 20.dp.toPx()
 
     drawGrid(chartWidth, chartHeight, originX, originY, renderer)
-    drawAxes(chartWidth, chartHeight, originX, originY, textMeasurer, renderer)
+    drawAxes(chartWidth, chartHeight, originX, originY, textMeasurer, renderer, isSystemInDarkTheme)
 
     renderer.drawBubbles(
       drawScope = this,
@@ -127,9 +129,11 @@ private fun DrawScope.drawAxes(
   originY: Float,
   textMeasurer: TextMeasurer,
   renderer: BubbleChartDataRenderer,
+  isSystemInDarkTheme: Boolean,
 ) {
-  val axisColor = Color.Black
-  val textStyle = TextStyle(color = Color.Black, fontSize = 10.sp)
+  val axisColor = if (isSystemInDarkTheme) Color.White else Color.Black
+  val textStyle =
+    TextStyle(color = if (isSystemInDarkTheme) Color.White else Color.Black, fontSize = 10.sp)
   val ranges = renderer.getValueRanges()
 
   // Draw axes lines
@@ -179,10 +183,10 @@ private fun DrawScope.drawAxes(
     drawText(
       textLayoutResult,
       topLeft =
-        Offset(
-          originX - textLayoutResult.size.width - 5.dp.toPx(),
-          y - textLayoutResult.size.height / 2,
-        ),
+      Offset(
+        originX - textLayoutResult.size.width - 5.dp.toPx(),
+        y - textLayoutResult.size.height / 2,
+      ),
     )
   }
 }

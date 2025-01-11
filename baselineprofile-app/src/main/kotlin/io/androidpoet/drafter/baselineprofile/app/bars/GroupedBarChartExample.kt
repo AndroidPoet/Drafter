@@ -24,7 +24,6 @@ import androidx.compose.ui.unit.dp
 import io.androidpoet.drafter.bars.BarChart
 import io.androidpoet.drafter.bars.model.GroupedBarChartData
 import io.androidpoet.drafter.bars.renderer.GroupedBarChartRenderer
-import io.androidpoet.drafter.baselineprofile.app.ChartTitle
 
 private fun getBarChartRenderer() =
   GroupedBarChartRenderer(
@@ -32,24 +31,26 @@ private fun getBarChartRenderer() =
       labelsList = listOf("2020", "2021", "2022"),
       itemNames = listOf("Product A", "Product B", "Product C"),
       groupedValues =
-        listOf(
-          listOf(10f, 20f, 15f), // 2020
-          listOf(25f, 5f, 30f), // 2021
-          listOf(12f, 28f, 10f), // 2022
-        ),
+      listOf(
+        listOf(10f, 20f, 15f), // 2020
+        listOf(25f, 5f, 30f), // 2021
+        listOf(12f, 28f, 10f), // 2022
+      ),
       colors = listOf(Color.Red, Color.Green, Color.Blue),
     ),
   )
 
 @Composable
-fun GroupedBarChartExample() {
-  ChartTitle(text = "Grouped Bar Chart")
+fun GroupedBarChartExample(
+  colors: List<Color>,
+  modifier: Modifier = Modifier,
+) {
   BarChart(
     renderer = getBarChartRenderer(),
     modifier =
-      Modifier
-        .height(300.dp)
-        .fillMaxWidth(),
+    Modifier
+      .height(300.dp)
+      .fillMaxWidth(),
     animate = true,
   )
 }

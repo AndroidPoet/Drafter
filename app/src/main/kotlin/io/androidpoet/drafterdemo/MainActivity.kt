@@ -39,7 +39,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import io.androidpoet.drafter.ChartThemeManager
 import io.androidpoet.drafterdemo.bars.GroupedBarChartExample
 import io.androidpoet.drafterdemo.bars.HistogramChartExample
 import io.androidpoet.drafterdemo.bars.SimpleBarChartExample
@@ -52,6 +51,7 @@ import io.androidpoet.drafterdemo.line.GroupedLineChartExample
 import io.androidpoet.drafterdemo.line.ScatterPlotChartExample
 import io.androidpoet.drafterdemo.line.SimpleLineChartExample
 import io.androidpoet.drafterdemo.line.StackedLineChartExample
+import io.androidpoet.drafterdemo.manager.ChartThemeManager
 import io.androidpoet.drafterdemo.pie.DonutChartExample
 import io.androidpoet.drafterdemo.pie.PieChartExample
 import io.androidpoet.drafterdemo.radar.RadarChartExample
@@ -70,23 +70,23 @@ class MainActivity : ComponentActivity() {
           // Theme Selector Row
           Row(
             modifier =
-              Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
+            Modifier
+              .fillMaxWidth()
+              .padding(16.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
           ) {
             ChartThemeManager.ColorTheme.entries.forEach { theme ->
               Button(
                 onClick = { ChartThemeManager.setTheme(theme) },
                 colors =
-                  ButtonDefaults.buttonColors(
-                    containerColor =
-                      if (theme == currentTheme) {
-                        MaterialTheme.colorScheme.primary
-                      } else {
-                        MaterialTheme.colorScheme.secondary
-                      },
-                  ),
+                ButtonDefaults.buttonColors(
+                  containerColor =
+                  if (theme == currentTheme) {
+                    MaterialTheme.colorScheme.primary
+                  } else {
+                    MaterialTheme.colorScheme.secondary
+                  },
+                ),
                 modifier = Modifier.weight(1f),
               ) {
                 Text(
@@ -194,7 +194,7 @@ class MainActivity : ComponentActivity() {
               item {
                 Column {
                   ChartTitle(text = "Github Contribution Graph")
-                  GithubGraph(color = palette.first())
+                  GithubGraph(color = Color.Green)
                 }
               }
             }

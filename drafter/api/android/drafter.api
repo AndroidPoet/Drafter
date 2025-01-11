@@ -8,7 +8,7 @@ public abstract interface class io/androidpoet/drafter/bars/BarChartDataRenderer
 }
 
 public final class io/androidpoet/drafter/bars/BarChartKt {
-	public static final fun BarChart (Lio/androidpoet/drafter/bars/BarChartDataRenderer;Landroidx/compose/ui/Modifier;ZLandroidx/compose/runtime/Composer;II)V
+	public static final fun BarChart (Lio/androidpoet/drafter/bars/BarChartDataRenderer;Landroidx/compose/ui/Modifier;ZZLandroidx/compose/runtime/Composer;II)V
 }
 
 public final class io/androidpoet/drafter/bars/model/GroupedBarChartData {
@@ -129,7 +129,6 @@ public final class io/androidpoet/drafter/bars/renderer/HistogramRenderer : io/a
 	public fun calculateGroupWidth (FI)F
 	public fun calculateMaxValue ()F
 	public fun drawBars (Landroidx/compose/ui/graphics/drawscope/DrawScope;IFFFFFFF)V
-	public final fun getHistogramData ()Lio/androidpoet/drafter/bars/model/HistogramData;
 	public fun getLabels ()Ljava/util/List;
 }
 
@@ -195,7 +194,7 @@ public abstract interface class io/androidpoet/drafter/buble/BubbleChartDataRend
 }
 
 public final class io/androidpoet/drafter/buble/BubbleChartKt {
-	public static final fun BubbleChart (Lio/androidpoet/drafter/buble/BubbleChartDataRenderer;Landroidx/compose/ui/Modifier;ZLandroidx/compose/runtime/Composer;II)V
+	public static final fun BubbleChart (Lio/androidpoet/drafter/buble/BubbleChartDataRenderer;Landroidx/compose/ui/Modifier;ZZLandroidx/compose/runtime/Composer;II)V
 }
 
 public final class io/androidpoet/drafter/buble/SimpleBubbleChartDataRenderer : io/androidpoet/drafter/buble/BubbleChartDataRenderer {
@@ -226,10 +225,10 @@ public final class io/androidpoet/drafter/buble/ValueRanges {
 }
 
 public final class io/androidpoet/drafter/gant/GantChartKt {
-	public static final fun GanttChart (Lio/androidpoet/drafter/gant/GanttChartRenderer;Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;II)V
-	public static final fun drawAxes (Landroidx/compose/ui/graphics/drawscope/DrawScope;FFFF)V
-	public static final fun drawXAxisLabels (Landroidx/compose/ui/graphics/drawscope/DrawScope;Landroidx/compose/ui/text/TextMeasurer;FFFFFLjava/util/List;)V
-	public static final fun drawYAxisLabels (Landroidx/compose/ui/graphics/drawscope/DrawScope;Landroidx/compose/ui/text/TextMeasurer;FFFLjava/util/List;)V
+	public static final fun GanttChart (Lio/androidpoet/drafter/gant/GanttChartRenderer;Landroidx/compose/ui/Modifier;ZZLandroidx/compose/runtime/Composer;II)V
+	public static final fun drawAxes (Landroidx/compose/ui/graphics/drawscope/DrawScope;FFFFZ)V
+	public static final fun drawXAxisLabels (Landroidx/compose/ui/graphics/drawscope/DrawScope;Landroidx/compose/ui/text/TextMeasurer;FFFFFLjava/util/List;Z)V
+	public static final fun drawYAxisLabels (Landroidx/compose/ui/graphics/drawscope/DrawScope;Landroidx/compose/ui/text/TextMeasurer;FFFLjava/util/List;Z)V
 }
 
 public final class io/androidpoet/drafter/gant/GanttChartData {
@@ -302,20 +301,20 @@ public final class io/androidpoet/drafter/heatmap/ContributionHeatmapData {
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class io/androidpoet/drafter/heatmap/ContributionHeatmapKt {
-	public static final fun ContributionHeatmap (Lio/androidpoet/drafter/heatmap/HeatmapRenderer;Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;II)V
+public abstract interface class io/androidpoet/drafter/heatmap/HeatmapDataRenderer {
+	public abstract fun drawHeatmap (Landroidx/compose/ui/graphics/drawscope/DrawScope;FFLkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;FZ)V
+	public abstract fun getData ()Lio/androidpoet/drafter/heatmap/ContributionHeatmapData;
 }
 
-public final class io/androidpoet/drafter/heatmap/DefaultHeatmapRenderer : io/androidpoet/drafter/heatmap/HeatmapRenderer {
+public final class io/androidpoet/drafter/heatmap/HeatmapKt {
+	public static final fun Heatmap (Lio/androidpoet/drafter/heatmap/HeatmapDataRenderer;Landroidx/compose/ui/Modifier;ZLandroidx/compose/runtime/Composer;II)V
+}
+
+public final class io/androidpoet/drafter/heatmap/HeatmapRenderer : io/androidpoet/drafter/heatmap/HeatmapDataRenderer {
 	public static final field $stable I
 	public fun <init> (Lio/androidpoet/drafter/heatmap/ContributionHeatmapData;)V
-	public fun drawHeatmap (Landroidx/compose/ui/graphics/drawscope/DrawScope;FFLkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;F)V
+	public fun drawHeatmap (Landroidx/compose/ui/graphics/drawscope/DrawScope;FFLkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;FZ)V
 	public fun getData ()Lio/androidpoet/drafter/heatmap/ContributionHeatmapData;
-}
-
-public abstract interface class io/androidpoet/drafter/heatmap/HeatmapRenderer {
-	public abstract fun drawHeatmap (Landroidx/compose/ui/graphics/drawscope/DrawScope;FFLkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;F)V
-	public abstract fun getData ()Lio/androidpoet/drafter/heatmap/ContributionHeatmapData;
 }
 
 public abstract interface class io/androidpoet/drafter/lines/LineChartDataRenderer {
@@ -325,7 +324,7 @@ public abstract interface class io/androidpoet/drafter/lines/LineChartDataRender
 }
 
 public final class io/androidpoet/drafter/lines/LineChartKt {
-	public static final fun LineChart (Lio/androidpoet/drafter/lines/LineChartDataRenderer;Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;II)V
+	public static final fun LineChart (Lio/androidpoet/drafter/lines/LineChartDataRenderer;Landroidx/compose/ui/Modifier;ZLandroidx/compose/runtime/Composer;II)V
 }
 
 public final class io/androidpoet/drafter/lines/model/GroupedLineChartData : io/androidpoet/drafter/lines/model/LineChartData {
@@ -407,7 +406,7 @@ public final class io/androidpoet/drafter/lines/renderer/StackedLineChartRendere
 }
 
 public final class io/androidpoet/drafter/pie/PieChartKt {
-	public static final fun PieChart (Lio/androidpoet/drafter/pie/renderer/PieChartDataRenderer;Landroidx/compose/ui/Modifier;ZLandroidx/compose/runtime/Composer;II)V
+	public static final fun PieChart (Lio/androidpoet/drafter/pie/renderer/PieChartDataRenderer;Landroidx/compose/ui/Modifier;ZZLandroidx/compose/runtime/Composer;II)V
 }
 
 public final class io/androidpoet/drafter/pie/model/PieChartData {
@@ -442,12 +441,12 @@ public final class io/androidpoet/drafter/pie/renderer/DonutChartRenderer : io/a
 	public static final field $stable I
 	public fun <init> (Lio/androidpoet/drafter/pie/model/PieChartData;FF)V
 	public synthetic fun <init> (Lio/androidpoet/drafter/pie/model/PieChartData;FFILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public fun drawChart-x_KDEd0 (Landroidx/compose/ui/graphics/drawscope/DrawScope;JFLandroidx/compose/ui/text/TextMeasurer;)V
+	public fun drawChart-eZhPAX0 (Landroidx/compose/ui/graphics/drawscope/DrawScope;JFLandroidx/compose/ui/text/TextMeasurer;Z)V
 	public fun getData ()Lio/androidpoet/drafter/pie/model/PieChartData;
 }
 
 public abstract interface class io/androidpoet/drafter/pie/renderer/PieChartDataRenderer {
-	public abstract fun drawChart-x_KDEd0 (Landroidx/compose/ui/graphics/drawscope/DrawScope;JFLandroidx/compose/ui/text/TextMeasurer;)V
+	public abstract fun drawChart-eZhPAX0 (Landroidx/compose/ui/graphics/drawscope/DrawScope;JFLandroidx/compose/ui/text/TextMeasurer;Z)V
 	public abstract fun getData ()Lio/androidpoet/drafter/pie/model/PieChartData;
 }
 
@@ -455,7 +454,7 @@ public final class io/androidpoet/drafter/pie/renderer/PieChartRenderer : io/and
 	public static final field $stable I
 	public fun <init> (Lio/androidpoet/drafter/pie/model/PieChartData;F)V
 	public synthetic fun <init> (Lio/androidpoet/drafter/pie/model/PieChartData;FILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public fun drawChart-x_KDEd0 (Landroidx/compose/ui/graphics/drawscope/DrawScope;JFLandroidx/compose/ui/text/TextMeasurer;)V
+	public fun drawChart-eZhPAX0 (Landroidx/compose/ui/graphics/drawscope/DrawScope;JFLandroidx/compose/ui/text/TextMeasurer;Z)V
 	public fun getData ()Lio/androidpoet/drafter/pie/model/PieChartData;
 }
 
@@ -477,33 +476,43 @@ public final class io/androidpoet/drafter/popup/HoverState {
 }
 
 public final class io/androidpoet/drafter/popup/TooltipKt {
-	public static final fun Tooltip-ubNVwUQ (Ljava/lang/String;JLandroidx/compose/runtime/Composer;I)V
+	public static final fun Tooltip (Ljava/lang/String;Landroidx/compose/runtime/Composer;I)V
 }
 
-public final class io/androidpoet/drafter/radar/RadarChartData {
+public abstract interface class io/androidpoet/drafter/radar/RadarChartDataRenderer {
+	public abstract fun drawChart (Landroidx/compose/ui/graphics/drawscope/DrawScope;FFFLandroidx/compose/ui/text/TextMeasurer;FZ)V
+}
+
+public final class io/androidpoet/drafter/radar/RadarChartKt {
+	public static final fun RadarChart (Lio/androidpoet/drafter/radar/renderer/RadarChartRenderer;Landroidx/compose/ui/Modifier;ZLandroidx/compose/runtime/Composer;II)V
+}
+
+public final class io/androidpoet/drafter/radar/model/RadarChartData {
 	public static final field $stable I
 	public fun <init> (Ljava/util/Map;)V
 	public final fun component1 ()Ljava/util/Map;
-	public final fun copy (Ljava/util/Map;)Lio/androidpoet/drafter/radar/RadarChartData;
-	public static synthetic fun copy$default (Lio/androidpoet/drafter/radar/RadarChartData;Ljava/util/Map;ILjava/lang/Object;)Lio/androidpoet/drafter/radar/RadarChartData;
+	public final fun copy (Ljava/util/Map;)Lio/androidpoet/drafter/radar/model/RadarChartData;
+	public static synthetic fun copy$default (Lio/androidpoet/drafter/radar/model/RadarChartData;Ljava/util/Map;ILjava/lang/Object;)Lio/androidpoet/drafter/radar/model/RadarChartData;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getValues ()Ljava/util/Map;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class io/androidpoet/drafter/radar/RadarChartKt {
-	public static final fun RadarChart (Landroidx/compose/ui/Modifier;Ljava/util/List;Ljava/util/List;Landroidx/compose/runtime/Composer;II)V
+public final class io/androidpoet/drafter/radar/renderer/RadarChartRenderer : io/androidpoet/drafter/radar/RadarChartDataRenderer {
+	public static final field $stable I
+	public fun <init> (Ljava/util/List;Ljava/util/List;)V
+	public fun drawChart (Landroidx/compose/ui/graphics/drawscope/DrawScope;FFFLandroidx/compose/ui/text/TextMeasurer;FZ)V
+	public final fun getColors ()Ljava/util/List;
+	public final fun getData ()Ljava/util/List;
 }
 
 public final class io/androidpoet/drafter/scatterplot/ScatterPlotChartKt {
-	public static final fun ScatterPlot (Lio/androidpoet/drafter/scatterplot/ScatterPlotRenderer;Landroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;II)V
+	public static final fun ScatterPlot (Lio/androidpoet/drafter/scatterplot/ScatterPlotRenderer;Landroidx/compose/ui/Modifier;ZLandroidx/compose/runtime/Composer;II)V
 }
 
 public final class io/androidpoet/drafter/scatterplot/ScatterPlotChartRendererKt {
-	public static final fun drawAxes (Landroidx/compose/ui/graphics/drawscope/DrawScope;FFFF)V
-	public static final fun drawXAxisLabels (Landroidx/compose/ui/graphics/drawscope/DrawScope;Landroidx/compose/ui/text/TextMeasurer;FFFF)V
-	public static final fun drawYAxisLabels (Landroidx/compose/ui/graphics/drawscope/DrawScope;Landroidx/compose/ui/text/TextMeasurer;FFFF)V
+	public static final fun drawAxes (Landroidx/compose/ui/graphics/drawscope/DrawScope;FFFFZ)V
 }
 
 public abstract interface class io/androidpoet/drafter/scatterplot/ScatterPlotRenderer {

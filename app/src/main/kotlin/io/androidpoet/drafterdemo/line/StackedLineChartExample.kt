@@ -15,27 +15,28 @@
  */
 package io.androidpoet.drafterdemo.line
 
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import io.androidpoet.drafter.lines.LineChart
 import io.androidpoet.drafter.lines.model.StackedLineChartData
 import io.androidpoet.drafter.lines.renderer.StackedLineChartRenderer
 import io.androidpoet.drafterdemo.ChartContainer
-import io.androidpoet.drafterdemo.ChartTitle
 
 private fun getStackedLineChartRenderer(colors: List<Color>) =
   StackedLineChartRenderer(
     StackedLineChartData(
       labels = listOf("Jan", "Feb", "Mar", "Apr"),
       stacks =
-        listOf(
-          listOf(5f, 5f, 2f),
-          listOf(7f, 3f, 4f),
-          listOf(6f, 4f, 3f),
-          listOf(8f, 2f, 5f),
-        ),
+      listOf(
+        listOf(5f, 5f, 2f),
+        listOf(7f, 3f, 4f),
+        listOf(6f, 4f, 3f),
+        listOf(8f, 2f, 5f),
+      ),
       colors = colors,
     ),
   )
@@ -45,12 +46,13 @@ fun StackedLineChartExample(
   colors: List<Color>,
   modifier: Modifier = Modifier,
 ) {
-  ChartTitle(text = "Stacked Line Chart (Area Chart)")
-
   ChartContainer {
     LineChart(
       renderer = getStackedLineChartRenderer(colors = colors),
-      modifier = Modifier.fillMaxSize(),
+      modifier =
+      modifier
+        .height(300.dp)
+        .fillMaxWidth(),
     )
   }
 }

@@ -14,27 +14,29 @@
  * limitations under the License.
  */
 package io.androidpoet.drafterdemo.line
-import androidx.compose.foundation.layout.fillMaxSize
+
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import io.androidpoet.drafter.lines.LineChart
 import io.androidpoet.drafter.lines.model.GroupedLineChartData
 import io.androidpoet.drafter.lines.renderer.GroupedLineChartRenderer
 import io.androidpoet.drafterdemo.ChartContainer
-import io.androidpoet.drafterdemo.ChartTitle
 
 private fun getGroupedLineChartData(colors: List<Color>) =
   GroupedLineChartData(
     labels = listOf("Q1", "Q2", "Q3", "Q4"),
     itemNames = listOf("Product A", "Product B"),
     groupedValues =
-      listOf(
-        listOf(10f, 15f),
-        listOf(20f, 25f),
-        listOf(15f, 10f),
-        listOf(25f, 20f),
-      ),
+    listOf(
+      listOf(10f, 15f),
+      listOf(20f, 25f),
+      listOf(15f, 10f),
+      listOf(25f, 20f),
+    ),
     colors = colors,
   )
 
@@ -46,12 +48,13 @@ fun GroupedLineChartExample(
   colors: List<Color>,
   modifier: Modifier = Modifier,
 ) {
-  ChartTitle(text = "Grouped Line Chart")
-
   ChartContainer {
     LineChart(
       renderer = getGroupedLineChartRenderer(colors = colors),
-      modifier = modifier.fillMaxSize(),
+      modifier =
+      modifier
+        .height(300.dp)
+        .fillMaxWidth(),
     )
   }
 }

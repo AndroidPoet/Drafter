@@ -19,6 +19,7 @@ import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -39,19 +40,21 @@ import kotlin.math.min
 public fun GanttChart(
   renderer: GanttChartRenderer,
   modifier: Modifier = Modifier,
+  animate: Boolean = true,
+  isSystemInDarkTheme: Boolean = isSystemInDarkTheme(),
 ) {
   val textMeasurer = rememberTextMeasurer()
   val animationProgress = remember { Animatable(0f) }
 
   // Animate on first composition
-  LaunchedEffect(Unit) {
+  LaunchedEffect(animate) {
     animationProgress.animateTo(
       targetValue = 1f,
       animationSpec =
-        tween(
-          durationMillis = 2000,
-          easing = LinearOutSlowInEasing,
-        ),
+      tween(
+        durationMillis = 2000,
+        easing = LinearOutSlowInEasing,
+      ),
     )
   }
 
@@ -73,6 +76,7 @@ public fun GanttChart(
       top = chartTop,
       bottom = chartBottom,
       width = chartWidth,
+      isSystemInDarkTheme = isSystemInDarkTheme,
     )
 
     // 3) Y-axis labels
@@ -82,6 +86,7 @@ public fun GanttChart(
       top = chartTop,
       bottom = chartBottom,
       tasks = renderer.data.tasks,
+      isSystemInDarkTheme = isSystemInDarkTheme,
     )
 
     // 4) X-axis labels (pass tasks here)
@@ -93,6 +98,7 @@ public fun GanttChart(
       maxMonth = maxMonth,
       canvasHeight = size.height,
       tasks = renderer.data.tasks,
+      isSystemInDarkTheme = isSystemInDarkTheme,
     )
 
     // 5) Draw tasks
@@ -113,11 +119,22 @@ public fun DrawScope.drawAxes(
   top: Float,
   bottom: Float,
   width: Float,
+  isSystemInDarkTheme: Boolean,
 ) {
   // Y-axis
-  drawLine(Color.Black, Offset(left, top), Offset(left, bottom), strokeWidth = 2f)
+  drawLine(
+    if (isSystemInDarkTheme) Color.White else Color.Black,
+    Offset(left, top),
+    Offset(left, bottom),
+    strokeWidth = 2f,
+  )
   // X-axis
-  drawLine(Color.Black, Offset(left, bottom), Offset(left + width, bottom), strokeWidth = 2f)
+  drawLine(
+    if (isSystemInDarkTheme) Color.White else Color.Black,
+    Offset(left, bottom),
+    Offset(left + width, bottom),
+    strokeWidth = 2f,
+  )
 }
 
 public fun DrawScope.drawYAxisLabels(
@@ -126,10 +143,12 @@ public fun DrawScope.drawYAxisLabels(
   top: Float,
   bottom: Float,
   tasks: List<GanttTask>,
+  isSystemInDarkTheme: Boolean,
 ) {
   if (tasks.isEmpty()) return
 
-  val style = TextStyle(fontSize = 10.sp, color = Color.Black)
+  val style =
+    TextStyle(fontSize = 10.sp, color = if (isSystemInDarkTheme) Color.White else Color.Black)
   val taskHeight = max((bottom - top) / tasks.size, 1f)
 
   tasks.forEachIndexed { index, task ->
@@ -161,8 +180,10 @@ public fun DrawScope.drawXAxisLabels(
   maxMonth: Float,
   canvasHeight: Float,
   tasks: List<GanttTask>,
+  isSystemInDarkTheme: Boolean,
 ) {
-  val style = TextStyle(fontSize = 10.sp, color = Color.Black)
+  val style =
+    TextStyle(fontSize = 10.sp, color = if (isSystemInDarkTheme) Color.White else Color.Black)
   val safeMaxMonth = max(maxMonth, 1f)
 
   // If no tasks, skip

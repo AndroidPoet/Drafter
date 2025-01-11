@@ -19,17 +19,26 @@ import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.drawscope.DrawScope
+import androidx.compose.ui.text.TextMeasurer
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.drawText
 import androidx.compose.ui.text.rememberTextMeasurer
+import androidx.compose.ui.unit.sp
 
 @Composable
 public fun ScatterPlot(
   renderer: ScatterPlotRenderer,
   modifier: Modifier = Modifier,
+  isSystemInDarkTheme: Boolean = isSystemInDarkTheme(),
 ) {
   val textMeasurer = rememberTextMeasurer()
   val animationProgress = remember { Animatable(0f) }
@@ -38,10 +47,10 @@ public fun ScatterPlot(
     animationProgress.animateTo(
       targetValue = 1f,
       animationSpec =
-        tween(
-          durationMillis = 2000,
-          easing = LinearOutSlowInEasing,
-        ),
+      tween(
+        durationMillis = 2000,
+        easing = LinearOutSlowInEasing,
+      ),
     )
   }
 
@@ -54,9 +63,9 @@ public fun ScatterPlot(
 
     val (maxX, maxY) = renderer.calculateMaxValues()
 
-    drawAxes(chartLeft, chartTop, chartBottom, chartWidth)
-    drawYAxisLabels(textMeasurer, chartLeft, chartTop, chartBottom, maxY)
-    drawXAxisLabels(textMeasurer, chartLeft, chartBottom, chartWidth, maxX)
+    drawAxes(chartLeft, chartTop, chartBottom, chartWidth, isSystemInDarkTheme)
+    drawYAxisLabels(textMeasurer, chartLeft, chartTop, chartBottom, maxY, isSystemInDarkTheme)
+    drawXAxisLabels(textMeasurer, chartLeft, chartBottom, chartWidth, maxX, isSystemInDarkTheme)
 
     renderer.drawPoints(
       drawScope = this,
@@ -67,6 +76,60 @@ public fun ScatterPlot(
       maxX = maxX,
       maxY = maxY,
       animationProgress = animationProgress.value,
+    )
+  }
+}
+
+internal fun DrawScope.drawYAxisLabels(
+  textMeasurer: TextMeasurer,
+  left: Float,
+  top: Float,
+  bottom: Float,
+  maxY: Float,
+  isSystemInDarkTheme: Boolean,
+) {
+  val style =
+    TextStyle(fontSize = 10.sp, color = if (isSystemInDarkTheme) Color.White else Color.Black)
+  (0..4).forEach { i ->
+    val y = bottom - (i * (bottom - top) / 4f)
+    val label = "${(maxY * i / 4)}"
+    val textLayoutResult = textMeasurer.measure(label, style)
+    drawText(
+      textMeasurer = textMeasurer,
+      text = label,
+      style = style,
+      topLeft =
+      Offset(
+        left - textLayoutResult.size.width - 5f,
+        y - textLayoutResult.size.height / 2,
+      ),
+    )
+  }
+}
+
+internal fun DrawScope.drawXAxisLabels(
+  textMeasurer: TextMeasurer,
+  left: Float,
+  bottom: Float,
+  width: Float,
+  maxX: Float,
+  isSystemInDarkTheme: Boolean,
+) {
+  val style =
+    TextStyle(fontSize = 10.sp, color = if (isSystemInDarkTheme) Color.White else Color.Black)
+  (0..4).forEach { i ->
+    val x = left + (i * width / 4f)
+    val label = "${(maxX * i / 4)}"
+    val textLayoutResult = textMeasurer.measure(label, style)
+    drawText(
+      textMeasurer = textMeasurer,
+      text = label,
+      style = style,
+      topLeft =
+      Offset(
+        x - textLayoutResult.size.width / 2,
+        bottom + 5f,
+      ),
     )
   }
 }

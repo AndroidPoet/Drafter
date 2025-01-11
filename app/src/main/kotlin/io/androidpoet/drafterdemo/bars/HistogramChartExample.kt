@@ -15,7 +15,8 @@
  */
 package io.androidpoet.drafterdemo.bars
 
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -39,7 +40,10 @@ fun HistogramChartExample(
 ) {
   BarChart(
     renderer = getHistogramRenderer(),
-    modifier = modifier.size(300.dp),
+    modifier =
+    modifier
+      .height(300.dp)
+      .fillMaxWidth(),
     animate = animate,
   )
 }

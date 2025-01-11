@@ -15,57 +15,62 @@
  */
 package io.androidpoet.drafter.baselineprofile.app.pie
 
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import io.androidpoet.drafter.baselineprofile.app.ChartTitle
+import androidx.compose.ui.unit.dp
 import io.androidpoet.drafter.pie.PieChart
 import io.androidpoet.drafter.pie.model.PieChartData
 import io.androidpoet.drafter.pie.renderer.DonutChartRenderer
 import io.androidpoet.drafter.pie.renderer.PieChartRenderer
 
-private fun getPieChartRenderer() =
+private fun getPieChartRenderer(colors: List<Color>) =
   PieChartRenderer(
     PieChartData(
       slices =
-        listOf(
-          PieChartData.Slice(value = 40f, color = Color.Red, label = "Red"),
-          PieChartData.Slice(value = 30f, color = Color.Green, label = "Green"),
-          PieChartData.Slice(value = 20f, color = Color.Blue, label = "Blue"),
-          PieChartData.Slice(value = 10f, color = Color.Magenta, label = "Purple"),
-        ),
+      listOf(
+        PieChartData.Slice(value = 40f, color = colors[0], label = "Red"),
+        PieChartData.Slice(value = 30f, color = colors[1], label = "Green"),
+        PieChartData.Slice(value = 20f, color = colors[2], label = "Blue"),
+        PieChartData.Slice(value = 10f, color = colors[3], label = "Purple"),
+      ),
     ),
   )
 
-private fun getDonutPieChartRenderer() =
+private fun getDonutPieChartRenderer(colors: List<Color>) =
   DonutChartRenderer(
     PieChartData(
       slices =
-        listOf(
-          PieChartData.Slice(value = 40f, color = Color.Red, label = "Red"),
-          PieChartData.Slice(value = 30f, color = Color.Green, label = "Green"),
-          PieChartData.Slice(value = 20f, color = Color.Blue, label = "Blue"),
-          PieChartData.Slice(value = 10f, color = Color.Magenta, label = "Purple"),
-        ),
+      listOf(
+        PieChartData.Slice(value = 40f, color = colors[0], label = "Red"),
+        PieChartData.Slice(value = 30f, color = colors[1], label = "Green"),
+        PieChartData.Slice(value = 20f, color = colors[2], label = "Blue"),
+        PieChartData.Slice(value = 10f, color = colors[3], label = "Purple"),
+      ),
     ),
   )
 
 @Composable
-fun PieChartExample() {
-  ChartTitle(text = "Pie Chart")
+fun PieChartExample(
+  colors: List<Color>,
+  modifier: Modifier = Modifier,
+) {
   PieChart(
-    renderer = getPieChartRenderer(),
-    modifier = Modifier,
+    renderer = getPieChartRenderer(colors = colors),
+    modifier = Modifier.size(300.dp),
     animate = true,
   )
 }
 
 @Composable
-fun DonutChartExample() {
-  ChartTitle(text = "Pie Chart")
+fun DonutChartExample(
+  colors: List<Color>,
+  modifier: Modifier = Modifier,
+) {
   PieChart(
-    renderer = getDonutPieChartRenderer(),
-    modifier = Modifier,
+    renderer = getDonutPieChartRenderer(colors = colors),
+    modifier = Modifier.size(200.dp),
     animate = true,
   )
 }

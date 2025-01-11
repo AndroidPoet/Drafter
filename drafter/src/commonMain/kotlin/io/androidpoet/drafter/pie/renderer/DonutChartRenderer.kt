@@ -43,6 +43,7 @@ public class DonutChartRenderer(
     size: Size,
     progress: Float,
     textMeasurer: TextMeasurer,
+    isSystemInDarkTheme: Boolean,
   ) {
     val totalValue =
       max(
@@ -54,7 +55,6 @@ public class DonutChartRenderer(
     val outerRadius = (size.minDimension / 2) * 0.6f
     val innerRadius = outerRadius * holeRadiusFraction
     val center = Offset(size.width / 2, size.height / 2)
-    val labelRadius = outerRadius * 1.3f
 
     data.slices.forEach { slice ->
       val slicePercentage = slice.value / totalValue
@@ -78,7 +78,8 @@ public class DonutChartRenderer(
         val labelRadius = outerRadius * 1.3f
 
         val labelText = "${percentage.toInt()}%"
-        val style = TextStyle(fontSize = 12.sp, color = Color.Black)
+        val style =
+          TextStyle(fontSize = 12.sp, color = if (isSystemInDarkTheme) Color.White else Color.Black)
         val textLayout = textMeasurer.measure(labelText, style)
 
         // Calculate the base position on the circle
@@ -99,10 +100,10 @@ public class DonutChartRenderer(
           text = labelText,
           style = style,
           topLeft =
-            Offset(
-              x = baseX + xOffset + radialOffsetX,
-              y = baseY + yOffset + radialOffsetY,
-            ),
+          Offset(
+            x = baseX + xOffset + radialOffsetX,
+            y = baseY + yOffset + radialOffsetY,
+          ),
         )
       }
 

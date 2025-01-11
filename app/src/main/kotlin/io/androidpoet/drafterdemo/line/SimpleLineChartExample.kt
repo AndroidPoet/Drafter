@@ -14,15 +14,16 @@
  * limitations under the License.
  */
 package io.androidpoet.drafterdemo.line
-import androidx.compose.foundation.layout.fillMaxSize
+
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import io.androidpoet.drafter.lines.LineChart
 import io.androidpoet.drafter.lines.model.SimpleLineChartData
 import io.androidpoet.drafter.lines.renderer.LineChartRenderer
-import io.androidpoet.drafterdemo.ChartContainer
-import io.androidpoet.drafterdemo.ChartTitle
 
 private fun getLineChartRenderer(colors: List<Color>) =
   LineChartRenderer(
@@ -38,12 +39,11 @@ fun SimpleLineChartExample(
   colors: List<Color>,
   modifier: Modifier = Modifier,
 ) {
-  ChartTitle(text = "Simple Line Chart")
-
-  ChartContainer {
-    LineChart(
-      renderer = getLineChartRenderer(colors = colors),
-      modifier = Modifier.fillMaxSize(),
-    )
-  }
+  LineChart(
+    renderer = getLineChartRenderer(colors = colors),
+    modifier =
+    modifier
+      .height(300.dp)
+      .fillMaxWidth(),
+  )
 }

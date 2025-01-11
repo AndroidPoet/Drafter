@@ -15,7 +15,7 @@
  */
 package io.androidpoet.drafterdemo.line
 
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -24,24 +24,22 @@ import androidx.compose.ui.unit.dp
 import io.androidpoet.drafter.scatterplot.ScatterPlot
 import io.androidpoet.drafter.scatterplot.SimpleScatterPlotRenderer
 import io.androidpoet.drafter.scatterplot.model.ScatterPlotData
-import io.androidpoet.drafterdemo.ChartContainer
-import io.androidpoet.drafterdemo.ChartTitle
 import kotlin.random.Random
 
 private fun getScatterPlotRenderer(colors: List<Color>) =
   SimpleScatterPlotRenderer(
     ScatterPlotData(
       points =
-        List(30) {
-          Pair(
-            Random.nextFloat() * 50f,
-            Random.nextFloat() * 50f,
-          )
-        },
+      List(30) {
+        Pair(
+          Random.nextFloat() * 50f,
+          Random.nextFloat() * 50f,
+        )
+      },
       pointColors =
-        List(30) {
-          if (colors.isNotEmpty()) colors[it % colors.size] else Color.Gray
-        },
+      List(30) {
+        if (colors.isNotEmpty()) colors[it % colors.size] else Color.Gray
+      },
     ),
   )
 
@@ -50,12 +48,11 @@ fun ScatterPlotChartExample(
   colors: List<Color>,
   modifier: Modifier = Modifier,
 ) {
-  ChartTitle(text = "Scatter Plot Chart")
-
-  ChartContainer(modifier = Modifier.height(300.dp)) {
-    ScatterPlot(
-      renderer = getScatterPlotRenderer(colors = colors),
-      modifier = modifier.fillMaxSize(),
-    )
-  }
+  ScatterPlot(
+    modifier =
+    Modifier
+      .height(300.dp)
+      .fillMaxWidth(),
+    renderer = getScatterPlotRenderer(colors = colors),
+  )
 }

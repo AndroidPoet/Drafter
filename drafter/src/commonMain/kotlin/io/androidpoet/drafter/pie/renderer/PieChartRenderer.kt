@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.drawText
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import io.androidpoet.drafter.pie.model.PieChartData
 import kotlin.math.PI
@@ -38,6 +39,7 @@ public class PieChartRenderer(
     size: Size,
     progress: Float,
     textMeasurer: TextMeasurer,
+    isSystemInDarkTheme: Boolean,
   ) {
     val totalValue =
       max(
@@ -46,21 +48,20 @@ public class PieChartRenderer(
       )
 
     var startAngle = -90f
-    val radius = size.minDimension / 2
+    val radius = (size.minDimension / 2) * 0.6f
     val center = Offset(size.width / 2, size.height / 2)
 
     data.slices.forEach { slice ->
       val slicePercentage = slice.value / totalValue
       val sweepAngle = slicePercentage * 360f * progress
 
-      // Draw the arc
       drawScope.drawArc(
         color = slice.color,
         startAngle = startAngle,
         sweepAngle = sweepAngle,
         useCenter = true,
-        topLeft = Offset.Zero,
-        size = size,
+        topLeft = Offset(center.x - radius, center.y - radius),
+        size = Size(radius * 2, radius * 2),
       )
 
       // Optionally draw label if slice is >= threshold
@@ -75,7 +76,12 @@ public class PieChartRenderer(
         val labelY = center.y + (labelRadius * sin(angleRad)).toFloat()
 
         val labelText = "${percentage.toInt()}%"
-        val style = TextStyle(fontSize = 12.sp, color = Color.Black)
+        val style =
+          TextStyle(
+            fontSize = 12.sp,
+            color = if (isSystemInDarkTheme) Color.Black else Color.White,
+            fontWeight = FontWeight.Bold,
+          )
         val textLayout = textMeasurer.measure(labelText, style)
 
         drawScope.drawText(
@@ -83,10 +89,10 @@ public class PieChartRenderer(
           text = labelText,
           style = style,
           topLeft =
-            Offset(
-              x = labelX - textLayout.size.width / 2,
-              y = labelY - textLayout.size.height / 2,
-            ),
+          Offset(
+            x = labelX - textLayout.size.width / 2,
+            y = labelY - textLayout.size.height / 2,
+          ),
         )
       }
 

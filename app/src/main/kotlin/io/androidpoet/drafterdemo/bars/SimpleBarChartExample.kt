@@ -24,7 +24,6 @@ import androidx.compose.ui.unit.dp
 import io.androidpoet.drafter.bars.BarChart
 import io.androidpoet.drafter.bars.model.SimpleBarChartData
 import io.androidpoet.drafter.bars.renderer.BarChartRenderer
-import io.androidpoet.drafterdemo.ChartTitle
 
 private fun getBarChartData(colors: List<Color>) =
   SimpleBarChartData(
@@ -41,14 +40,12 @@ fun SimpleBarChartExample(
   colors: List<Color>,
   modifier: Modifier = Modifier,
 ) {
-  ChartTitle(text = "Simple Bar Chart")
-
   BarChart(
     renderer = getSimpleBarChartRenderer(colors = colors),
     modifier =
-      modifier
-        .height(300.dp)
-        .fillMaxWidth(),
+    modifier
+      .height(300.dp)
+      .fillMaxWidth(),
     animate = true,
   )
 }

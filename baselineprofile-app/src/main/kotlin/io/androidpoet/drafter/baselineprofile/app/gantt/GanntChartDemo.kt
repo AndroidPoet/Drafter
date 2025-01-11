@@ -18,16 +18,18 @@ package io.androidpoet.drafter.baselineprofile.app.gantt
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import io.androidpoet.drafter.baselineprofile.app.ChartTitle
 import io.androidpoet.drafter.gant.GanttChart
 import io.androidpoet.drafter.gant.GanttChartData
 import io.androidpoet.drafter.gant.GanttChartRenderer
 import io.androidpoet.drafter.gant.GanttTask
 
-private fun getGanttChartRenderer() =
+private fun getGanttChartRenderer(colors: List<Color>) =
   GanttChartRenderer(
     GanttChartData(
+      taskColors = colors,
+      tasks =
       listOf(
         GanttTask("Planning", 0f, 2f),
         GanttTask("Design", 2f, 2f),
@@ -39,11 +41,12 @@ private fun getGanttChartRenderer() =
   )
 
 @Composable
-fun GanttChartExample() {
-  ChartTitle(text = "Gantt Chart")
-
+fun GanttChartExample(
+  colors: List<Color>,
+  modifier: Modifier = Modifier,
+) {
   GanttChart(
-    renderer = getGanttChartRenderer(),
-    modifier = Modifier.size(400.dp),
+    renderer = getGanttChartRenderer(colors = colors),
+    modifier = modifier.size(400.dp),
   )
 }

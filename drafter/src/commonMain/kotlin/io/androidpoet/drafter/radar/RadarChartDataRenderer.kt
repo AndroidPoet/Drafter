@@ -13,32 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.androidpoet.drafter.pie.renderer
+package io.androidpoet.drafter.radar
 
-import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.text.TextMeasurer
-import io.androidpoet.drafter.pie.model.PieChartData
 
-/**
- * A single interface for all pie/donut chart renderers.
- * - [data] stores the PieChartData internally.
- * - [drawChart] is called by [PieChart] composable to do the drawing.
- */
-public interface PieChartDataRenderer {
-  public val data: PieChartData
-
-  /**
-   * Draw the chart (pie, donut, etc.).
-   * @param drawScope current [DrawScope] to use for drawing.
-   * @param size The canvas size.
-   * @param progress A float [0..1] that can be used for animation.
-   */
+public interface RadarChartDataRenderer {
   public fun drawChart(
     drawScope: DrawScope,
-    size: Size,
-    progress: Float,
+    centerX: Float,
+    centerY: Float,
+    radius: Float,
     textMeasurer: TextMeasurer,
+    animationProgress: Float,
     isSystemInDarkTheme: Boolean,
   )
 }
