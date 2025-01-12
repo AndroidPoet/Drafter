@@ -48,17 +48,8 @@ android {
     }
   }
 }
-
-// This is the plugin configuration. Everything is optional. Defaults are in the
-// comments. In this example, you use the GMD added earlier and disable connected devices.
 baselineProfile {
-
-  // This specifies the managed devices to use that you run the tests on. The default
-  // is none.
   managedDevices += "pixel6api31"
-
-  // This enables using connected devices to generate profiles. The default is true.
-  // When using connected devices, they must be rooted or API 33 and higher.
   useConnectedDevices = true
 }
 

@@ -27,7 +27,6 @@ object ChartThemeManager {
     PROFESSIONAL,
   }
 
-  // Define palettes first
   private val palettes =
     mapOf(
       ColorTheme.MATERIAL to
@@ -84,15 +83,11 @@ object ChartThemeManager {
       Color(0xFF39D353), // Light
     )
 
-  // Helper function for getting palette
   private fun getFullPalette(theme: ColorTheme): List<Color> =
     palettes[theme] ?: palettes[ColorTheme.MATERIAL]!!
 
-  // Initialize states after palettes are defined
   private val _currentTheme = mutableStateOf(ColorTheme.MATERIAL)
   private val _currentFullPalette = mutableStateOf(getFullPalette(ColorTheme.MATERIAL))
-
-  // Public state accessors
   val currentTheme: State<ColorTheme> = _currentTheme
   val palette: State<List<Color>> = _currentFullPalette
 

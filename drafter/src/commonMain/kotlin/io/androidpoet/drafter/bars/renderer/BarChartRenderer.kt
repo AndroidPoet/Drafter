@@ -60,11 +60,8 @@ public class BarChartRenderer(
     dataSize: Int,
     barsPerGroup: Int,
   ): Pair<Float, Float> {
-    // Reserve 10% of total width for spacing between bars
     val totalSpacing = chartWidth * 0.1f
     val groupSpacing = totalSpacing / (dataSize + 1)
-
-    // Distribute remaining width evenly among bars
     val availableWidth = chartWidth - totalSpacing
     val barWidth = availableWidth / dataSize
 
@@ -105,14 +102,8 @@ public class BarChartRenderer(
     animationProgress: Float,
   ) {
     val value = data.values[index]
-
-    // Calculate bar height with animation progress
     val barHeight = (value / maxValue) * chartHeight * animationProgress
-
-    // Use provided color or fall back to gray
     val color = data.colors.getOrElse(index) { Color.Gray }
-
-    // Draw the bar
     drawScope.drawRect(
       color = color,
       topLeft = Offset(left, chartBottom - barHeight),

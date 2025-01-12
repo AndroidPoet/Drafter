@@ -55,27 +55,22 @@ public fun BarChart(
   isSystemInDarkTheme: Boolean = isSystemInDarkTheme(),
   animate: Boolean = true,
 ) {
-  // Remember text measurer for consistent text measurements
   val textMeasurer = rememberTextMeasurer()
-
-  // Animation progress controller
   val animationProgress =
     remember {
       Animatable(if (animate) 0f else 1f)
     }
   var hoverState by remember { mutableStateOf(HoverState()) }
   val interactionSource = remember { MutableInteractionSource() }
-
-  // Handle animation when component is first displayed
   LaunchedEffect(animate) {
     if (animate) {
       animationProgress.animateTo(
         targetValue = 1f,
         animationSpec =
-        tween(
-          durationMillis = 1000,
-          easing = LinearOutSlowInEasing,
-        ),
+          tween(
+            durationMillis = 1000,
+            easing = LinearOutSlowInEasing,
+          ),
       )
     }
   }
@@ -87,21 +82,14 @@ public fun BarChart(
 
   Canvas(
     modifier =
-    modifier
-      .fillMaxSize()
-      .hoverable(interactionSource),
+      modifier
+        .fillMaxSize()
+        .hoverable(interactionSource),
   ) {
-    // Skip drawing if canvas size is invalid
     if (size.width < 1f || size.height < 1f) return@Canvas
-
-    // Calculate chart dimensions and padding
     val chartDimensions = calculateChartDimensions(size.width, size.height)
     val (chartPadding, chartHeight, chartWidth, chartTop, chartBottom, chartLeft) = chartDimensions
-
-    // Draw the basic chart structure
     drawAxes(chartLeft, chartTop, chartBottom, chartWidth, isSystemInDarkTheme)
-
-    // Calculate bar dimensions based on data
     val maxValue = renderer.calculateMaxValue()
     val (barWidth, groupSpacing) =
       calculateBarDimensions(
@@ -109,8 +97,6 @@ public fun BarChart(
         dataSize = labels.size,
         barsPerGroup = barsPerGroup,
       )
-
-    // Draw axis labels and grid lines
     drawYAxisLabels(
       textMeasurer = textMeasurer,
       maxValue = maxValue,
@@ -119,8 +105,6 @@ public fun BarChart(
       bottom = chartBottom,
       isSystemInDarkTheme = isSystemInDarkTheme,
     )
-
-    // Draw the actual bars
     drawBars(
       renderer = renderer,
       labels = labels,
@@ -133,8 +117,6 @@ public fun BarChart(
       maxValue = maxValue,
       animationProgress = animationProgress.value,
     )
-
-    // Draw x-axis labels
     drawXAxisLabels(
       textMeasurer = textMeasurer,
       labels = labels,
@@ -215,10 +197,10 @@ private fun DrawScope.drawYAxisLabels(
       text = label,
       style = style,
       topLeft =
-      Offset(
-        x = (left - measured.size.width - 8f),
-        y = yPosition - (measured.size.height / 2),
-      ),
+        Offset(
+          x = (left - measured.size.width - 8f),
+          y = yPosition - (measured.size.height / 2),
+        ),
     )
   }
 }
@@ -287,10 +269,10 @@ private fun DrawScope.drawXAxisLabels(
       text = label,
       style = style,
       topLeft =
-      Offset(
-        x = centerX - (measured.size.width / 2),
-        y = chartBottom + 8f,
-      ),
+        Offset(
+          x = centerX - (measured.size.width / 2),
+          y = chartBottom + 8f,
+        ),
     )
 
     currentLeft += groupWidth + groupSpacing
@@ -307,14 +289,12 @@ private fun DrawScope.drawAxes(
   width: Float,
   isSystemInDarkTheme: Boolean,
 ) {
-  // Y-axis
   drawLine(
     color = if (isSystemInDarkTheme) Color.White else Color.Black,
     start = Offset(left, top),
     end = Offset(left, bottom),
     strokeWidth = 2f,
   )
-  // X-axis
   drawLine(
     color = if (isSystemInDarkTheme) Color.White else Color.Black,
     start = Offset(left, bottom),

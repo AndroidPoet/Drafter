@@ -47,10 +47,10 @@ public fun ScatterPlot(
     animationProgress.animateTo(
       targetValue = 1f,
       animationSpec =
-      tween(
-        durationMillis = 2000,
-        easing = LinearOutSlowInEasing,
-      ),
+        tween(
+          durationMillis = 2000,
+          easing = LinearOutSlowInEasing,
+        ),
     )
   }
 
@@ -64,8 +64,24 @@ public fun ScatterPlot(
     val (maxX, maxY) = renderer.calculateMaxValues()
 
     drawAxes(chartLeft, chartTop, chartBottom, chartWidth, isSystemInDarkTheme)
-    drawYAxisLabels(textMeasurer, chartLeft, chartTop, chartBottom, maxY, isSystemInDarkTheme)
-    drawXAxisLabels(textMeasurer, chartLeft, chartBottom, chartWidth, maxX, isSystemInDarkTheme)
+    drawYAxisLabels(
+      textMeasurer,
+      chartLeft,
+      chartTop,
+      chartBottom,
+      maxY,
+      isSystemInDarkTheme,
+      renderer,
+    )
+    drawXAxisLabels(
+      textMeasurer,
+      chartLeft,
+      chartBottom,
+      chartWidth,
+      maxX,
+      isSystemInDarkTheme,
+      renderer,
+    )
 
     renderer.drawPoints(
       drawScope = this,
@@ -87,24 +103,35 @@ internal fun DrawScope.drawYAxisLabels(
   bottom: Float,
   maxY: Float,
   isSystemInDarkTheme: Boolean,
+  renderer: ScatterPlotRenderer,
 ) {
   val style =
-    TextStyle(fontSize = 10.sp, color = if (isSystemInDarkTheme) Color.White else Color.Black)
-  (0..4).forEach { i ->
-    val y = bottom - (i * (bottom - top) / 4f)
-    val label = "${(maxY * i / 4)}"
-    val textLayoutResult = textMeasurer.measure(label, style)
-    drawText(
-      textMeasurer = textMeasurer,
-      text = label,
-      style = style,
-      topLeft =
-      Offset(
-        left - textLayoutResult.size.width - 5f,
-        y - textLayoutResult.size.height / 2,
-      ),
+    TextStyle(
+      fontSize = 10.sp,
+      color = if (isSystemInDarkTheme) Color.White else Color.Black,
     )
-  }
+
+  renderer
+    .getPoints()
+    .map { it.second }
+    .distinct()
+    .sorted()
+    .forEach { value ->
+      val y = bottom - (value / maxY) * (bottom - top)
+      val label = value.toString()
+      val textLayoutResult = textMeasurer.measure(label, style)
+
+      drawText(
+        textMeasurer = textMeasurer,
+        text = label,
+        style = style,
+        topLeft =
+          Offset(
+            left - textLayoutResult.size.width - 5f,
+            y - textLayoutResult.size.height / 2,
+          ),
+      )
+    }
 }
 
 internal fun DrawScope.drawXAxisLabels(
@@ -114,22 +141,33 @@ internal fun DrawScope.drawXAxisLabels(
   width: Float,
   maxX: Float,
   isSystemInDarkTheme: Boolean,
+  renderer: ScatterPlotRenderer,
 ) {
   val style =
-    TextStyle(fontSize = 10.sp, color = if (isSystemInDarkTheme) Color.White else Color.Black)
-  (0..4).forEach { i ->
-    val x = left + (i * width / 4f)
-    val label = "${(maxX * i / 4)}"
-    val textLayoutResult = textMeasurer.measure(label, style)
-    drawText(
-      textMeasurer = textMeasurer,
-      text = label,
-      style = style,
-      topLeft =
-      Offset(
-        x - textLayoutResult.size.width / 2,
-        bottom + 5f,
-      ),
+    TextStyle(
+      fontSize = 10.sp,
+      color = if (isSystemInDarkTheme) Color.White else Color.Black,
     )
-  }
+
+  renderer
+    .getPoints()
+    .map { it.first }
+    .distinct()
+    .sorted()
+    .forEach { value ->
+      val x = left + (value / maxX) * width
+      val label = value.toString()
+      val textLayoutResult = textMeasurer.measure(label, style)
+
+      drawText(
+        textMeasurer = textMeasurer,
+        text = label,
+        style = style,
+        topLeft =
+          Offset(
+            x - textLayoutResult.size.width / 2,
+            bottom + 5f,
+          ),
+      )
+    }
 }

@@ -59,8 +59,6 @@ public class DonutChartRenderer(
     data.slices.forEach { slice ->
       val slicePercentage = slice.value / totalValue
       val sweepAngle = slicePercentage * 360f * progress
-
-      // Draw donut slice
       drawScope.drawArc(
         color = slice.color,
         startAngle = startAngle,
@@ -70,8 +68,6 @@ public class DonutChartRenderer(
         size = Size(outerRadius * 2, outerRadius * 2),
         style = Stroke(width = outerRadius - innerRadius),
       )
-
-      // Optionally label the slice
       val percentage = slicePercentage * 100
       if (percentage >= labelThreshold && sweepAngle > 0f) {
         val midAngleRad = (startAngle + sweepAngle / 2) * (PI.toFloat() / 180f)
@@ -81,16 +77,10 @@ public class DonutChartRenderer(
         val style =
           TextStyle(fontSize = 12.sp, color = if (isSystemInDarkTheme) Color.White else Color.Black)
         val textLayout = textMeasurer.measure(labelText, style)
-
-        // Calculate the base position on the circle
         val baseX = center.x + (labelRadius * cos(midAngleRad))
         val baseY = center.y + (labelRadius * sin(midAngleRad))
-
-        // Center text around the point on circle while maintaining radial alignment
         val xOffset = -textLayout.size.width / 2
         val yOffset = -textLayout.size.height / 2
-
-        // Add slight outward push in the direction of the radius
         val radialPushFactor = 0.15f // Adjust this value to control how far text pushes outward
         val radialOffsetX = radialPushFactor * labelRadius * cos(midAngleRad)
         val radialOffsetY = radialPushFactor * labelRadius * sin(midAngleRad)
@@ -100,10 +90,10 @@ public class DonutChartRenderer(
           text = labelText,
           style = style,
           topLeft =
-          Offset(
-            x = baseX + xOffset + radialOffsetX,
-            y = baseY + yOffset + radialOffsetY,
-          ),
+            Offset(
+              x = baseX + xOffset + radialOffsetX,
+              y = baseY + yOffset + radialOffsetY,
+            ),
         )
       }
 

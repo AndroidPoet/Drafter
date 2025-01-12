@@ -21,6 +21,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import io.androidpoet.drafter.bars.BarChartDataRenderer
 import io.androidpoet.drafter.bars.model.StackedBarChartData
+import kotlin.math.roundToInt
 
 /**
  * A renderer for stacked bar charts where multiple values are stacked vertically in a single bar.
@@ -31,7 +32,10 @@ import io.androidpoet.drafter.bars.model.StackedBarChartData
 public class StackedBarChartRenderer(
   public val data: StackedBarChartData,
 ) : BarChartDataRenderer {
-  override fun getLabels(): List<String> = data.labelsList
+  override fun getLabels(): List<String> =
+    data.labelsList.map { label ->
+      label.toFloatOrNull()?.let { formatToOneDecimal(it) } ?: label
+    }
 
   override fun barsPerGroup(): Int = 1
 
@@ -52,14 +56,8 @@ public class StackedBarChartRenderer(
     barsPerGroup: Int,
   ): Pair<Float, Float> {
     if (dataSize <= 0) return Pair(0f, 0f)
-
-    // Calculate total space needed for gaps between bars
     val totalGapSpace = chartWidth * 0.2f // Increased from 0.1f to give more spacing
-
-    // Calculate individual gap size
     val groupSpacing = totalGapSpace / (dataSize + 1)
-
-    // Calculate bar width to fill remaining space
     val availableWidth = chartWidth - totalGapSpace
     val barWidth = (availableWidth / dataSize).coerceAtLeast(0f)
 
@@ -86,33 +84,27 @@ public class StackedBarChartRenderer(
     maxValue: Float,
     animationProgress: Float,
   ) {
-    // Safety check for valid index
     if (index >= data.stacks.size) return
-
-    // Start from the bottom and stack segments upward
     var currentBottom = chartBottom
-
-    // Get the stack values for this bar
     val stackValues = data.stacks[index]
-
-    // Draw each segment in the stack
     stackValues.forEachIndexed { stackIndex, value ->
-      // Calculate segment height with animation
       val safeMaxValue = maxValue.coerceAtLeast(1e-6f) // Prevent division by zero
       val barHeight = (value / safeMaxValue) * chartHeight * animationProgress
-
-      // Use provided color or fall back to gray
       val barColor = data.colors.getOrElse(stackIndex) { Color.Gray }
-
-      // Draw the segment
       drawScope.drawRect(
         color = barColor,
         topLeft = Offset(left, currentBottom - barHeight),
         size = Size(barWidth, barHeight),
       )
-
-      // Move bottom position up for next segment
       currentBottom -= barHeight
     }
   }
 }
+
+/**
+ * Formats a float value to exactly one decimal place using platform-independent approach.
+ *
+ * @param value Float value to format
+ * @return String representation with exactly one decimal place
+ */
+private fun formatToOneDecimal(value: Float): String = ((value * 10).roundToInt() / 10f).toString()

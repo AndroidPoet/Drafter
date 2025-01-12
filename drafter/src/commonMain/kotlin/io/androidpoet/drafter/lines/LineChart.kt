@@ -53,10 +53,10 @@ public fun LineChart(
     animationProgress.animateTo(
       targetValue = 1f,
       animationSpec =
-      tween(
-        durationMillis = 3000, // Increased duration
-        easing = FastOutSlowInEasing,
-      ),
+        tween(
+          durationMillis = 3000, // Increased duration
+          easing = FastOutSlowInEasing,
+        ),
     )
   }
 
@@ -71,8 +71,6 @@ public fun LineChart(
 
     drawAxes(chartLeft, chartTop, chartBottom, chartWidth, isSystemInDarkTheme)
     drawYAxisLabels(textMeasurer, chartLeft, chartTop, chartBottom, maxValue, isSystemInDarkTheme)
-
-    // Animate with FastOutSlowInEasing for smoother appearance
     val currentProgress = FastOutSlowInEasing.transform(animationProgress.value)
 
     renderer.drawLines(
@@ -141,12 +139,8 @@ private fun DrawScope.drawYAxisLabels(
 ) {
   val style =
     TextStyle(fontSize = 10.sp, color = if (isSystemInDarkTheme) Color.White else Color.Black)
-
-  // Calculate a nice step size based on the max value
   val step = calculateGridStep(maxValue)
   val numSteps = (maxValue / step).toInt()
-
-  // Draw labels for each step
   for (i in 0..numSteps) {
     val value = i * step
     val ratio = value / maxValue
@@ -159,10 +153,10 @@ private fun DrawScope.drawYAxisLabels(
       text = label,
       style = style,
       topLeft =
-      Offset(
-        left - textLayoutResult.size.width - 5f,
-        y - textLayoutResult.size.height / 2,
-      ),
+        Offset(
+          left - textLayoutResult.size.width - 5f,
+          y - textLayoutResult.size.height / 2,
+        ),
     )
   }
 }

@@ -85,19 +85,13 @@ private fun DrawScope.drawGrid(
 ) {
   val gridColor = Color.LightGray
   val ranges = renderer.getValueRanges()
-
-  // Calculate steps for nice intervals
   val xRange = ranges.xMax - ranges.xMin
   val yRange = ranges.yMax - ranges.yMin
 
   val xStep = calculateGridStep(xRange)
   val yStep = calculateGridStep(yRange)
-
-  // Calculate number of lines needed
   val xGridLines = (xRange / xStep).toInt()
   val yGridLines = (yRange / yStep).toInt()
-
-  // Vertical grid lines
   for (i in 0..xGridLines) {
     val value = ranges.xMin + (i * xStep)
     val ratio = (value - ranges.xMin) / xRange
@@ -108,8 +102,6 @@ private fun DrawScope.drawGrid(
       end = Offset(x, originY - chartHeight),
     )
   }
-
-  // Horizontal grid lines
   for (i in 0..yGridLines) {
     val value = ranges.yMin + (i * yStep)
     val ratio = (value - ranges.yMin) / yRange
@@ -135,8 +127,6 @@ private fun DrawScope.drawAxes(
   val textStyle =
     TextStyle(color = if (isSystemInDarkTheme) Color.White else Color.Black, fontSize = 10.sp)
   val ranges = renderer.getValueRanges()
-
-  // Draw axes lines
   drawLine(
     color = axisColor,
     start = Offset(originX, originY),
@@ -147,8 +137,6 @@ private fun DrawScope.drawAxes(
     start = Offset(originX, originY),
     end = Offset(originX, originY - chartHeight),
   )
-
-  // Calculate steps for nice intervals
   val xRange = ranges.xMax - ranges.xMin
   val yRange = ranges.yMax - ranges.yMin
 
@@ -157,8 +145,6 @@ private fun DrawScope.drawAxes(
 
   val xLabels = (xRange / xStep).toInt()
   val yLabels = (yRange / yStep).toInt()
-
-  // X-axis labels
   for (i in 0..xLabels) {
     val value = ranges.xMin + (i * xStep)
     val ratio = (value - ranges.xMin) / xRange
@@ -171,8 +157,6 @@ private fun DrawScope.drawAxes(
       topLeft = Offset(x - textLayoutResult.size.width / 2, originY + 5.dp.toPx()),
     )
   }
-
-  // Y-axis labels
   for (i in 0..yLabels) {
     val value = ranges.yMin + (i * yStep)
     val ratio = (value - ranges.yMin) / yRange
@@ -183,16 +167,15 @@ private fun DrawScope.drawAxes(
     drawText(
       textLayoutResult,
       topLeft =
-      Offset(
-        originX - textLayoutResult.size.width - 5.dp.toPx(),
-        y - textLayoutResult.size.height / 2,
-      ),
+        Offset(
+          originX - textLayoutResult.size.width - 5.dp.toPx(),
+          y - textLayoutResult.size.height / 2,
+        ),
     )
   }
 }
 
 private fun calculateGridStep(maxValue: Float): Float {
-  // Calculate a nice step size based on the max value
   val magnitude = floor(log10(maxValue.toDouble())).toFloat()
   val baseStep = 10.0f.pow(magnitude)
 

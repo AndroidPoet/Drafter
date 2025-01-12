@@ -46,22 +46,15 @@ public class StackedLineChartRenderer(
       }
 
     val accumulatedValues = MutableList(numPoints) { 0f }
-
-    // Draw the areas from bottom to top
     val stackCount = data.stacks[0].size
     for (stackIndex in 0 until stackCount) {
       val previousAccumulatedValues = accumulatedValues.toList()
-
-      // Accumulate values for the current stack
       for (i in 0 until numPoints) {
         accumulatedValues[i] += data.stacks[i][stackIndex]
       }
-
-      // Apply animation progress to the accumulated values
       val upperPoints =
         List(numPoints) { i ->
           val x = xPositions[i]
-          // Linearly interpolate the y-value based on animation progress
           val y =
             chartTop + chartHeight -
               ((accumulatedValues[i] * animationProgress) / maxValue) * chartHeight
@@ -71,14 +64,11 @@ public class StackedLineChartRenderer(
       val lowerPoints =
         List(numPoints) { i ->
           val x = xPositions[i]
-          // Linearly interpolate the previous accumulated y-value based on animation progress
           val y =
             chartTop + chartHeight -
               ((previousAccumulatedValues[i] * animationProgress) / maxValue) * chartHeight
           Offset(x, y)
         }
-
-      // Create path for the filled area
       val path =
         Path().apply {
           moveTo(upperPoints.first().x, upperPoints.first().y)
@@ -90,8 +80,6 @@ public class StackedLineChartRenderer(
           }
           close()
         }
-
-      // Draw the path with animation
       drawScope.drawPath(
         path = path,
         color = data.colors.getOrElse(stackIndex) { Color.Gray },

@@ -33,10 +33,7 @@ public fun PieChart(
   animate: Boolean = true,
   isSystemInDarkTheme: Boolean = isSystemInDarkTheme(),
 ) {
-  // 1) We set up textMeasurer
   val textMeasurer = rememberTextMeasurer()
-
-  // 2) Animate the chart from 0..1 if requested
   val progress = remember { Animatable(0f) }
   LaunchedEffect(animate) {
     if (animate) {
@@ -48,8 +45,6 @@ public fun PieChart(
       progress.snapTo(1f)
     }
   }
-
-  // 3) We draw on a Canvas
   Canvas(modifier = modifier) {
     renderer.drawChart(
       drawScope = this,

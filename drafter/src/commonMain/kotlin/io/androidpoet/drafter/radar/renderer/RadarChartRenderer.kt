@@ -44,7 +44,6 @@ public class RadarChartRenderer(
     animationProgress: Float,
     isSystemInDarkTheme: Boolean,
   ) {
-    // Draw background circles and axes
     drawBackgroundAndAxes(
       drawScope,
       centerX,
@@ -57,8 +56,6 @@ public class RadarChartRenderer(
         .toList(),
       isSystemInDarkTheme,
     )
-
-    // Draw data polygons with animation
     data.forEachIndexed { index, chartData ->
       drawDataPolygon(
         drawScope,
@@ -82,8 +79,6 @@ public class RadarChartRenderer(
     isSystemInDarkTheme: Boolean,
   ) {
     val numberOfAxes = axisLabels.size
-
-    // Draw background circles
     for (i in 1..10) {
       drawScope.drawCircle(
         color = if (isSystemInDarkTheme) Color.White else Color.Black,
@@ -92,8 +87,6 @@ public class RadarChartRenderer(
         style = Stroke(width = 1f),
       )
     }
-
-    // Draw axes
     for (i in 0 until numberOfAxes) {
       val angle = i * 2 * PI / numberOfAxes - PI / 2
       val endX = centerX + radius * cos(angle).toFloat()
@@ -105,25 +98,23 @@ public class RadarChartRenderer(
         end = Offset(endX, endY),
         strokeWidth = 1f,
       )
-
-      // Draw axis labels
       val textLayoutResult =
         textMeasurer.measure(
           text = axisLabels[i],
           style =
-          TextStyle(
-            color = if (isSystemInDarkTheme) Color.White else Color.Black,
-            fontSize = 12.sp,
-          ),
+            TextStyle(
+              color = if (isSystemInDarkTheme) Color.White else Color.Black,
+              fontSize = 12.sp,
+            ),
         )
 
       drawScope.drawText(
         textLayoutResult = textLayoutResult,
         topLeft =
-        Offset(
-          x = endX - textLayoutResult.size.width / 2,
-          y = endY - textLayoutResult.size.height / 2,
-        ),
+          Offset(
+            x = endX - textLayoutResult.size.width / 2,
+            y = endY - textLayoutResult.size.height / 2,
+          ),
       )
     }
   }

@@ -78,7 +78,6 @@ kotlin {
   targets.configureEach {
     compilations.configureEach {
       compilerOptions.configure {
-        // https://youtrack.jetbrains.com/issue/KT-61573
         freeCompilerArgs.add("-Xexpect-actual-classes")
       }
     }

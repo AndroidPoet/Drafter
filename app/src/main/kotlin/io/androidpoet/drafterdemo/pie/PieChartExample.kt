@@ -17,7 +17,6 @@ package io.androidpoet.drafterdemo.pie
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -31,12 +30,12 @@ private fun getPieChartRenderer(colors: List<Color>) =
   PieChartRenderer(
     PieChartData(
       slices =
-      listOf(
-        PieChartData.Slice(value = 40f, color = colors[0], label = "Red"),
-        PieChartData.Slice(value = 30f, color = colors[1], label = "Green"),
-        PieChartData.Slice(value = 20f, color = colors[2], label = "Blue"),
-        PieChartData.Slice(value = 10f, color = colors[3], label = "Purple"),
-      ),
+        listOf(
+          PieChartData.Slice(value = 40f, color = colors[0], label = "Red"),
+          PieChartData.Slice(value = 30f, color = colors[1], label = "Green"),
+          PieChartData.Slice(value = 20f, color = colors[2], label = "Blue"),
+          PieChartData.Slice(value = 10f, color = colors[3], label = "Purple"),
+        ),
     ),
   )
 
@@ -61,8 +60,8 @@ fun PieChartExample(
   PieChart(
     renderer = getPieChartRenderer(colors = colors),
     modifier =
-    Modifier
-      .size(200.dp),
+    modifier
+      .height(300.dp).fillMaxWidth(),
     animate = true,
   )
 }
@@ -75,7 +74,7 @@ fun DonutChartExample(
   PieChart(
     renderer = getDonutPieChartRenderer(colors = colors),
     modifier =
-    Modifier
+    modifier
       .height(300.dp)
       .fillMaxWidth(),
     animate = true,

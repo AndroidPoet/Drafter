@@ -24,22 +24,23 @@ import androidx.compose.ui.unit.dp
 import io.androidpoet.drafter.scatterplot.ScatterPlot
 import io.androidpoet.drafter.scatterplot.SimpleScatterPlotRenderer
 import io.androidpoet.drafter.scatterplot.model.ScatterPlotData
+import kotlin.math.roundToInt
 import kotlin.random.Random
 
 private fun getScatterPlotRenderer(colors: List<Color>) =
   SimpleScatterPlotRenderer(
     ScatterPlotData(
       points =
-      List(30) {
-        Pair(
-          Random.nextFloat() * 50f,
-          Random.nextFloat() * 50f,
-        )
-      },
+        List(30) {
+          Pair(
+            (Random.nextFloat() * 10).roundToInt() / 10f,
+            (Random.nextFloat() * 10).roundToInt() / 10f,
+          )
+        },
       pointColors =
-      List(30) {
-        if (colors.isNotEmpty()) colors[it % colors.size] else Color.Gray
-      },
+        List(30) {
+          if (colors.isNotEmpty()) colors[it % colors.size] else Color.Gray
+        },
     ),
   )
 
@@ -50,9 +51,9 @@ fun ScatterPlotChartExample(
 ) {
   ScatterPlot(
     modifier =
-    Modifier
-      .height(300.dp)
-      .fillMaxWidth(),
+      Modifier
+        .height(300.dp)
+        .fillMaxWidth(),
     renderer = getScatterPlotRenderer(colors = colors),
   )
 }

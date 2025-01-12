@@ -23,6 +23,8 @@ import io.androidpoet.drafter.scatterplot.model.ScatterPlotData
 public interface ScatterPlotRenderer {
   public fun calculateMaxValues(): Pair<Float, Float>
 
+  public fun getPoints(): List<Pair<Float, Float>>
+
   public fun drawPoints(
     drawScope: DrawScope,
     chartLeft: Float,
@@ -43,6 +45,8 @@ public class SimpleScatterPlotRenderer(
     val maxY = data.points.maxOfOrNull { it.second } ?: 0f
     return Pair(maxX, maxY)
   }
+
+  override fun getPoints(): List<Pair<Float, Float>> = data.points
 
   override fun drawPoints(
     drawScope: DrawScope,

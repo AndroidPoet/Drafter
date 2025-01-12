@@ -34,27 +34,27 @@ private fun getHeatmapRenderer(color: Color) =
     ContributionHeatmapData(
       baseColor = color,
       contributions =
-      buildList {
-        val now = Clock.System.now()
-        repeat(365) { day ->
-          val date = now.minus(day.days)
-          val count = if (Random.nextFloat() > 0.6f) Random.nextInt(1, 15) else 0
-          add(ContributionData(date, count))
-        }
-      },
+        buildList {
+          val now = Clock.System.now()
+          repeat(365) { day ->
+            val date = now.minus(day.days)
+            val count = if (Random.nextFloat() > 0.6f) Random.nextInt(1, 15) else 0
+            add(ContributionData(date, count))
+          }
+        },
     ),
   )
 
 @Composable
 fun GithubGraph(
-  modifier: Modifier = Modifier,
   color: Color,
+  modifier: Modifier = Modifier,
 ) {
   Heatmap(
     renderer = getHeatmapRenderer(color = color),
     modifier =
-    Modifier
-      .height(300.dp)
-      .fillMaxWidth(),
+      modifier
+        .height(300.dp)
+        .fillMaxWidth(),
   )
 }

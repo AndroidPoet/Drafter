@@ -67,26 +67,25 @@ class MainActivity : ComponentActivity() {
         val palette by remember { ChartThemeManager.palette }
 
         Column(modifier = Modifier.fillMaxSize()) {
-          // Theme Selector Row
           Row(
             modifier =
-            Modifier
-              .fillMaxWidth()
-              .padding(16.dp),
+              Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
           ) {
             ChartThemeManager.ColorTheme.entries.forEach { theme ->
               Button(
                 onClick = { ChartThemeManager.setTheme(theme) },
                 colors =
-                ButtonDefaults.buttonColors(
-                  containerColor =
-                  if (theme == currentTheme) {
-                    MaterialTheme.colorScheme.primary
-                  } else {
-                    MaterialTheme.colorScheme.secondary
-                  },
-                ),
+                  ButtonDefaults.buttonColors(
+                    containerColor =
+                      if (theme == currentTheme) {
+                        MaterialTheme.colorScheme.primary
+                      } else {
+                        MaterialTheme.colorScheme.secondary
+                      },
+                  ),
                 modifier = Modifier.weight(1f),
               ) {
                 Text(

@@ -45,16 +45,14 @@ public fun GanttChart(
 ) {
   val textMeasurer = rememberTextMeasurer()
   val animationProgress = remember { Animatable(0f) }
-
-  // Animate on first composition
   LaunchedEffect(animate) {
     animationProgress.animateTo(
       targetValue = 1f,
       animationSpec =
-      tween(
-        durationMillis = 2000,
-        easing = LinearOutSlowInEasing,
-      ),
+        tween(
+          durationMillis = 2000,
+          easing = LinearOutSlowInEasing,
+        ),
     )
   }
 
@@ -66,11 +64,7 @@ public fun GanttChart(
     val chartTop = size.height * 0.1f
     val chartBottom = chartTop + chartHeight
     val chartLeft = size.width * 0.2f
-
-    // 1) Get the maximum month from the renderer
     val (maxMonth, _) = renderer.calculateMaxValues()
-
-    // 2) Draw axes
     drawAxes(
       left = chartLeft,
       top = chartTop,
@@ -78,8 +72,6 @@ public fun GanttChart(
       width = chartWidth,
       isSystemInDarkTheme = isSystemInDarkTheme,
     )
-
-    // 3) Y-axis labels
     drawYAxisLabels(
       textMeasurer = textMeasurer,
       left = chartLeft,
@@ -88,8 +80,6 @@ public fun GanttChart(
       tasks = renderer.data.tasks,
       isSystemInDarkTheme = isSystemInDarkTheme,
     )
-
-    // 4) X-axis labels (pass tasks here)
     drawXAxisLabels(
       textMeasurer = textMeasurer,
       left = chartLeft,
@@ -100,8 +90,6 @@ public fun GanttChart(
       tasks = renderer.data.tasks,
       isSystemInDarkTheme = isSystemInDarkTheme,
     )
-
-    // 5) Draw tasks
     renderer.drawTasks(
       drawScope = this,
       chartLeft = chartLeft,
@@ -121,14 +109,12 @@ public fun DrawScope.drawAxes(
   width: Float,
   isSystemInDarkTheme: Boolean,
 ) {
-  // Y-axis
   drawLine(
     if (isSystemInDarkTheme) Color.White else Color.Black,
     Offset(left, top),
     Offset(left, bottom),
     strokeWidth = 2f,
   )
-  // X-axis
   drawLine(
     if (isSystemInDarkTheme) Color.White else Color.Black,
     Offset(left, bottom),
@@ -154,8 +140,6 @@ public fun DrawScope.drawYAxisLabels(
   tasks.forEachIndexed { index, task ->
     val yCenter = top + index * taskHeight + taskHeight / 2
     val textLayoutResult = textMeasurer.measure(task.name, style)
-
-    // Safely clamp X if you want to avoid negative draws
     val finalX = (left - textLayoutResult.size.width - 5f).coerceAtLeast(0f)
 
     val finalY =
@@ -185,12 +169,7 @@ public fun DrawScope.drawXAxisLabels(
   val style =
     TextStyle(fontSize = 10.sp, color = if (isSystemInDarkTheme) Color.White else Color.Black)
   val safeMaxMonth = max(maxMonth, 1f)
-
-  // If no tasks, skip
   if (tasks.isEmpty()) return
-
-  // 1) Gather months from tasks (integer months for start..end).
-  //    e.g., if start=2.5, duration=3.2 => range 2..5
   val distinctMonths =
     tasks
       .flatMap { task ->
@@ -198,24 +177,15 @@ public fun DrawScope.drawXAxisLabels(
         val end = (task.startMonth + task.duration).toInt()
         (start..end).toList() // all integer months in the range
       }.toSet()
-
-  // 2) Also ensure we include 0 and the overall max
   val finalMonths = distinctMonths + 0 + safeMaxMonth.toInt()
-
-  // 3) Sort them so labels appear left-to-right
   val sortedMonths = finalMonths.sorted()
-
-  // 4) Draw a label for each distinct month
   sortedMonths.forEach { monthInt ->
     val fraction = monthInt / safeMaxMonth
     val x = left + fraction * width
     val label = monthInt.toString()
 
     val textLayoutResult = textMeasurer.measure(label, style)
-    // Ensure the label isn't clipped off the bottom
     val safeBottom = min(bottom + 5f, canvasHeight - textLayoutResult.size.height)
-
-    // Center horizontally at X
     val finalX =
       (x - textLayoutResult.size.width / 2)
         .coerceAtLeast(0f)

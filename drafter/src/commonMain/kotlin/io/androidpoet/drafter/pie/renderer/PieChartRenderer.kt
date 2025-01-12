@@ -48,7 +48,7 @@ public class PieChartRenderer(
       )
 
     var startAngle = -90f
-    val radius = (size.minDimension / 2) * 0.6f
+    val radius = (size.minDimension / 2) * 0.7f
     val center = Offset(size.width / 2, size.height / 2)
 
     data.slices.forEach { slice ->
@@ -63,14 +63,10 @@ public class PieChartRenderer(
         topLeft = Offset(center.x - radius, center.y - radius),
         size = Size(radius * 2, radius * 2),
       )
-
-      // Optionally draw label if slice is >= threshold
       val percentage = slicePercentage * 100
       if (percentage >= labelThreshold && sweepAngle > 0f) {
         val angleMid = startAngle + sweepAngle / 2
         val angleRad = angleMid * (PI / 180)
-
-        // 70% of the radius to place the label
         val labelRadius = radius * 0.7f
         val labelX = center.x + (labelRadius * cos(angleRad)).toFloat()
         val labelY = center.y + (labelRadius * sin(angleRad)).toFloat()
@@ -89,10 +85,10 @@ public class PieChartRenderer(
           text = labelText,
           style = style,
           topLeft =
-          Offset(
-            x = labelX - textLayout.size.width / 2,
-            y = labelY - textLayout.size.height / 2,
-          ),
+            Offset(
+              x = labelX - textLayout.size.width / 2,
+              y = labelY - textLayout.size.height / 2,
+            ),
         )
       }
 

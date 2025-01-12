@@ -25,7 +25,6 @@ public class GanttChartRenderer(
   public val data: GanttChartData,
 ) {
   public fun calculateMaxValues(): Pair<Float, Float> {
-    // Find the max end month among all tasks
     val maxMonth = data.tasks.maxOfOrNull { it.startMonth + it.duration } ?: 1f
     return Pair(max(maxMonth, 1f), max(data.tasks.size.toFloat(), 1f))
   }
@@ -40,27 +39,19 @@ public class GanttChartRenderer(
     animationProgress: Float,
   ) {
     if (data.tasks.isEmpty()) return
-
-    // Avoid dividing by zero
     val safeMaxMonth = max(maxMonth, 1f)
-    // Each task row gets an equal portion of the chart height
     val taskHeight = max(chartHeight / data.tasks.size, 1f)
 
     data.tasks.forEachIndexed { index, task ->
-      // Compute the bar's X position and width
       val startX = chartLeft + (task.startMonth / safeMaxMonth) * chartWidth
       val width = max((task.duration / safeMaxMonth) * chartWidth * animationProgress, 1f)
       val y = chartTop + index * taskHeight
-
-      // Pick a color; default to Blue if index is out of range
       val color =
         if (index < data.taskColors.size) {
           data.taskColors[index]
         } else {
           Color.Blue
         }
-
-      // Draw a rectangle representing this task
       drawScope.drawRect(
         color = color.copy(alpha = animationProgress),
         topLeft = Offset(startX, y + taskHeight * 0.1f),

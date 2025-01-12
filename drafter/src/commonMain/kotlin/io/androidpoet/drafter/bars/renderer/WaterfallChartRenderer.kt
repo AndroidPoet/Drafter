@@ -48,7 +48,6 @@ public class WaterfallChartRenderer(
    * Considers both positive and negative cumulative values to ensure proper scaling.
    */
   override fun calculateMaxValue(): Float {
-    // Calculate cumulative values to find the overall range
     val cumulativeValues = mutableListOf<Float>()
     var sum = data.initialValue
     cumulativeValues.add(sum)
@@ -57,8 +56,6 @@ public class WaterfallChartRenderer(
       sum += value
       cumulativeValues.add(sum)
     }
-
-    // Find the largest absolute value (positive or negative)
     val max = cumulativeValues.maxOrNull()?.absoluteValue ?: 0f
     val min = cumulativeValues.minOrNull()?.absoluteValue ?: 0f
 
@@ -78,11 +75,8 @@ public class WaterfallChartRenderer(
     dataSize: Int,
     barsPerGroup: Int,
   ): Pair<Float, Float> {
-    // Reserve 10% of total width for spacing between bars
     val totalSpacing = chartWidth * 0.1f
     val groupSpacing = totalSpacing / (dataSize + 1)
-
-    // Distribute remaining width evenly among bars
     val availableWidth = chartWidth - totalSpacing
     val barWidth = availableWidth / dataSize
 
@@ -122,12 +116,9 @@ public class WaterfallChartRenderer(
     maxValue: Float,
     animationProgress: Float,
   ) {
-    // Safety check: skip if index is out of bounds
     if (index >= data.values.size) {
       return
     }
-
-    // Calculate cumulative values
     val cumulativeValues = mutableListOf<Float>()
     var sum = data.initialValue
     cumulativeValues.add(sum)
@@ -135,28 +126,18 @@ public class WaterfallChartRenderer(
       sum += value
       cumulativeValues.add(sum)
     }
-
-    // Get start and end values for current bar
     val startValue = cumulativeValues[index]
     val endValue = cumulativeValues[index + 1]
-
-    // Calculate vertical positions
     val yStart = chartBottom - ((startValue / maxValue) * chartHeight)
     val yEnd = chartBottom - ((endValue / maxValue) * chartHeight)
-
-    // Calculate bar dimensions with animation
     val top = minOf(yStart, yEnd)
     val height = abs(yEnd - yStart) * animationProgress
     val barColor = data.colors.getOrElse(index) { Color.Gray }
-
-    // Draw the bar
     drawScope.drawRect(
       color = barColor,
       topLeft = Offset(left, top),
       size = Size(barWidth, height),
     )
-
-    // Draw connector line from previous end to current start
     if (index > 0) {
       val prevYEnd = cumulativeValues[index]
       val previousYCoord = chartBottom - ((prevYEnd / maxValue) * chartHeight)

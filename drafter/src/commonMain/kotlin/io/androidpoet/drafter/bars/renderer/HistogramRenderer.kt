@@ -21,9 +21,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import io.androidpoet.drafter.bars.BarChartDataRenderer
 import io.androidpoet.drafter.bars.model.HistogramData
-import kotlin.math.absoluteValue
 import kotlin.math.max
-import kotlin.math.round
+import kotlin.math.roundToInt
 
 /**
  * A specialized renderer for histogram charts that automatically bins data points into frequency distributions.
@@ -45,7 +44,6 @@ public class HistogramRenderer(
   private val histogramData: HistogramData
 
   init {
-    // Process raw data points into binned histogram data
     histogramData = createHistogramData(dataPoints, binCount, color)
   }
 
@@ -76,18 +74,13 @@ public class HistogramRenderer(
     dataSize: Int,
     barsPerGroup: Int,
   ): Pair<Float, Float> {
-    // Safety check for invalid dimensions
     if (dataSize <= 0 || chartWidth <= 0f) {
       return 0f to 0f
     }
-
-    // Reserve 10% of chart width for spacing between bars
     val totalSpacing = chartWidth * 0.1f
     val rawGroupSpacing = totalSpacing / (dataSize + 1)
     val availableWidth = chartWidth - totalSpacing
     val rawBarWidth = availableWidth / dataSize
-
-    // Ensure we never return negative values
     val safeBarWidth = rawBarWidth.coerceAtLeast(0f)
     val safeGroupSpacing = rawGroupSpacing.coerceAtLeast(0f)
 
@@ -129,13 +122,9 @@ public class HistogramRenderer(
   ) {
     val freq = histogramData.frequencies[index]
     val safeMax = max(maxValue, 1f) // Prevent division by zero
-
-    // Calculate bar height with animation
     val barHeight = (freq / safeMax) * chartHeight * animationProgress
 
     val barColor = histogramData.colors.getOrElse(index) { Color.Blue }
-
-    // Draw the histogram bar
     drawScope.drawRect(
       color = barColor,
       topLeft = Offset(left, chartBottom - barHeight),
@@ -156,23 +145,16 @@ public class HistogramRenderer(
     binCount: Int,
     color: Color,
   ): HistogramData {
-    // Find data range
     val minVal = dataPoints.minOrNull() ?: 0f
     val maxVal = dataPoints.maxOrNull() ?: minVal
     val binSize = if (maxVal > minVal) (maxVal - minVal) / binCount else 1f
-
-    // Initialize arrays for bin data
     val frequencies = MutableList(binCount) { 0f }
     val labels = MutableList(binCount) { "" }
     val colors = MutableList(binCount) { color }
-
-    // Count frequencies for each bin
     dataPoints.forEach { point ->
       val binIndex = ((point - minVal) / binSize).toInt().coerceIn(0, binCount - 1)
       frequencies[binIndex] += 1f
     }
-
-    // Generate bin range labels (e.g., "0.0-1.0")
     for (i in 0 until binCount) {
       val start = minVal + i * binSize
       val end = start + binSize
@@ -196,16 +178,4 @@ public class HistogramRenderer(
  * @param value Float value to format
  * @return String representation with exactly one decimal place
  */
-private fun formatToOneDecimal(value: Float): String {
-  val multiplied = round(value * 10) // Move decimal point right one place and round
-  val rounded = multiplied / 10 // Move decimal point back left one place
-
-  // Convert to string with exactly one decimal place
-  return buildString {
-    append(rounded.toInt()) // Integer part
-    append('.')
-    // Get decimal part and ensure it's exactly one digit
-    val decimal = ((rounded - rounded.toInt()) * 10).toInt().absoluteValue
-    append(decimal)
-  }
-}
+private fun formatToOneDecimal(value: Float): String = ((value * 10).roundToInt() / 10f).toString()

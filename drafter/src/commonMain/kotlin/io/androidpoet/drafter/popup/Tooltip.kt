@@ -36,9 +36,9 @@ public fun Tooltip(text: String) {
   ) {
     Surface(
       modifier =
-      Modifier
-        .shadow(4.dp)
-        .padding(4.dp),
+        Modifier
+          .shadow(4.dp)
+          .padding(4.dp),
       color = Color.White,
       shape = RoundedCornerShape(4.dp),
     ) {
@@ -51,7 +51,6 @@ public fun Tooltip(text: String) {
   }
 }
 
-// Add this data class to store hover state information
 public data class HoverState(
   val isHovered: Boolean = false,
   val position: Offset = Offset.Zero,

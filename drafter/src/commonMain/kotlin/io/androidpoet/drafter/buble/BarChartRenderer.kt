@@ -37,14 +37,12 @@ public class SimpleBubbleChartDataRenderer(
     return Pair(ranges.xMax, ranges.yMax)
   }
 
-  private fun roundToNiceNumber(value: Float): Float {
-    // Round up to the next multiple of 10 or 5 depending on the value
-    return when {
+  private fun roundToNiceNumber(value: Float): Float =
+    when {
       value <= 50f -> (((value + 9) / 10).toInt() * 10).toFloat()
       value <= 100f -> (((value + 24) / 25).toInt() * 25).toFloat()
       else -> (((value + 49) / 50).toInt() * 50).toFloat()
     }
-  }
 
   override fun drawBubbles(
     drawScope: DrawScope,
@@ -61,12 +59,8 @@ public class SimpleBubbleChartDataRenderer(
       series.forEachIndexed { bubbleIndex, bubble ->
         val delay = (seriesIndex * series.size + bubbleIndex) * 0.1f
         val bubbleProgress = (animationProgress - delay).coerceIn(0f, 1f)
-
-        // Scale x and y to fit the chart dimensions
         val x = originX + (bubble.x / ranges.xMax) * chartWidth
         val y = originY - (bubble.y / ranges.yMax) * chartHeight
-
-        // Scale the bubble size relative to chart dimensions and maximum size
         val scaleFactor = minOf(chartWidth, chartHeight) / 6f
         val scaledSize = (bubble.size / maxBubbleSize) * scaleFactor
 

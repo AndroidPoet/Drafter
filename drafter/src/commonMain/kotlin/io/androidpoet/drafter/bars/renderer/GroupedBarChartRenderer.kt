@@ -59,11 +59,8 @@ public class GroupedBarChartRenderer(
     dataSize: Int,
     barsPerGroup: Int,
   ): Pair<Float, Float> {
-    // Reserve 10% of chart width for spacing between groups
     val totalGroupSpacing = chartWidth * 0.1f
     val groupSpacing = totalGroupSpacing / (dataSize + 1)
-
-    // Calculate bar width based on available space
     val availableWidth = chartWidth - totalGroupSpacing
     val totalBarSpacingPerGroup =
       (barsPerGroup - 1) * 4f // 4f is the spacing between bars in a group
@@ -114,8 +111,6 @@ public class GroupedBarChartRenderer(
     val groupValues = data.groupedValues[index]
     val barSpacing = 4f // Spacing between bars within a group
     var currentLeft = left
-
-    // Draw each bar in the group
     groupValues.forEachIndexed { barIndex, value ->
       val barHeight = (value / maxValue) * chartHeight * animationProgress
       val barColor = data.colors.getOrElse(barIndex) { Color.Gray }
