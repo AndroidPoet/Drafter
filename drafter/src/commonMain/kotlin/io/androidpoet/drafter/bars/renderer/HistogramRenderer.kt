@@ -124,7 +124,7 @@ public class HistogramRenderer(
     val safeMax = max(maxValue, 1f) // Prevent division by zero
     val barHeight = (freq / safeMax) * chartHeight * animationProgress
 
-    val barColor = histogramData.colors.getOrElse(index) { Color.Blue }
+    val barColor = histogramData.colors.getOrElse(index) { Color.Gray }
     drawScope.drawRect(
       color = barColor,
       topLeft = Offset(left, chartBottom - barHeight),

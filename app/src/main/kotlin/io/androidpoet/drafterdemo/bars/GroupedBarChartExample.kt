@@ -36,7 +36,7 @@ private fun getBarChartRenderer() =
         listOf(25f, 5f, 30f), // 2021
         listOf(12f, 28f, 10f), // 2022
       ),
-      colors = listOf(Color.Red, Color.Green, Color.Blue),
+      colors = listOf(Color(0xFF519DE9), Color(0xFF03DAC5), Color(0xFF625CEE)),
     ),
   )
 

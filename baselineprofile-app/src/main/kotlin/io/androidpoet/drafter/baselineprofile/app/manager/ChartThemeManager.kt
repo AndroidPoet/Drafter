@@ -21,6 +21,7 @@ import androidx.compose.ui.graphics.Color
 
 object ChartThemeManager {
   enum class ColorTheme {
+    JETCO,
     MATERIAL,
     MODERN,
     NATURE,
@@ -29,6 +30,17 @@ object ChartThemeManager {
 
   private val palettes =
     mapOf(
+      ColorTheme.JETCO to
+        listOf(
+          Color(0xFF519DE9), // Soft Blue
+          Color(0xFF007BFF), // Bright Blue
+          Color(0xFF03DAC5), // Teal
+          Color(0xFF625CEE), // Purple
+          Color(0xFFF7B7A3), // Coral
+          Color(0xFFEA5F89), // Pink Rose
+          Color(0xFF9B3192), // Dark Magenta
+          Color(0xFF2954A1), // Navy Blue
+        ),
       ColorTheme.MATERIAL to
         listOf(
           Color(0xFF2196F3), // Primary Blue
@@ -86,8 +98,8 @@ object ChartThemeManager {
   private fun getFullPalette(theme: ColorTheme): List<Color> =
     palettes[theme] ?: palettes[ColorTheme.MATERIAL]!!
 
-  private val _currentTheme = mutableStateOf(ColorTheme.MATERIAL)
-  private val _currentFullPalette = mutableStateOf(getFullPalette(ColorTheme.MATERIAL))
+  private val _currentTheme = mutableStateOf(ColorTheme.JETCO)
+  private val _currentFullPalette = mutableStateOf(getFullPalette(ColorTheme.JETCO))
   val currentTheme: State<ColorTheme> = _currentTheme
   val palette: State<List<Color>> = _currentFullPalette
 

@@ -56,6 +56,7 @@ import io.androidpoet.drafterdemo.pie.DonutChartExample
 import io.androidpoet.drafterdemo.pie.PieChartExample
 import io.androidpoet.drafterdemo.radar.RadarChartExample
 import io.androidpoet.drafterdemo.ui.theme.DrafterDemoTheme
+import io.androidpoet.drafterdemo.ui.theme.Teal
 
 class MainActivity : ComponentActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -193,7 +194,7 @@ class MainActivity : ComponentActivity() {
               item {
                 Column {
                   ChartTitle(text = "Github Contribution Graph")
-                  GithubGraph(color = Color.Green)
+                  GithubGraph(color = Teal)
                 }
               }
             }

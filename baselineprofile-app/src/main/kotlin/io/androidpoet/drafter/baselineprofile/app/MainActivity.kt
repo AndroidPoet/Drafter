@@ -154,7 +154,7 @@ class MainActivity : ComponentActivity() {
             item {
               Column {
                 ChartTitle(text = "Github Contribution Graph")
-                GithubGraph(color = Color.Green)
+                GithubGraph(color = Color(0xFF03DAC5))
               }
             }
           }

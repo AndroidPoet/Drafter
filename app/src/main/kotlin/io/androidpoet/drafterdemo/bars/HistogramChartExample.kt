@@ -19,10 +19,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import io.androidpoet.drafter.bars.BarChart
 import io.androidpoet.drafter.bars.renderer.HistogramRenderer
+import io.androidpoet.drafterdemo.ui.theme.SoftBlue
 
 private fun getHistogramData() = listOf(1f, 2f, 2f, 3f, 3f, 3f, 4f, 4f, 5f, 5f, 5f, 5f)
 
@@ -30,7 +30,7 @@ private fun getHistogramRenderer() =
   HistogramRenderer(
     dataPoints = getHistogramData(),
     binCount = 5,
-    color = Color.Blue,
+    color = SoftBlue,
   )
 
 @Composable

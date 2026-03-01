@@ -24,3 +24,13 @@ val Pink80 = Color(0xFFEFB8C8)
 val Purple40 = Color(0xFF6650a4)
 val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
+
+// JetCo Chart Palette
+val SoftBlue = Color(0xFF519DE9)
+val BrightBlue = Color(0xFF007BFF)
+val Teal = Color(0xFF03DAC5)
+val Purple = Color(0xFF625CEE)
+val Coral = Color(0xFFF7B7A3)
+val PinkRose = Color(0xFFEA5F89)
+val DarkMagenta = Color(0xFF9B3192)
+val NavyBlue = Color(0xFF2954A1)
