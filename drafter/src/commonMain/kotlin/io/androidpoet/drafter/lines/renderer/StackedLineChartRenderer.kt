@@ -18,8 +18,13 @@ package io.androidpoet.drafter.lines.renderer
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.StrokeJoin
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Fill
+import androidx.compose.ui.graphics.drawscope.Stroke
+import io.androidpoet.drafter.internal.areaGradient
+import io.androidpoet.drafter.internal.smoothPath
 import io.androidpoet.drafter.lines.LineChartDataRenderer
 import io.androidpoet.drafter.lines.model.StackedLineChartData
 
@@ -40,50 +45,55 @@ public class StackedLineChartRenderer(
     animationProgress: Float,
   ) {
     val numPoints = data.labels.size
+    if (numPoints < 2 || maxValue <= 0f) return
+    val baseline = chartTop + chartHeight
     val xPositions =
       List(numPoints) { index ->
         chartLeft + index * (chartWidth / (numPoints - 1))
       }
 
-    val accumulatedValues = MutableList(numPoints) { 0f }
     val stackCount = data.stacks[0].size
-    for (stackIndex in 0 until stackCount) {
-      val previousAccumulatedValues = accumulatedValues.toList()
-      for (i in 0 until numPoints) {
-        accumulatedValues[i] += data.stacks[i][stackIndex]
+
+    // Cumulative top of each stack level: cumulative[k][i] = sum of stacks[i][0..k].
+    val cumulative =
+      Array(stackCount) { k ->
+        FloatArray(numPoints) { i ->
+          var sum = 0f
+          for (s in 0..k) sum += data.stacks[i][s]
+          sum
+        }
       }
-      val upperPoints =
+
+    // Draw back-to-front (top stack first) so each colour's visible band is the
+    // gap between its level and the one below — smooth curves, soft gradients,
+    // and no polygon seams between bands.
+    for (stackIndex in stackCount - 1 downTo 0) {
+      val color = data.colors.getOrElse(stackIndex) { Color.Gray }
+      val topPoints =
         List(numPoints) { i ->
-          val x = xPositions[i]
-          val y =
-            chartTop + chartHeight -
-              ((accumulatedValues[i] * animationProgress) / maxValue) * chartHeight
-          Offset(x, y)
+          val ratio = (cumulative[stackIndex][i] * animationProgress) / maxValue
+          val y = baseline - ratio * chartHeight
+          Offset(xPositions[i], y)
         }
 
-      val lowerPoints =
-        List(numPoints) { i ->
-          val x = xPositions[i]
-          val y =
-            chartTop + chartHeight -
-              ((previousAccumulatedValues[i] * animationProgress) / maxValue) * chartHeight
-          Offset(x, y)
-        }
-      val path =
+      val curve = smoothPath(topPoints)
+      val fillPath =
         Path().apply {
-          moveTo(upperPoints.first().x, upperPoints.first().y)
-          for (point in upperPoints.drop(1)) {
-            lineTo(point.x, point.y)
-          }
-          for (point in lowerPoints.reversed()) {
-            lineTo(point.x, point.y)
-          }
+          addPath(curve)
+          lineTo(topPoints.last().x, baseline)
+          lineTo(topPoints.first().x, baseline)
           close()
         }
+
       drawScope.drawPath(
-        path = path,
-        color = data.colors.getOrElse(stackIndex) { Color.Gray },
+        path = fillPath,
+        brush = areaGradient(color, topPoints.minOf { it.y }, baseline, topAlpha = 0.85f),
         style = Fill,
+      )
+      drawScope.drawPath(
+        path = curve,
+        color = color,
+        style = Stroke(width = 5f, cap = StrokeCap.Round, join = StrokeJoin.Round),
       )
     }
   }

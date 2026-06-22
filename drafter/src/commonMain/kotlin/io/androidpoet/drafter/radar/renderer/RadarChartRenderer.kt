@@ -102,19 +102,19 @@ public class RadarChartRenderer(
         textMeasurer.measure(
           text = axisLabels[i],
           style =
-            TextStyle(
-              color = if (isSystemInDarkTheme) Color.White else Color.Black,
-              fontSize = 12.sp,
-            ),
+          TextStyle(
+            color = if (isSystemInDarkTheme) Color.White else Color.Black,
+            fontSize = 12.sp,
+          ),
         )
 
       drawScope.drawText(
         textLayoutResult = textLayoutResult,
         topLeft =
-          Offset(
-            x = endX - textLayoutResult.size.width / 2,
-            y = endY - textLayoutResult.size.height / 2,
-          ),
+        Offset(
+          x = endX - textLayoutResult.size.width / 2,
+          y = endY - textLayoutResult.size.height / 2,
+        ),
       )
     }
   }

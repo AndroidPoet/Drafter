@@ -85,10 +85,10 @@ public class PieChartRenderer(
           text = labelText,
           style = style,
           topLeft =
-            Offset(
-              x = labelX - textLayout.size.width / 2,
-              y = labelY - textLayout.size.height / 2,
-            ),
+          Offset(
+            x = labelX - textLayout.size.width / 2,
+            y = labelY - textLayout.size.height / 2,
+          ),
         )
       }
 

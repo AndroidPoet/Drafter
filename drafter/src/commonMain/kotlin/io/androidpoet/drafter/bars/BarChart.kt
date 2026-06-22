@@ -32,7 +32,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.text.TextStyle
@@ -40,6 +39,7 @@ import androidx.compose.ui.text.drawText
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.sp
 import io.androidpoet.drafter.popup.HoverState
+import io.androidpoet.drafter.theme.DrafterColors
 
 /**
  * A customizable animated bar chart component for Jetpack Compose.
@@ -67,10 +67,10 @@ public fun BarChart(
       animationProgress.animateTo(
         targetValue = 1f,
         animationSpec =
-          tween(
-            durationMillis = 1000,
-            easing = LinearOutSlowInEasing,
-          ),
+        tween(
+          durationMillis = 1000,
+          easing = LinearOutSlowInEasing,
+        ),
       )
     }
   }
@@ -82,9 +82,9 @@ public fun BarChart(
 
   Canvas(
     modifier =
-      modifier
-        .fillMaxSize()
-        .hoverable(interactionSource),
+    modifier
+      .fillMaxSize()
+      .hoverable(interactionSource),
   ) {
     if (size.width < 1f || size.height < 1f) return@Canvas
     val chartDimensions = calculateChartDimensions(size.width, size.height)
@@ -181,7 +181,11 @@ private fun DrawScope.drawYAxisLabels(
   isSystemInDarkTheme: Boolean,
 ) {
   val style =
-    TextStyle(fontSize = 12.sp, color = if (isSystemInDarkTheme) Color.White else Color.Black)
+    TextStyle(
+      fontSize = 12.sp,
+      color = if (isSystemInDarkTheme) DrafterColors.LabelDark else DrafterColors.LabelLight,
+    )
+  val gridColor = if (isSystemInDarkTheme) DrafterColors.GridDark else DrafterColors.GridLight
   val steps = 5
   val stepValue = maxValue / steps
 
@@ -191,16 +195,23 @@ private fun DrawScope.drawYAxisLabels(
     val roundedValue = (value * 10).toInt() / 10f
     val label = roundedValue.toString()
 
+    drawLine(
+      color = gridColor,
+      start = Offset(left, yPosition),
+      end = Offset(size.width, yPosition),
+      strokeWidth = 1f,
+    )
+
     val measured = textMeasurer.measure(label, style)
     drawText(
       textMeasurer = textMeasurer,
       text = label,
       style = style,
       topLeft =
-        Offset(
-          x = (left - measured.size.width - 8f),
-          y = yPosition - (measured.size.height / 2),
-        ),
+      Offset(
+        x = (left - measured.size.width - 8f),
+        y = yPosition - (measured.size.height / 2),
+      ),
     )
   }
 }
@@ -255,7 +266,7 @@ private fun DrawScope.drawXAxisLabels(
   val style =
     TextStyle(
       fontSize = 12.sp,
-      color = if (isSystemInDarkTheme) Color.White else Color.Black,
+      color = if (isSystemInDarkTheme) DrafterColors.LabelDark else DrafterColors.LabelLight,
     )
   var currentLeft = chartLeft
 
@@ -269,10 +280,10 @@ private fun DrawScope.drawXAxisLabels(
       text = label,
       style = style,
       topLeft =
-        Offset(
-          x = centerX - (measured.size.width / 2),
-          y = chartBottom + 8f,
-        ),
+      Offset(
+        x = centerX - (measured.size.width / 2),
+        y = chartBottom + 8f,
+      ),
     )
 
     currentLeft += groupWidth + groupSpacing
@@ -289,17 +300,12 @@ private fun DrawScope.drawAxes(
   width: Float,
   isSystemInDarkTheme: Boolean,
 ) {
+  val axisColor = if (isSystemInDarkTheme) DrafterColors.GridDark else DrafterColors.GridLight
   drawLine(
-    color = if (isSystemInDarkTheme) Color.White else Color.Black,
-    start = Offset(left, top),
-    end = Offset(left, bottom),
-    strokeWidth = 2f,
-  )
-  drawLine(
-    color = if (isSystemInDarkTheme) Color.White else Color.Black,
+    color = axisColor,
     start = Offset(left, bottom),
     end = Offset(left + width, bottom),
-    strokeWidth = 2f,
+    strokeWidth = 1.5f,
   )
 }
 

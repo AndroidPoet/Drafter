@@ -17,9 +17,9 @@ package io.androidpoet.drafter.lines.renderer
 
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.drawscope.DrawScope
+import io.androidpoet.drafter.internal.drawSmoothLine
 import io.androidpoet.drafter.lines.LineChartDataRenderer
 import io.androidpoet.drafter.lines.model.SimpleLineChartData
-import kotlin.math.pow
 
 public class LineChartRenderer(
   private val data: SimpleLineChartData,
@@ -37,56 +37,23 @@ public class LineChartRenderer(
     maxValue: Float,
     animationProgress: Float,
   ) {
+    if (data.values.size < 2 || maxValue <= 0f) return
+    val baseline = chartTop + chartHeight
     val points =
       data.values.mapIndexed { index, value ->
         val x = chartLeft + index * (chartWidth / (data.values.size - 1))
-        val y = chartTop + chartHeight - (value / maxValue) * chartHeight
+        val y = baseline - (value / maxValue) * chartHeight
         Offset(x, y)
       }
 
-    val totalLength =
-      points
-        .zipWithNext()
-        .sumOf { (start, end) ->
-          val dx = end.x - start.x
-          val dy = end.y - start.y
-          kotlin.math.sqrt((dx * dx + dy * dy).toDouble())
-        }.toFloat()
-
-    var currentLength = 0f
-    var lastDrawnPoint = points.first()
-
-    points.zipWithNext().forEach { (start, end) ->
-      val segmentLength =
-        kotlin.math.sqrt(
-          (end.x - start.x).pow(2) + (end.y - start.y).pow(2),
-        )
-      val segmentProgress = (currentLength + segmentLength) / totalLength
-
-      if (segmentProgress <= animationProgress) {
-        drawScope.drawLine(
-          color = data.color,
-          start = start,
-          end = end,
-          strokeWidth = 2f,
-        )
-        lastDrawnPoint = end
-      } else if (currentLength / totalLength <= animationProgress) {
-        val remainingProgress =
-          (animationProgress - currentLength / totalLength) / (segmentLength / totalLength)
-        val partialEnd =
-          Offset(
-            x = start.x + (end.x - start.x) * remainingProgress,
-            y = start.y + (end.y - start.y) * remainingProgress,
-          )
-        drawScope.drawLine(
-          color = data.color,
-          start = start,
-          end = partialEnd,
-          strokeWidth = 2f,
-        )
-      }
-      currentLength += segmentLength
-    }
+    drawScope.drawSmoothLine(
+      points = points,
+      color = data.color,
+      baseline = baseline,
+      progress = animationProgress,
+      strokeWidth = 6f,
+      fill = true,
+      endDot = true,
+    )
   }
 }

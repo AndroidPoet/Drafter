@@ -26,13 +26,13 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.drawText
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.sp
+import io.androidpoet.drafter.theme.DrafterColors
 import kotlin.math.floor
 import kotlin.math.log10
 import kotlin.math.pow
@@ -53,10 +53,10 @@ public fun LineChart(
     animationProgress.animateTo(
       targetValue = 1f,
       animationSpec =
-        tween(
-          durationMillis = 3000, // Increased duration
-          easing = FastOutSlowInEasing,
-        ),
+      tween(
+        durationMillis = 1100,
+        easing = FastOutSlowInEasing,
+      ),
     )
   }
 
@@ -69,9 +69,15 @@ public fun LineChart(
 
     val maxValue = renderer.calculateMaxValue()
 
-    drawAxes(chartLeft, chartTop, chartBottom, chartWidth, isSystemInDarkTheme)
-    drawYAxisLabels(textMeasurer, chartLeft, chartTop, chartBottom, maxValue, isSystemInDarkTheme)
-    val currentProgress = FastOutSlowInEasing.transform(animationProgress.value)
+    drawGridAndLabels(
+      textMeasurer,
+      chartLeft,
+      chartTop,
+      chartBottom,
+      chartWidth,
+      maxValue,
+      isSystemInDarkTheme,
+    )
 
     renderer.drawLines(
       drawScope = this,
@@ -80,7 +86,7 @@ public fun LineChart(
       chartWidth = chartWidth,
       chartHeight = chartHeight,
       maxValue = maxValue,
-      animationProgress = currentProgress,
+      animationProgress = animationProgress.value,
     )
 
     renderer.getLabels().forEachIndexed { index, label ->
@@ -98,65 +104,64 @@ private fun DrawScope.drawXAxisLabel(
   isSystemInDarkTheme: Boolean,
 ) {
   val style =
-    TextStyle(fontSize = 10.sp, color = if (isSystemInDarkTheme) Color.White else Color.Black)
+    TextStyle(
+      fontSize = 11.sp,
+      color = if (isSystemInDarkTheme) DrafterColors.LabelDark else DrafterColors.LabelLight,
+    )
   val textLayoutResult = textMeasurer.measure(label, style)
   drawText(
     textMeasurer = textMeasurer,
     text = label,
     style = style,
-    topLeft = Offset(x - textLayoutResult.size.width / 2, y + 5f),
+    topLeft = Offset(x - textLayoutResult.size.width / 2, y + 10f),
   )
 }
 
-private fun DrawScope.drawAxes(
-  left: Float,
-  top: Float,
-  bottom: Float,
-  width: Float,
-  isSystemInDarkTheme: Boolean,
-) {
-  drawLine(
-    if (isSystemInDarkTheme) Color.White else Color.Black,
-    Offset(left, top),
-    Offset(left, bottom),
-    strokeWidth = 2f,
-  )
-  drawLine(
-    if (isSystemInDarkTheme) Color.White else Color.Black,
-    Offset(left, bottom),
-    Offset(left + width, bottom),
-    strokeWidth = 2f,
-  )
-}
-
-private fun DrawScope.drawYAxisLabels(
+/**
+ * Draws faint horizontal grid lines and muted Y-axis value labels. Replaces the
+ * old hard black axis lines for a softer, dashboard-style look.
+ */
+private fun DrawScope.drawGridAndLabels(
   textMeasurer: TextMeasurer,
   left: Float,
   top: Float,
   bottom: Float,
+  width: Float,
   maxValue: Float,
   isSystemInDarkTheme: Boolean,
 ) {
+  if (maxValue <= 0f) return
+  val gridColor = if (isSystemInDarkTheme) DrafterColors.GridDark else DrafterColors.GridLight
   val style =
-    TextStyle(fontSize = 10.sp, color = if (isSystemInDarkTheme) Color.White else Color.Black)
+    TextStyle(
+      fontSize = 11.sp,
+      color = if (isSystemInDarkTheme) DrafterColors.LabelDark else DrafterColors.LabelLight,
+    )
   val step = calculateGridStep(maxValue)
   val numSteps = (maxValue / step).toInt()
   for (i in 0..numSteps) {
     val value = i * step
     val ratio = value / maxValue
     val y = bottom - (ratio * (bottom - top))
-    val label = value.toInt().toString()
 
+    drawLine(
+      color = gridColor,
+      start = Offset(left, y),
+      end = Offset(left + width, y),
+      strokeWidth = 1f,
+    )
+
+    val label = value.toInt().toString()
     val textLayoutResult = textMeasurer.measure(label, style)
     drawText(
       textMeasurer = textMeasurer,
       text = label,
       style = style,
       topLeft =
-        Offset(
-          left - textLayoutResult.size.width - 5f,
-          y - textLayoutResult.size.height / 2,
-        ),
+      Offset(
+        left - textLayoutResult.size.width - 10f,
+        y - textLayoutResult.size.height / 2,
+      ),
     )
   }
 }

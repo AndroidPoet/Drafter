@@ -90,10 +90,10 @@ public class DonutChartRenderer(
           text = labelText,
           style = style,
           topLeft =
-            Offset(
-              x = baseX + xOffset + radialOffsetX,
-              y = baseY + yOffset + radialOffsetY,
-            ),
+          Offset(
+            x = baseX + xOffset + radialOffsetX,
+            y = baseY + yOffset + radialOffsetY,
+          ),
         )
       }
 

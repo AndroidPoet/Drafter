@@ -15,8 +15,10 @@
  */
 package io.androidpoet.drafter.bars.renderer
 
+import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import io.androidpoet.drafter.bars.BarChartDataRenderer
@@ -103,11 +105,26 @@ public class BarChartRenderer(
   ) {
     val value = data.values[index]
     val barHeight = (value / maxValue) * chartHeight * animationProgress
+    if (barHeight <= 0f) return
     val color = data.colors.getOrElse(index) { Color.Gray }
-    drawScope.drawRect(
-      color = color,
-      topLeft = Offset(left, chartBottom - barHeight),
-      size = Size(barWidth, barHeight),
+
+    // Slim the bar slightly for breathing room, round the top corners, and give
+    // it a soft top-to-bottom gradient for a premium feel.
+    val inset = barWidth * 0.16f
+    val drawWidth = barWidth - inset * 2
+    val topLeft = Offset(left + inset, chartBottom - barHeight)
+    val corner = CornerRadius(drawWidth * 0.4f, drawWidth * 0.4f)
+
+    drawScope.drawRoundRect(
+      brush =
+      Brush.verticalGradient(
+        colors = listOf(color, color.copy(alpha = 0.72f)),
+        startY = topLeft.y,
+        endY = chartBottom,
+      ),
+      topLeft = topLeft,
+      size = Size(drawWidth, barHeight),
+      cornerRadius = corner,
     )
   }
 }

@@ -49,10 +49,10 @@ public fun GanttChart(
     animationProgress.animateTo(
       targetValue = 1f,
       animationSpec =
-        tween(
-          durationMillis = 2000,
-          easing = LinearOutSlowInEasing,
-        ),
+      tween(
+        durationMillis = 2000,
+        easing = LinearOutSlowInEasing,
+      ),
     )
   }
 

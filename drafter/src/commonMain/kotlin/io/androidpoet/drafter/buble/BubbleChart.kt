@@ -167,10 +167,10 @@ private fun DrawScope.drawAxes(
     drawText(
       textLayoutResult,
       topLeft =
-        Offset(
-          originX - textLayoutResult.size.width - 5.dp.toPx(),
-          y - textLayoutResult.size.height / 2,
-        ),
+      Offset(
+        originX - textLayoutResult.size.width - 5.dp.toPx(),
+        y - textLayoutResult.size.height / 2,
+      ),
     )
   }
 }

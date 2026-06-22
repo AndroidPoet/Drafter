@@ -47,10 +47,10 @@ public fun ScatterPlot(
     animationProgress.animateTo(
       targetValue = 1f,
       animationSpec =
-        tween(
-          durationMillis = 2000,
-          easing = LinearOutSlowInEasing,
-        ),
+      tween(
+        durationMillis = 2000,
+        easing = LinearOutSlowInEasing,
+      ),
     )
   }
 
@@ -126,10 +126,10 @@ internal fun DrawScope.drawYAxisLabels(
         text = label,
         style = style,
         topLeft =
-          Offset(
-            left - textLayoutResult.size.width - 5f,
-            y - textLayoutResult.size.height / 2,
-          ),
+        Offset(
+          left - textLayoutResult.size.width - 5f,
+          y - textLayoutResult.size.height / 2,
+        ),
       )
     }
 }
@@ -164,10 +164,10 @@ internal fun DrawScope.drawXAxisLabels(
         text = label,
         style = style,
         topLeft =
-          Offset(
-            x - textLayoutResult.size.width / 2,
-            bottom + 5f,
-          ),
+        Offset(
+          x - textLayoutResult.size.width / 2,
+          bottom + 5f,
+        ),
       )
     }
 }
