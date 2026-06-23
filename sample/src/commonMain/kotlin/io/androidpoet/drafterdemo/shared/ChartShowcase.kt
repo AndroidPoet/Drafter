@@ -81,6 +81,7 @@ import io.androidpoet.drafter.candlestick.CandlestickChart
 import io.androidpoet.drafter.candlestick.CandlestickChartRenderer
 import io.androidpoet.drafter.candlestick.model.Candle
 import io.androidpoet.drafter.candlestick.model.CandlestickData
+import io.androidpoet.drafter.candlestick.model.MovingAverage
 import io.androidpoet.drafter.funnel.FunnelChart
 import io.androidpoet.drafter.funnel.FunnelChartRenderer
 import io.androidpoet.drafter.funnel.model.FunnelData
@@ -465,13 +466,35 @@ private fun chartEntries(): List<ChartEntry> = listOf(
       renderer = CandlestickChartRenderer(
         CandlestickData(
           candles = listOf(
-            Candle("Mon", open = 42f, high = 48f, low = 40f, close = 45f),
-            Candle("Tue", open = 45f, high = 46f, low = 38f, close = 39f),
-            Candle("Wed", open = 39f, high = 44f, low = 37f, close = 43f),
-            Candle("Thu", open = 43f, high = 52f, low = 42f, close = 50f),
-            Candle("Fri", open = 50f, high = 51f, low = 44f, close = 46f),
-            Candle("Sat", open = 46f, high = 49f, low = 41f, close = 48f),
-            Candle("Sun", open = 48f, high = 55f, low = 47f, close = 54f),
+            Candle("1", open = 42f, high = 46f, low = 40f, close = 44f),
+            Candle("2", open = 44f, high = 47f, low = 41f, close = 42f),
+            Candle("3", open = 42f, high = 45f, low = 39f, close = 44f),
+            Candle("4", open = 44f, high = 50f, low = 43f, close = 49f),
+            Candle("5", open = 49f, high = 51f, low = 46f, close = 47f),
+            Candle("6", open = 47f, high = 49f, low = 44f, close = 48f),
+            Candle("7", open = 48f, high = 54f, low = 47f, close = 53f),
+            Candle("8", open = 53f, high = 55f, low = 50f, close = 51f),
+            Candle("9", open = 51f, high = 53f, low = 48f, close = 49f),
+            Candle("10", open = 49f, high = 52f, low = 47f, close = 51f),
+            Candle("11", open = 51f, high = 58f, low = 50f, close = 57f),
+            Candle("12", open = 57f, high = 59f, low = 54f, close = 55f),
+            Candle("13", open = 55f, high = 57f, low = 51f, close = 52f),
+            Candle("14", open = 52f, high = 54f, low = 49f, close = 53f),
+            Candle("15", open = 53f, high = 60f, low = 52f, close = 59f),
+            Candle("16", open = 59f, high = 62f, low = 57f, close = 58f),
+            Candle("17", open = 58f, high = 60f, low = 54f, close = 56f),
+            Candle("18", open = 56f, high = 58f, low = 53f, close = 57f),
+            Candle("19", open = 57f, high = 64f, low = 56f, close = 63f),
+            Candle("20", open = 63f, high = 66f, low = 61f, close = 62f),
+            Candle("21", open = 62f, high = 64f, low = 58f, close = 60f),
+            Candle("22", open = 60f, high = 63f, low = 59f, close = 62f),
+            Candle("23", open = 62f, high = 69f, low = 61f, close = 68f),
+            Candle("24", open = 68f, high = 71f, low = 65f, close = 70f),
+          ),
+          movingAverages = listOf(
+            MovingAverage(period = 5, color = DrafterColors.Amber),
+            MovingAverage(period = 10, color = DrafterColors.Blue),
+            MovingAverage(period = 20, color = DrafterColors.Violet),
           ),
         ),
       ),

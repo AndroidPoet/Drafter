@@ -19,12 +19,18 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.StrokeJoin
 import androidx.compose.ui.graphics.drawscope.DrawScope
+import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.drawscope.clipRect
 import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.drawText
 import androidx.compose.ui.unit.sp
 import io.androidpoet.drafter.candlestick.model.CandlestickData
+import io.androidpoet.drafter.candlestick.model.MovingAverage
+import io.androidpoet.drafter.internal.smoothPath
 import io.androidpoet.drafter.theme.DrafterColors
 import kotlin.math.max
 
@@ -94,15 +100,16 @@ public class CandlestickChartRenderer(
     val slot = chartWidth / count
     val bodyWidth = (slot * 0.6f).coerceAtLeast(2f)
 
+    fun yFor(value: Float): Float = chartBottom - (value - minLow) / range * chartHeight
+    fun centerXFor(index: Int): Float = chartLeft + slot * index + slot / 2f
+
     // Show every Nth x-label to avoid crowding.
     val labelEvery = max(1, count / 8)
 
     data.candles.forEachIndexed { index, candle ->
-      val centerX = chartLeft + slot * index + slot / 2f
+      val centerX = centerXFor(index)
       val isUp = candle.close >= candle.open
       val color = if (isUp) DrafterColors.Green else DrafterColors.Coral
-
-      fun yFor(value: Float): Float = chartBottom - (value - minLow) / range * chartHeight
 
       // Wick (low -> high), animated grow from the body center.
       val bodyTopValue = max(candle.open, candle.close)
@@ -154,6 +161,54 @@ public class CandlestickChartRenderer(
         )
       }
     }
+
+    // Moving-average overlays (MA5 / MA10 / MA20 ...) on top of the candles —
+    // the classic K-line study. Each line is revealed left-to-right with the
+    // same entrance animation as the candles.
+    val reveal = chartLeft + chartWidth * animationProgress.coerceIn(0f, 1f)
+    data.movingAverages.forEach { ma ->
+      val points = movingAveragePoints(ma, { centerXFor(it) }, { yFor(it) })
+      if (points.size < 2) return@forEach
+      drawScope.clipRect(right = reveal) {
+        drawPath(
+          path = smoothPath(points),
+          color = ma.color,
+          style = Stroke(width = 2.5f, cap = StrokeCap.Round, join = StrokeJoin.Round),
+        )
+      }
+    }
+
+    // Compact legend (MAn in each line's color), top-left inside the plot.
+    var legendX = chartLeft + 4f
+    data.movingAverages.forEach { ma ->
+      val legendStyle = TextStyle(fontSize = 10.sp, color = ma.color)
+      val text = "MA${ma.period}"
+      val measured = textMeasurer.measure(text, legendStyle)
+      drawScope.drawText(
+        textMeasurer = textMeasurer,
+        text = text,
+        style = legendStyle,
+        topLeft = Offset(legendX, chartTop + 2f),
+      )
+      legendX += measured.size.width + 10f
+    }
+  }
+
+  /** Builds the smoothed point list for a single moving-average line. */
+  private inline fun movingAveragePoints(
+    ma: MovingAverage,
+    centerXFor: (Int) -> Float,
+    yFor: (Float) -> Float,
+  ): List<Offset> {
+    val count = data.candles.size
+    if (ma.period <= 0 || ma.period > count) return emptyList()
+    val points = ArrayList<Offset>(count)
+    for (i in ma.period - 1 until count) {
+      var sum = 0f
+      for (j in (i - ma.period + 1)..i) sum += data.candles[j].close
+      points.add(Offset(centerXFor(i), yFor(sum / ma.period)))
+    }
+    return points
   }
 
   private fun formatValue(value: Float): String = io.androidpoet.drafter.core.formatChartValue(
