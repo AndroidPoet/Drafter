@@ -28,7 +28,7 @@
 
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/25e678d0-6276-49f9-b38d-f9fa8c5a75fb" alt="Drafter Desktop Demo" width="900"/>
+  <img src="art/drafter-demo.gif" alt="Drafter Desktop Demo" width="900"/>
 </p>
 
 
