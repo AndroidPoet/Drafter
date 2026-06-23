@@ -18,7 +18,9 @@ package io.androidpoet.drafter.scatterplot
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
+import androidx.compose.ui.graphics.drawscope.Stroke
 import io.androidpoet.drafter.scatterplot.model.ScatterPlotData
+import io.androidpoet.drafter.theme.DrafterColors
 
 public interface ScatterPlotRenderer {
   public fun calculateMaxValues(): Pair<Float, Float>
@@ -62,14 +64,27 @@ public class SimpleScatterPlotRenderer(
       val x = chartLeft + (point.first / maxX) * chartWidth
       val y = chartTop + chartHeight - (point.second / maxY) * chartHeight
 
-      val pointSize = 5f * animationProgress
+      val pointSize = 6f * animationProgress
 
       val color =
         if (index < data.pointColors.size) data.pointColors[index] else Color.Gray
+      val center = Offset(x, y)
+      // Soft translucent halo + a crisp ringed dot for a premium, glassy feel.
+      drawScope.drawCircle(
+        color = color.copy(alpha = 0.16f * animationProgress),
+        radius = pointSize * 2f,
+        center = center,
+      )
       drawScope.drawCircle(
         color = color.copy(alpha = animationProgress),
         radius = pointSize,
-        center = Offset(x, y),
+        center = center,
+      )
+      drawScope.drawCircle(
+        color = Color.White.copy(alpha = animationProgress),
+        radius = pointSize,
+        center = center,
+        style = Stroke(width = 1.5f),
       )
     }
   }
@@ -82,16 +97,17 @@ public fun DrawScope.drawAxes(
   width: Float,
   isSystemInDarkTheme: Boolean,
 ) {
+  val axisColor = if (isSystemInDarkTheme) DrafterColors.GridDark else DrafterColors.GridLight
   drawLine(
-    if (isSystemInDarkTheme) Color.White else Color.Black,
+    axisColor,
     Offset(left, top),
     Offset(left, bottom),
-    strokeWidth = 2f,
+    strokeWidth = 1.5f,
   )
   drawLine(
-    if (isSystemInDarkTheme) Color.White else Color.Black,
+    axisColor,
     Offset(left, bottom),
     Offset(left + width, bottom),
-    strokeWidth = 2f,
+    strokeWidth = 1.5f,
   )
 }

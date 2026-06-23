@@ -18,6 +18,7 @@ package io.androidpoet.drafter.pie.renderer
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.text.TextMeasurer
@@ -56,18 +57,23 @@ public class DonutChartRenderer(
     val innerRadius = outerRadius * holeRadiusFraction
     val center = Offset(size.width / 2, size.height / 2)
 
+    val gap = 2f
     data.slices.forEach { slice ->
       val slicePercentage = slice.value / totalValue
       val sweepAngle = slicePercentage * 360f * progress
-      drawScope.drawArc(
-        color = slice.color,
-        startAngle = startAngle,
-        sweepAngle = sweepAngle,
-        useCenter = false,
-        topLeft = Offset(center.x - outerRadius, center.y - outerRadius),
-        size = Size(outerRadius * 2, outerRadius * 2),
-        style = Stroke(width = outerRadius - innerRadius),
-      )
+      // Inset each arc by a small gap and round its caps for a modern donut.
+      val drawSweep = (sweepAngle - gap).coerceAtLeast(0f)
+      if (drawSweep > 0f) {
+        drawScope.drawArc(
+          color = slice.color,
+          startAngle = startAngle + gap / 2,
+          sweepAngle = drawSweep,
+          useCenter = false,
+          topLeft = Offset(center.x - outerRadius, center.y - outerRadius),
+          size = Size(outerRadius * 2, outerRadius * 2),
+          style = Stroke(width = outerRadius - innerRadius, cap = StrokeCap.Round),
+        )
+      }
       val percentage = slicePercentage * 100
       if (percentage >= labelThreshold && sweepAngle > 0f) {
         val midAngleRad = (startAngle + sweepAngle / 2) * (PI.toFloat() / 180f)

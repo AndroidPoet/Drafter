@@ -18,6 +18,7 @@ package io.androidpoet.drafter.radar.renderer
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.StrokeJoin
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Fill
 import androidx.compose.ui.graphics.drawscope.Stroke
@@ -25,8 +26,10 @@ import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.drawText
 import androidx.compose.ui.unit.sp
+import io.androidpoet.drafter.internal.drawVertexDot
 import io.androidpoet.drafter.radar.RadarChartDataRenderer
 import io.androidpoet.drafter.radar.model.RadarChartData
+import io.androidpoet.drafter.theme.DrafterColors
 import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
@@ -79,11 +82,13 @@ public class RadarChartRenderer(
     isSystemInDarkTheme: Boolean,
   ) {
     val numberOfAxes = axisLabels.size
-    for (i in 1..10) {
+    val gridColor = if (isSystemInDarkTheme) DrafterColors.GridDark else DrafterColors.GridLight
+    val labelColor = if (isSystemInDarkTheme) DrafterColors.LabelDark else DrafterColors.LabelLight
+    for (i in 1..5) {
       drawScope.drawCircle(
-        color = if (isSystemInDarkTheme) Color.White else Color.Black,
+        color = gridColor,
         center = Offset(centerX, centerY),
-        radius = radius * i / 10,
+        radius = radius * i / 5,
         style = Stroke(width = 1f),
       )
     }
@@ -93,7 +98,7 @@ public class RadarChartRenderer(
       val endY = centerY + radius * sin(angle).toFloat()
 
       drawScope.drawLine(
-        color = if (isSystemInDarkTheme) Color.White else Color.Black,
+        color = gridColor,
         start = Offset(centerX, centerY),
         end = Offset(endX, endY),
         strokeWidth = 1f,
@@ -103,7 +108,7 @@ public class RadarChartRenderer(
           text = axisLabels[i],
           style =
           TextStyle(
-            color = if (isSystemInDarkTheme) Color.White else Color.Black,
+            color = labelColor,
             fontSize = 12.sp,
           ),
         )
@@ -145,14 +150,19 @@ public class RadarChartRenderer(
 
     drawScope.drawPath(
       path = path,
-      color = color.copy(alpha = 0.5f * progress),
+      color = color.copy(alpha = 0.22f * progress),
       style = Fill,
     )
 
     drawScope.drawPath(
       path = path,
-      color = color.copy(alpha = progress),
-      style = Stroke(width = 2f),
+      color = color.copy(alpha = 0.9f * progress),
+      style = Stroke(width = 2.5f, join = StrokeJoin.Round),
     )
+
+    // Mark each vertex with a haloed dot once the polygon has expanded enough.
+    if (progress > 0.6f) {
+      points.forEach { drawScope.drawVertexDot(it, color, radius = 4f) }
+    }
   }
 }

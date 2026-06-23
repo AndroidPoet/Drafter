@@ -19,12 +19,14 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.drawText
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import io.androidpoet.drafter.pie.model.PieChartData
+import io.androidpoet.drafter.theme.DrafterColors
 import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.max
@@ -50,6 +52,8 @@ public class PieChartRenderer(
     var startAngle = -90f
     val radius = (size.minDimension / 2) * 0.7f
     val center = Offset(size.width / 2, size.height / 2)
+    val separator =
+      if (isSystemInDarkTheme) DrafterColors.SurfaceDark else DrafterColors.SurfaceLight
 
     data.slices.forEach { slice ->
       val slicePercentage = slice.value / totalValue
@@ -63,6 +67,18 @@ public class PieChartRenderer(
         topLeft = Offset(center.x - radius, center.y - radius),
         size = Size(radius * 2, radius * 2),
       )
+      // Thin surface-coloured outline carves a clean gap between slices.
+      if (sweepAngle > 0f) {
+        drawScope.drawArc(
+          color = separator,
+          startAngle = startAngle,
+          sweepAngle = sweepAngle,
+          useCenter = true,
+          topLeft = Offset(center.x - radius, center.y - radius),
+          size = Size(radius * 2, radius * 2),
+          style = Stroke(width = 2.5f),
+        )
+      }
       val percentage = slicePercentage * 100
       if (percentage >= labelThreshold && sweepAngle > 0f) {
         val angleMid = startAngle + sweepAngle / 2

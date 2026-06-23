@@ -17,6 +17,7 @@ package io.androidpoet.drafter.buble
 
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.drawscope.DrawScope
+import androidx.compose.ui.graphics.drawscope.Stroke
 
 public class SimpleBubbleChartDataRenderer(
   private val data: BubbleChartData,
@@ -63,11 +64,20 @@ public class SimpleBubbleChartDataRenderer(
         val y = originY - (bubble.y / ranges.yMax) * chartHeight
         val scaleFactor = minOf(chartWidth, chartHeight) / 6f
         val scaledSize = (bubble.size / maxBubbleSize) * scaleFactor
+        val radius = scaledSize * bubbleProgress
+        val center = Offset(x, y)
 
+        // Translucent fill with a crisp ring — modern, layered bubble look.
         drawScope.drawCircle(
-          color = bubble.color,
-          radius = scaledSize * bubbleProgress,
-          center = Offset(x, y),
+          color = bubble.color.copy(alpha = 0.30f),
+          radius = radius,
+          center = center,
+        )
+        drawScope.drawCircle(
+          color = bubble.color.copy(alpha = 0.9f),
+          radius = radius,
+          center = center,
+          style = Stroke(width = 2.5f),
         )
       }
     }

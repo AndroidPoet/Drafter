@@ -61,6 +61,12 @@ public object DrafterColors {
   /** Muted axis-label colour for dark surfaces. */
   public val LabelDark: Color = Color(0xFF8A92A2)
 
+  /** Card/surface colour for light mode — used for slice separators. */
+  public val SurfaceLight: Color = Color.White
+
+  /** Card/surface colour for dark mode — used for slice separators. */
+  public val SurfaceDark: Color = Color(0xFF1B1E25)
+
   /**
    * Ordered default palette. The first two entries (Blue, Teal) match the
    * "Point 01 / Point 02" pairing in modern dashboard designs.
