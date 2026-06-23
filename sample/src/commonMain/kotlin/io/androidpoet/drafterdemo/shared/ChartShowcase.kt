@@ -460,6 +460,26 @@ private fun chartEntries(): List<ChartEntry> = listOf(
       animate = true,
     )
   },
+  ChartEntry("K-Line") {
+    CandlestickChart(
+      renderer = CandlestickChartRenderer(
+        CandlestickData(
+          candles = listOf(
+            Candle("Mon", open = 42f, high = 48f, low = 40f, close = 45f),
+            Candle("Tue", open = 45f, high = 46f, low = 38f, close = 39f),
+            Candle("Wed", open = 39f, high = 44f, low = 37f, close = 43f),
+            Candle("Thu", open = 43f, high = 52f, low = 42f, close = 50f),
+            Candle("Fri", open = 50f, high = 51f, low = 44f, close = 46f),
+            Candle("Sat", open = 46f, high = 49f, low = 41f, close = 48f),
+            Candle("Sun", open = 48f, high = 55f, low = 47f, close = 54f),
+          ),
+        ),
+      ),
+      modifier = chartModifier(),
+      isSystemInDarkTheme = DARK,
+      animate = true,
+    )
+  },
   ChartEntry("Bullet") {
     BulletChart(
       renderer = BulletChartRenderer(
