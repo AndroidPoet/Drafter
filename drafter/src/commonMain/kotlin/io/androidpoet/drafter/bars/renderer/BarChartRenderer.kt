@@ -15,6 +15,8 @@
  */
 package io.androidpoet.drafter.bars.renderer
 
+import androidx.compose.runtime.Immutable
+
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
@@ -30,6 +32,7 @@ import io.androidpoet.drafter.bars.model.SimpleBarChartData
  *
  * @property data The [SimpleBarChartData] containing labels, values, and colors for the bars
  */
+@Immutable
 public class BarChartRenderer(
   public val data: SimpleBarChartData,
 ) : BarChartDataRenderer {

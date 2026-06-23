@@ -15,6 +15,8 @@
  */
 package io.androidpoet.drafter.bars.model
 
+import androidx.compose.runtime.Immutable
+
 import androidx.compose.ui.graphics.Color
 
 /**
@@ -26,6 +28,7 @@ import androidx.compose.ui.graphics.Color
  * @property groupedValues List of lists containing values for each item in each group
  * @property colors List of colors to be used for different items in the groups
  */
+@Immutable
 public data class GroupedBarChartData(
   val labelsList: List<String>,
   val itemNames: List<String>,
@@ -40,6 +43,7 @@ public data class GroupedBarChartData(
  * @property values List of values for each bar
  * @property colors List of colors for each bar
  */
+@Immutable
 public data class SimpleBarChartData(
   val labelsList: List<String>,
   val values: List<Float>,
@@ -53,6 +57,7 @@ public data class SimpleBarChartData(
  * @property stacks List of lists containing values for each stack segment
  * @property colors List of colors for each stack segment
  */
+@Immutable
 public data class StackedBarChartData(
   val labelsList: List<String>,
   val stacks: List<List<Float>>,
@@ -67,6 +72,7 @@ public data class StackedBarChartData(
  * @property colors List of colors for each bar
  * @property initialValue Starting value for the waterfall chart (defaults to 0)
  */
+@Immutable
 public data class WaterfallChartData(
   val labelsList: List<String>,
   val values: List<Float>,
@@ -81,6 +87,7 @@ public data class WaterfallChartData(
  * @property frequencies List of frequencies/counts for each bin
  * @property colors List of colors for each bin
  */
+@Immutable
 public data class HistogramData(
   val labels: List<String>,
   val frequencies: List<Float>,

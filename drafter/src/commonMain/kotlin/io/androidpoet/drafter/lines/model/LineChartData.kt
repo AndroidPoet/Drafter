@@ -15,18 +15,22 @@
  */
 package io.androidpoet.drafter.lines.model
 
+import androidx.compose.runtime.Immutable
+
 import androidx.compose.ui.graphics.Color
 
 public interface LineChartData {
   public val labels: List<String>
 }
 
+@Immutable
 public data class SimpleLineChartData(
   override val labels: List<String>,
   val values: List<Float>,
   val color: Color,
 ) : LineChartData
 
+@Immutable
 public data class GroupedLineChartData(
   override val labels: List<String>,
   val itemNames: List<String>,
@@ -34,6 +38,7 @@ public data class GroupedLineChartData(
   val colors: List<Color>,
 ) : LineChartData
 
+@Immutable
 public data class StackedLineChartData(
   override val labels: List<String>,
   val stacks: List<List<Float>>,

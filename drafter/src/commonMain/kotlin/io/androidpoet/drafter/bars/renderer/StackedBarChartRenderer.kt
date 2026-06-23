@@ -15,6 +15,8 @@
  */
 package io.androidpoet.drafter.bars.renderer
 
+import androidx.compose.runtime.Immutable
+
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
@@ -29,6 +31,7 @@ import kotlin.math.roundToInt
  *
  * @property data The [StackedBarChartData] containing labels, stacked values, and colors for the segments
  */
+@Immutable
 public class StackedBarChartRenderer(
   public val data: StackedBarChartData,
 ) : BarChartDataRenderer {

@@ -21,10 +21,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import io.androidpoet.drafter.gant.GanttChart
-import io.androidpoet.drafter.gant.GanttChartData
-import io.androidpoet.drafter.gant.GanttChartRenderer
-import io.androidpoet.drafter.gant.GanttTask
+import io.androidpoet.drafter.gantt.GanttChart
+import io.androidpoet.drafter.gantt.GanttChartData
+import io.androidpoet.drafter.gantt.GanttChartRenderer
+import io.androidpoet.drafter.gantt.GanttTask
 
 private fun getGanttChartRenderer(colors: List<Color>) =
   GanttChartRenderer(

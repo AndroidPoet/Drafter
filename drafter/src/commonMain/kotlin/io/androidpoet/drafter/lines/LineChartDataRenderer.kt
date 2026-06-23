@@ -17,7 +17,7 @@ package io.androidpoet.drafter.lines
 
 import androidx.compose.ui.graphics.drawscope.DrawScope
 
-public interface LineChartDataRenderer {
+public interface LineChartDataRenderer : io.androidpoet.drafter.core.ChartRenderer {
   public fun getLabels(): List<String>
 
   public fun calculateMaxValue(): Float

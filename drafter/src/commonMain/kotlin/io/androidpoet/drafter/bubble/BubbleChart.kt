@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.androidpoet.drafter.buble
+package io.androidpoet.drafter.bubble
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween

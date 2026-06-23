@@ -25,7 +25,7 @@ import io.androidpoet.drafter.pie.model.PieChartData
  * - [data] stores the PieChartData internally.
  * - [drawChart] is called by [PieChart] composable to do the drawing.
  */
-public interface PieChartDataRenderer {
+public interface PieChartDataRenderer : io.androidpoet.drafter.core.ChartRenderer {
   public val data: PieChartData
 
   /**

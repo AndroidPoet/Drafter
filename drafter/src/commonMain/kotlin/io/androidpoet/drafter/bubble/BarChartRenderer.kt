@@ -13,12 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.androidpoet.drafter.buble
+package io.androidpoet.drafter.bubble
+
+import androidx.compose.runtime.Immutable
 
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
 
+@Immutable
 public class SimpleBubbleChartDataRenderer(
   private val data: BubbleChartData,
 ) : BubbleChartDataRenderer {
@@ -84,6 +87,7 @@ public class SimpleBubbleChartDataRenderer(
   }
 }
 
+@Immutable
 public data class ValueRanges(
   val xMin: Float,
   val xMax: Float,

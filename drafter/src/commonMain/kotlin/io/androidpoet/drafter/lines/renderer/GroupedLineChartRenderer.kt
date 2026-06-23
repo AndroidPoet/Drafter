@@ -15,6 +15,8 @@
  */
 package io.androidpoet.drafter.lines.renderer
 
+import androidx.compose.runtime.Immutable
+
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
@@ -23,6 +25,7 @@ import io.androidpoet.drafter.internal.drawVertexDot
 import io.androidpoet.drafter.lines.LineChartDataRenderer
 import io.androidpoet.drafter.lines.model.GroupedLineChartData
 
+@Immutable
 public class GroupedLineChartRenderer(
   private val data: GroupedLineChartData,
 ) : LineChartDataRenderer {

@@ -15,6 +15,8 @@
  */
 package io.androidpoet.drafter.bars.renderer
 
+import androidx.compose.runtime.Immutable
+
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
@@ -33,6 +35,7 @@ import kotlin.math.absoluteValue
  *
  * @property data The [WaterfallChartData] containing initial value, changes, and colors
  */
+@Immutable
 public class WaterfallChartRenderer(
   public val data: WaterfallChartData,
 ) : BarChartDataRenderer {

@@ -15,6 +15,8 @@
  */
 package io.androidpoet.drafter.heatmap
 
+import androidx.compose.runtime.Immutable
+
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
@@ -26,7 +28,7 @@ import kotlinx.datetime.daysUntil
 import kotlinx.datetime.plus
 import kotlinx.datetime.toLocalDateTime
 
-public interface HeatmapDataRenderer {
+public interface HeatmapDataRenderer : io.androidpoet.drafter.core.ChartRenderer {
   public val data: ContributionHeatmapData
 
   public fun drawHeatmap(
@@ -40,6 +42,7 @@ public interface HeatmapDataRenderer {
   )
 }
 
+@Immutable
 public class HeatmapRenderer(
   override val data: ContributionHeatmapData,
 ) : HeatmapDataRenderer {

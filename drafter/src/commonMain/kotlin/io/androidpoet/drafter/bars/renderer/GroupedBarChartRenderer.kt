@@ -15,6 +15,8 @@
  */
 package io.androidpoet.drafter.bars.renderer
 
+import androidx.compose.runtime.Immutable
+
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
@@ -28,6 +30,7 @@ import io.androidpoet.drafter.bars.model.GroupedBarChartData
  *
  * @property data The [GroupedBarChartData] containing the data to be rendered
  */
+@Immutable
 public class GroupedBarChartRenderer(
   public val data: GroupedBarChartData,
 ) : BarChartDataRenderer {

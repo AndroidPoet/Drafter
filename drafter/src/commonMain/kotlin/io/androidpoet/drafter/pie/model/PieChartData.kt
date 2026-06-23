@@ -15,8 +15,11 @@
  */
 package io.androidpoet.drafter.pie.model
 
+import androidx.compose.runtime.Immutable
+
 import androidx.compose.ui.graphics.Color
 
+@Immutable
 public data class PieChartData(
   val slices: List<Slice>,
 ) {

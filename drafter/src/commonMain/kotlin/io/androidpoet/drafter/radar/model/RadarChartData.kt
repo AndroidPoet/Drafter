@@ -15,6 +15,9 @@
  */
 package io.androidpoet.drafter.radar.model
 
+import androidx.compose.runtime.Immutable
+
+@Immutable
 public data class RadarChartData(
   val values: Map<String, Float>,
 )

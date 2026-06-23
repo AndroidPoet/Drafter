@@ -15,6 +15,8 @@
  */
 package io.androidpoet.drafter.lines.renderer
 
+import androidx.compose.runtime.Immutable
+
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
@@ -28,6 +30,7 @@ import io.androidpoet.drafter.internal.smoothPath
 import io.androidpoet.drafter.lines.LineChartDataRenderer
 import io.androidpoet.drafter.lines.model.StackedLineChartData
 
+@Immutable
 public class StackedLineChartRenderer(
   private val data: StackedLineChartData,
 ) : LineChartDataRenderer {

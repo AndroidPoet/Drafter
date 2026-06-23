@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.androidpoet.drafter.buble
+package io.androidpoet.drafter.bubble
 
 import androidx.compose.ui.graphics.drawscope.DrawScope
 
-public interface BubbleChartDataRenderer {
+public interface BubbleChartDataRenderer : io.androidpoet.drafter.core.ChartRenderer {
   public fun getLabels(): List<String>
 
   public fun getMaxValues(): Pair<Float, Float> // x, y

@@ -15,6 +15,8 @@
  */
 package io.androidpoet.drafter.popup
 
+import androidx.compose.runtime.Immutable
+
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Surface
@@ -51,6 +53,7 @@ public fun Tooltip(text: String) {
   }
 }
 
+@Immutable
 public data class HoverState(
   val isHovered: Boolean = false,
   val position: Offset = Offset.Zero,

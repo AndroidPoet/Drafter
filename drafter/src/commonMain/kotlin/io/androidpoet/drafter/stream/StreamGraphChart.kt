@@ -1,0 +1,65 @@
+/*
+ * Designed and developed by 2024 androidpoet (Ranbir Singh)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package io.androidpoet.drafter.stream
+
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.rememberTextMeasurer
+
+/**
+ * A stream graph (themeriver): stacked series that flow as smooth bands around a
+ * centred wiggle baseline, growing outward from the centre as they animate in.
+ */
+@Composable
+public fun StreamGraphChart(
+  renderer: StreamGraphChartRenderer,
+  modifier: Modifier = Modifier,
+  isSystemInDarkTheme: Boolean = isSystemInDarkTheme(),
+  animate: Boolean = true,
+) {
+  val textMeasurer = rememberTextMeasurer()
+  val progress = remember { Animatable(0f) }
+
+  LaunchedEffect(animate) {
+    if (animate) progress.animateTo(1f, tween(900)) else progress.snapTo(1f)
+  }
+
+  Canvas(modifier = modifier.fillMaxSize()) {
+    // 8% horizontal inset; small vertical inset to keep labels readable.
+    val chartLeft = size.width * 0.08f
+    val chartWidth = size.width * 0.84f
+    val chartTop = size.height * 0.06f
+    val chartHeight = size.height * 0.84f
+
+    renderer.draw(
+      drawScope = this,
+      chartLeft = chartLeft,
+      chartTop = chartTop,
+      chartWidth = chartWidth,
+      chartHeight = chartHeight,
+      animationProgress = progress.value,
+      isSystemInDarkTheme = isSystemInDarkTheme,
+      textMeasurer = textMeasurer,
+    )
+  }
+}

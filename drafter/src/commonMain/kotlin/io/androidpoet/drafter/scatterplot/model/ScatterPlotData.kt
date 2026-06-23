@@ -15,8 +15,11 @@
  */
 package io.androidpoet.drafter.scatterplot.model
 
+import androidx.compose.runtime.Immutable
+
 import androidx.compose.ui.graphics.Color
 
+@Immutable
 public data class ScatterPlotData(
   val points: List<Pair<Float, Float>>,
   val pointColors: List<Color> = listOf(Color.Black),

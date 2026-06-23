@@ -15,12 +15,15 @@
  */
 package io.androidpoet.drafter.lines.renderer
 
+import androidx.compose.runtime.Immutable
+
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import io.androidpoet.drafter.internal.drawSmoothLine
 import io.androidpoet.drafter.lines.LineChartDataRenderer
 import io.androidpoet.drafter.lines.model.SimpleLineChartData
 
+@Immutable
 public class LineChartRenderer(
   private val data: SimpleLineChartData,
 ) : LineChartDataRenderer {

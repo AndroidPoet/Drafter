@@ -15,14 +15,18 @@
  */
 package io.androidpoet.drafter.heatmap
 
+import androidx.compose.runtime.Immutable
+
 import androidx.compose.ui.graphics.Color
 import kotlinx.datetime.Instant
 
+@Immutable
 public data class ContributionData(
   val timestamp: Instant,
   val count: Int,
 )
 
+@Immutable
 public data class ContributionHeatmapData(
   val contributions: List<ContributionData>,
   val baseColor: Color = Color(0xFF40C463),

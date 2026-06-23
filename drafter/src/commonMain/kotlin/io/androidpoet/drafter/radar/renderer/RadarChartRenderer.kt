@@ -15,6 +15,8 @@
  */
 package io.androidpoet.drafter.radar.renderer
 
+import androidx.compose.runtime.Immutable
+
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
@@ -34,6 +36,7 @@ import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
 
+@Immutable
 public class RadarChartRenderer(
   public val data: List<RadarChartData>,
   public val colors: List<Color>,

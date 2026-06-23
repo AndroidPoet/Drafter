@@ -13,16 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.androidpoet.drafter.gant
+package io.androidpoet.drafter.gantt
+
+import androidx.compose.runtime.Immutable
 
 import androidx.compose.ui.graphics.Color
 
+@Immutable
 public data class GanttTask(
   val name: String,
   val startMonth: Float,
   val duration: Float,
 )
 
+@Immutable
 public data class GanttChartData(
   val tasks: List<GanttTask>,
   val taskColors: List<Color> = List(tasks.size) { Color.Blue },

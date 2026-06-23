@@ -15,6 +15,8 @@
  */
 package io.androidpoet.drafter.bars.renderer
 
+import androidx.compose.runtime.Immutable
+
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
@@ -32,6 +34,7 @@ import kotlin.math.roundToInt
  * @property binCount Number of bins to divide the data into
  * @property color Default color for the histogram bars (defaults to Blue)
  */
+@Immutable
 public class HistogramRenderer(
   dataPoints: List<Float>,
   binCount: Int,

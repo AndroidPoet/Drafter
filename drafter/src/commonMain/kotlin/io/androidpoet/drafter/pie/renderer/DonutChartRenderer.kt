@@ -15,6 +15,8 @@
  */
 package io.androidpoet.drafter.pie.renderer
 
+import androidx.compose.runtime.Immutable
+
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
@@ -34,6 +36,7 @@ import kotlin.math.sin
 /**
  * Renders a "donut" by using an arc + Stroke (hole in center).
  */
+@Immutable
 public class DonutChartRenderer(
   override val data: PieChartData,
   private val labelThreshold: Float = 5f,

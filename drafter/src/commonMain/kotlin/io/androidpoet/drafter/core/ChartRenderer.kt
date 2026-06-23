@@ -13,17 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.androidpoet.drafter.buble
+package io.androidpoet.drafter.core
 
-import androidx.compose.ui.graphics.Color
-
-public data class BubbleChartData(
-  val series: List<List<BubbleData>>,
-) {
-  public data class BubbleData(
-    val x: Float,
-    val y: Float,
-    val size: Float,
-    val color: Color,
-  )
-}
+/**
+ * Common supertype implemented by every chart renderer in Drafter.
+ *
+ * Each chart family still exposes its own renderer with a draw signature tailored to
+ * its data, but they all share this contract so callers can hold, group, and reason
+ * about renderers uniformly (e.g. `List<ChartRenderer>`), and so future cross-cutting
+ * capabilities can be added in one place.
+ */
+public interface ChartRenderer

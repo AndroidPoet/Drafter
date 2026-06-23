@@ -15,6 +15,8 @@
  */
 package io.androidpoet.drafter.pie.renderer
 
+import androidx.compose.runtime.Immutable
+
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
@@ -32,6 +34,7 @@ import kotlin.math.cos
 import kotlin.math.max
 import kotlin.math.sin
 
+@Immutable
 public class PieChartRenderer(
   override val data: PieChartData,
   private val labelThreshold: Float = 5f,

@@ -13,7 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.androidpoet.drafter.gant
+package io.androidpoet.drafter.gantt
+
+import androidx.compose.runtime.Immutable
 
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
@@ -21,9 +23,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import kotlin.math.max
 
+@Immutable
 public class GanttChartRenderer(
   public val data: GanttChartData,
-) {
+) : io.androidpoet.drafter.core.ChartRenderer {
   public fun calculateMaxValues(): Pair<Float, Float> {
     val maxMonth = data.tasks.maxOfOrNull { it.startMonth + it.duration } ?: 1f
     return Pair(max(maxMonth, 1f), max(data.tasks.size.toFloat(), 1f))

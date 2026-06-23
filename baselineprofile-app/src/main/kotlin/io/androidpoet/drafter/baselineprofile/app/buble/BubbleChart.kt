@@ -20,9 +20,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import io.androidpoet.drafter.buble.BubbleChart
-import io.androidpoet.drafter.buble.BubbleChartData
-import io.androidpoet.drafter.buble.SimpleBubbleChartDataRenderer
+import io.androidpoet.drafter.bubble.BubbleChart
+import io.androidpoet.drafter.bubble.BubbleChartData
+import io.androidpoet.drafter.bubble.SimpleBubbleChartDataRenderer
 
 private fun getBubbleChartData(colors: List<Color>) =
   BubbleChartData(

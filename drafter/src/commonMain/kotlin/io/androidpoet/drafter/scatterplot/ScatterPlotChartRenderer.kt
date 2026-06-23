@@ -15,6 +15,8 @@
  */
 package io.androidpoet.drafter.scatterplot
 
+import androidx.compose.runtime.Immutable
+
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
@@ -22,7 +24,7 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import io.androidpoet.drafter.scatterplot.model.ScatterPlotData
 import io.androidpoet.drafter.theme.DrafterColors
 
-public interface ScatterPlotRenderer {
+public interface ScatterPlotRenderer : io.androidpoet.drafter.core.ChartRenderer {
   public fun calculateMaxValues(): Pair<Float, Float>
 
   public fun getPoints(): List<Pair<Float, Float>>
@@ -39,6 +41,7 @@ public interface ScatterPlotRenderer {
   )
 }
 
+@Immutable
 public class SimpleScatterPlotRenderer(
   public val data: ScatterPlotData,
 ) : ScatterPlotRenderer {

@@ -17,7 +17,7 @@ package io.androidpoet.drafter.bars
 
 import androidx.compose.ui.graphics.drawscope.DrawScope
 
-public interface BarChartDataRenderer {
+public interface BarChartDataRenderer : io.androidpoet.drafter.core.ChartRenderer {
   /** The labels for the X-axis (one per bar group, bin, etc.). */
   public fun getLabels(): List<String>
 

@@ -18,7 +18,7 @@ package io.androidpoet.drafter.radar
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.text.TextMeasurer
 
-public interface RadarChartDataRenderer {
+public interface RadarChartDataRenderer : io.androidpoet.drafter.core.ChartRenderer {
   public fun drawChart(
     drawScope: DrawScope,
     centerX: Float,
