@@ -16,7 +16,6 @@
 package io.androidpoet.drafter.stream
 
 import androidx.compose.runtime.Immutable
-
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color

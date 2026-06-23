@@ -16,14 +16,12 @@
 package io.androidpoet.drafter.bars.renderer
 
 import androidx.compose.runtime.Immutable
-
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import io.androidpoet.drafter.bars.BarChartDataRenderer
 import io.androidpoet.drafter.bars.model.StackedBarChartData
-import kotlin.math.roundToInt
 
 /**
  * A renderer for stacked bar charts where multiple values are stacked vertically in a single bar.
@@ -110,4 +108,6 @@ public class StackedBarChartRenderer(
  * @param value Float value to format
  * @return String representation with exactly one decimal place
  */
-private fun formatToOneDecimal(value: Float): String = ((value * 10).roundToInt() / 10f).toString()
+private fun formatToOneDecimal(
+  value: Float,
+): String = io.androidpoet.drafter.core.formatChartValue(value, decimals = 1)

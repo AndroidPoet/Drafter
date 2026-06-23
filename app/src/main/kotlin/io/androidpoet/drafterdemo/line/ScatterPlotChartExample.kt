@@ -31,16 +31,16 @@ private fun getScatterPlotRenderer(colors: List<Color>) =
   SimpleScatterPlotRenderer(
     ScatterPlotData(
       points =
-        List(30) {
-          Pair(
-            (Random.nextFloat() * 10).roundToInt() / 10f,
-            (Random.nextFloat() * 10).roundToInt() / 10f,
-          )
-        },
+      List(30) {
+        Pair(
+          (Random.nextFloat() * 10).roundToInt() / 10f,
+          (Random.nextFloat() * 10).roundToInt() / 10f,
+        )
+      },
       pointColors =
-        List(30) {
-          if (colors.isNotEmpty()) colors[it % colors.size] else Color.Gray
-        },
+      List(30) {
+        if (colors.isNotEmpty()) colors[it % colors.size] else Color.Gray
+      },
     ),
   )
 
@@ -51,9 +51,9 @@ fun ScatterPlotChartExample(
 ) {
   ScatterPlot(
     modifier =
-      Modifier
-        .height(300.dp)
-        .fillMaxWidth(),
+    Modifier
+      .height(300.dp)
+      .fillMaxWidth(),
     renderer = getScatterPlotRenderer(colors = colors),
   )
 }

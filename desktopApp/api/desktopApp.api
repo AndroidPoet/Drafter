@@ -1,0 +1,14 @@
+public final class io/androidpoet/drafterdemo/desktop/ComposableSingletons$MainKt {
+	public static final field INSTANCE Lio/androidpoet/drafterdemo/desktop/ComposableSingletons$MainKt;
+	public static field lambda-1 Lkotlin/jvm/functions/Function3;
+	public static field lambda-2 Lkotlin/jvm/functions/Function3;
+	public fun <init> ()V
+	public final fun getLambda-1$desktopApp ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda-2$desktopApp ()Lkotlin/jvm/functions/Function3;
+}
+
+public final class io/androidpoet/drafterdemo/desktop/MainKt {
+	public static final fun main ()V
+	public static synthetic fun main ([Ljava/lang/String;)V
+}
+

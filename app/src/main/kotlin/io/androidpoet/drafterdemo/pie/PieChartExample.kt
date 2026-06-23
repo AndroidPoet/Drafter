@@ -30,12 +30,12 @@ private fun getPieChartRenderer(colors: List<Color>) =
   PieChartRenderer(
     PieChartData(
       slices =
-        listOf(
-          PieChartData.Slice(value = 40f, color = colors[0], label = "Red"),
-          PieChartData.Slice(value = 30f, color = colors[1], label = "Green"),
-          PieChartData.Slice(value = 20f, color = colors[2], label = "Blue"),
-          PieChartData.Slice(value = 10f, color = colors[3], label = "Purple"),
-        ),
+      listOf(
+        PieChartData.Slice(value = 40f, color = colors[0], label = "Red"),
+        PieChartData.Slice(value = 30f, color = colors[1], label = "Green"),
+        PieChartData.Slice(value = 20f, color = colors[2], label = "Blue"),
+        PieChartData.Slice(value = 10f, color = colors[3], label = "Purple"),
+      ),
     ),
   )
 

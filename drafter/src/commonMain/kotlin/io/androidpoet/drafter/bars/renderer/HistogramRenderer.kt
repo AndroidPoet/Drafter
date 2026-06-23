@@ -16,7 +16,6 @@
 package io.androidpoet.drafter.bars.renderer
 
 import androidx.compose.runtime.Immutable
-
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
@@ -24,7 +23,6 @@ import androidx.compose.ui.graphics.drawscope.DrawScope
 import io.androidpoet.drafter.bars.BarChartDataRenderer
 import io.androidpoet.drafter.bars.model.HistogramData
 import kotlin.math.max
-import kotlin.math.roundToInt
 
 /**
  * A specialized renderer for histogram charts that automatically bins data points into frequency distributions.
@@ -166,13 +164,6 @@ public class HistogramRenderer(
 
     return HistogramData(labels, frequencies, colors)
   }
-
-  /**
-   * Formats a float value to one decimal place.
-   *
-   * @param value Float value to format
-   * @return String representation with one decimal place
-   */
 }
 
 /**
@@ -181,4 +172,6 @@ public class HistogramRenderer(
  * @param value Float value to format
  * @return String representation with exactly one decimal place
  */
-private fun formatToOneDecimal(value: Float): String = ((value * 10).roundToInt() / 10f).toString()
+private fun formatToOneDecimal(
+  value: Float,
+): String = io.androidpoet.drafter.core.formatChartValue(value, decimals = 1)

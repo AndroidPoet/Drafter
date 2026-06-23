@@ -16,7 +16,6 @@
 package io.androidpoet.drafter.scatterplot
 
 import androidx.compose.runtime.Immutable
-
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope

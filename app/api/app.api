@@ -62,7 +62,7 @@ public final class io/androidpoet/drafterdemo/gantt/GanntChartDemoKt {
 }
 
 public final class io/androidpoet/drafterdemo/githubgraph/GithubGraphKt {
-	public static final fun GithubGraph-iJQMabo (Landroidx/compose/ui/Modifier;JLandroidx/compose/runtime/Composer;II)V
+	public static final fun GithubGraph-3J-VO9M (JLandroidx/compose/ui/Modifier;Landroidx/compose/runtime/Composer;II)V
 }
 
 public final class io/androidpoet/drafterdemo/line/GroupedLineChartExampleKt {
@@ -91,6 +91,7 @@ public final class io/androidpoet/drafterdemo/manager/ChartThemeManager {
 }
 
 public final class io/androidpoet/drafterdemo/manager/ChartThemeManager$ColorTheme : java/lang/Enum {
+	public static final field JETCO Lio/androidpoet/drafterdemo/manager/ChartThemeManager$ColorTheme;
 	public static final field MATERIAL Lio/androidpoet/drafterdemo/manager/ChartThemeManager$ColorTheme;
 	public static final field MODERN Lio/androidpoet/drafterdemo/manager/ChartThemeManager$ColorTheme;
 	public static final field NATURE Lio/androidpoet/drafterdemo/manager/ChartThemeManager$ColorTheme;
@@ -110,12 +111,20 @@ public final class io/androidpoet/drafterdemo/radar/RadarChartKt {
 }
 
 public final class io/androidpoet/drafterdemo/ui/theme/ColorKt {
+	public static final fun getBrightBlue ()J
+	public static final fun getCoral ()J
+	public static final fun getDarkMagenta ()J
+	public static final fun getNavyBlue ()J
 	public static final fun getPink40 ()J
 	public static final fun getPink80 ()J
+	public static final fun getPinkRose ()J
+	public static final fun getPurple ()J
 	public static final fun getPurple40 ()J
 	public static final fun getPurple80 ()J
 	public static final fun getPurpleGrey40 ()J
 	public static final fun getPurpleGrey80 ()J
+	public static final fun getSoftBlue ()J
+	public static final fun getTeal ()J
 }
 
 public final class io/androidpoet/drafterdemo/ui/theme/ThemeKt {

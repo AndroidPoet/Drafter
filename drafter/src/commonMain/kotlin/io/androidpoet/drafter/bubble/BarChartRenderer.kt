@@ -16,7 +16,6 @@
 package io.androidpoet.drafter.bubble
 
 import androidx.compose.runtime.Immutable
-
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke

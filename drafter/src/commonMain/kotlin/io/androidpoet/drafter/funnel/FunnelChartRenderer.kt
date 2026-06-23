@@ -1,7 +1,21 @@
+/*
+ * Designed and developed by 2024 androidpoet (Ranbir Singh)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package io.androidpoet.drafter.funnel
 
 import androidx.compose.runtime.Immutable
-
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -52,7 +66,13 @@ public class FunnelChartRenderer(
     val valueStyle =
       TextStyle(
         fontSize = 11.sp,
-        color = if (isSystemInDarkTheme) Color.White.copy(alpha = 0.78f) else Color(0xFF1B1E25).copy(alpha = 0.7f),
+        color = if (isSystemInDarkTheme) {
+          Color.White.copy(
+            alpha = 0.78f,
+          )
+        } else {
+          Color(0xFF1B1E25).copy(alpha = 0.7f)
+        },
       )
 
     stages.forEachIndexed { index, stage ->
@@ -98,7 +118,10 @@ public class FunnelChartRenderer(
       if (animationProgress > 0.55f) {
         val centerY = bandTop + bandHeight / 2f
         val labelLayout: TextLayoutResult = textMeasurer.measure(stage.label, labelStyle)
-        val valueLayout: TextLayoutResult = textMeasurer.measure(formatValue(stage.value), valueStyle)
+        val valueLayout: TextLayoutResult = textMeasurer.measure(
+          formatValue(stage.value),
+          valueStyle,
+        )
         val totalH = labelLayout.size.height + valueLayout.size.height + 2f
 
         drawScope.drawText(
@@ -125,8 +148,8 @@ public class FunnelChartRenderer(
     }
   }
 
-  private fun formatValue(value: Float): String {
-    val rounded = (value * 100f).toInt() / 100f
-    return if (rounded % 1f == 0f) rounded.toInt().toString() else rounded.toString()
-  }
+  private fun formatValue(value: Float): String = io.androidpoet.drafter.core.formatChartValue(
+    value,
+    decimals = 2,
+  )
 }

@@ -16,7 +16,6 @@
 package io.androidpoet.drafter.bars.model
 
 import androidx.compose.runtime.Immutable
-
 import androidx.compose.ui.graphics.Color
 
 /**

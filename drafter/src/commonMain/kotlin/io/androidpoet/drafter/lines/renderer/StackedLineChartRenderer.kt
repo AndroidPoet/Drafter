@@ -16,7 +16,6 @@
 package io.androidpoet.drafter.lines.renderer
 
 import androidx.compose.runtime.Immutable
-
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path

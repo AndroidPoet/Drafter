@@ -35,11 +35,16 @@
 
 ## Features
 
-- 📊 Supports multiple chart types (Bar, Line, Pie, Scatter, Histogram, Waterfall)
-- 🎨 Highly customizable appearance
-- 🚀 Efficient rendering for smooth animations
+- 📊 **27 chart types** out of the box:
+  - **Bars** — Bar, Grouped Bar, Stacked Bar, Histogram, Waterfall
+  - **Lines** — Line, Grouped Line, Stacked Line, Step Line, Area
+  - **Distribution** — Scatter, Bubble, Box Plot, Candlestick
+  - **Part-to-whole** — Pie, Donut, Funnel, Treemap, Polar Area, Sunburst
+  - **Specialized** — Radar, Gantt, Gauge, Bullet, Sankey, Stream Graph, Contribution Heatmap
+- 🎨 Highly customizable appearance with a shared `DrafterTheme` (light/dark, custom palettes)
+- 🚀 Efficient, recomposition-friendly rendering (`@Immutable` data, layer-phase animations)
 - 📱 Responsive design for various screen sizes
-- 🖥️ Multiplatform support (Android, iOS, Desktop)
+- 🖥️ Multiplatform support (Android, iOS, Desktop/JVM, Web/Wasm, JS, macOS)
 
 ## Download
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.androidpoet/drafter.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22io.github.androidpoet%22%20AND%20a:%22drafter%22)
@@ -80,6 +85,22 @@ sourceSets {
 4. [Pie Chart](#pie-chart)
 5. [Scatter Plot Chart](#scatter-plot-chart)
 6. [Waterfall Chart](#waterfall-chart)
+7. [Radar Chart](#radar-chart)
+8. [Gantt Chart](#gantt-chart)
+9. [Bubble Chart](#bubble-chart)
+10. [HeatMap Chart](#heatmap-chart)
+11. [Area Chart](#area-chart)
+12. [Step Line Chart](#step-line-chart)
+13. [Candlestick Chart](#candlestick-chart)
+14. [Box Plot Chart](#box-plot-chart)
+15. [Bullet Chart](#bullet-chart)
+16. [Funnel Chart](#funnel-chart)
+17. [Gauge Chart](#gauge-chart)
+18. [Treemap Chart](#treemap-chart)
+19. [Polar Area Chart](#polar-area-chart)
+20. [Sunburst Chart](#sunburst-chart)
+21. [Sankey Chart](#sankey-chart)
+22. [Stream Graph Chart](#stream-graph-chart)
 
 ## Bar Charts
 
@@ -554,6 +575,278 @@ fun GithubGraph(
   )
 }
 ```
+
+## Area Chart
+
+```kotlin
+@Composable
+fun AreaChartExample(colors: List<Color>, modifier: Modifier = Modifier) {
+  AreaChart(
+    renderer = AreaChartRenderer(
+      AreaChartData(
+        labels = listOf("A", "B", "C", "D", "E", "F"),
+        values = listOf(12f, 28f, 18f, 34f, 24f, 40f),
+        color = colors[0],
+      ),
+    ),
+    modifier = modifier.height(300.dp).fillMaxWidth(),
+  )
+}
+```
+
+## Step Line Chart
+
+```kotlin
+@Composable
+fun StepLineChartExample(colors: List<Color>, modifier: Modifier = Modifier) {
+  StepLineChart(
+    renderer = StepLineChartRenderer(
+      StepLineChartData(
+        labels = listOf("Mon", "Tue", "Wed", "Thu", "Fri"),
+        values = listOf(20f, 35f, 30f, 45f, 38f),
+        color = colors[1],
+      ),
+    ),
+    modifier = modifier.height(300.dp).fillMaxWidth(),
+  )
+}
+```
+
+## Candlestick Chart
+
+```kotlin
+@Composable
+fun CandlestickChartExample(modifier: Modifier = Modifier) {
+  CandlestickChart(
+    renderer = CandlestickChartRenderer(
+      CandlestickData(
+        candles = listOf(
+          Candle("1", open = 20f, high = 30f, low = 16f, close = 26f),
+          Candle("2", open = 26f, high = 32f, low = 22f, close = 23f),
+          Candle("3", open = 23f, high = 28f, low = 18f, close = 27f),
+          Candle("4", open = 27f, high = 38f, low = 25f, close = 35f),
+        ),
+      ),
+    ),
+    modifier = modifier.height(300.dp).fillMaxWidth(),
+  )
+}
+```
+
+## Box Plot Chart
+
+```kotlin
+@Composable
+fun BoxPlotChartExample(colors: List<Color>, modifier: Modifier = Modifier) {
+  BoxPlotChart(
+    renderer = BoxPlotChartRenderer(
+      BoxPlotData(
+        groups = listOf(
+          BoxGroup("A", min = 5f, q1 = 18f, median = 28f, q3 = 38f, max = 52f, color = colors[2]),
+          BoxGroup("B", min = 10f, q1 = 22f, median = 30f, q3 = 41f, max = 48f, color = colors[0]),
+          BoxGroup("C", min = 8f, q1 = 15f, median = 24f, q3 = 33f, max = 44f, color = colors[1]),
+        ),
+      ),
+    ),
+    modifier = modifier.height(300.dp).fillMaxWidth(),
+  )
+}
+```
+
+## Bullet Chart
+
+```kotlin
+@Composable
+fun BulletChartExample(colors: List<Color>, modifier: Modifier = Modifier) {
+  BulletChart(
+    renderer = BulletChartRenderer(
+      BulletData(
+        metrics = listOf(
+          BulletMetric("Revenue", value = 72f, target = 80f, ranges = listOf(40f, 65f, 100f), color = colors[0]),
+          BulletMetric("Profit", value = 55f, target = 50f, ranges = listOf(30f, 60f, 90f), color = colors[1]),
+        ),
+      ),
+    ),
+    modifier = modifier.height(300.dp).fillMaxWidth(),
+  )
+}
+```
+
+## Funnel Chart
+
+```kotlin
+@Composable
+fun FunnelChartExample(colors: List<Color>, modifier: Modifier = Modifier) {
+  FunnelChart(
+    renderer = FunnelChartRenderer(
+      FunnelData(
+        stages = listOf(
+          FunnelStage("Visits", 100f, colors[0]),
+          FunnelStage("Signups", 64f, colors[1]),
+          FunnelStage("Trials", 38f, colors[2]),
+          FunnelStage("Paid", 18f, colors[3]),
+        ),
+      ),
+    ),
+    modifier = modifier.height(300.dp).fillMaxWidth(),
+  )
+}
+```
+
+## Gauge Chart
+
+```kotlin
+@Composable
+fun GaugeChartExample(colors: List<Color>, modifier: Modifier = Modifier) {
+  GaugeChart(
+    renderer = GaugeChartRenderer(
+      GaugeData(value = 72f, min = 0f, max = 100f, label = "Score", color = colors[1]),
+    ),
+    modifier = modifier.height(300.dp).fillMaxWidth(),
+  )
+}
+```
+
+## Treemap Chart
+
+```kotlin
+@Composable
+fun TreemapChartExample(colors: List<Color>, modifier: Modifier = Modifier) {
+  TreemapChart(
+    renderer = TreemapChartRenderer(
+      TreemapData(
+        items = listOf(
+          TreemapItem("Mobile", 45f, colors[0]),
+          TreemapItem("Desktop", 30f, colors[1]),
+          TreemapItem("Tablet", 15f, colors[2]),
+          TreemapItem("Watch", 8f, colors[3]),
+        ),
+      ),
+    ),
+    modifier = modifier.height(300.dp).fillMaxWidth(),
+  )
+}
+```
+
+## Polar Area Chart
+
+```kotlin
+@Composable
+fun PolarAreaChartExample(colors: List<Color>, modifier: Modifier = Modifier) {
+  PolarAreaChart(
+    renderer = PolarAreaChartRenderer(
+      PolarAreaData(
+        slices = listOf(
+          PolarSlice("N", 40f, colors[0]),
+          PolarSlice("E", 35f, colors[2]),
+          PolarSlice("S", 30f, colors[4]),
+          PolarSlice("W", 22f, colors[3]),
+        ),
+      ),
+    ),
+    modifier = modifier.height(300.dp).fillMaxWidth(),
+  )
+}
+```
+
+## Sunburst Chart
+
+```kotlin
+@Composable
+fun SunburstChartExample(colors: List<Color>, modifier: Modifier = Modifier) {
+  SunburstChart(
+    renderer = SunburstChartRenderer(
+      SunburstData(
+        roots = listOf(
+          SunburstNode(
+            "Web", 50f, colors[0],
+            children = listOf(
+              SunburstNode("HTML", 20f, colors[0]),
+              SunburstNode("CSS", 15f, colors[0]),
+              SunburstNode("JS", 15f, colors[0]),
+            ),
+          ),
+          SunburstNode(
+            "Mobile", 35f, colors[1],
+            children = listOf(
+              SunburstNode("iOS", 20f, colors[1]),
+              SunburstNode("Android", 15f, colors[1]),
+            ),
+          ),
+        ),
+      ),
+    ),
+    modifier = modifier.height(300.dp).fillMaxWidth(),
+  )
+}
+```
+
+## Sankey Chart
+
+```kotlin
+@Composable
+fun SankeyChartExample(colors: List<Color>, modifier: Modifier = Modifier) {
+  SankeyChart(
+    renderer = SankeyChartRenderer(
+      SankeyData(
+        nodes = listOf(
+          SankeyNode("a", "Source A", column = 0, color = colors[0]),
+          SankeyNode("b", "Source B", column = 0, color = colors[1]),
+          SankeyNode("m", "Hub", column = 1, color = colors[2]),
+          SankeyNode("x", "Out X", column = 2, color = colors[3]),
+          SankeyNode("y", "Out Y", column = 2, color = colors[4]),
+        ),
+        links = listOf(
+          SankeyLink("a", "m", 30f),
+          SankeyLink("b", "m", 20f),
+          SankeyLink("m", "x", 28f),
+          SankeyLink("m", "y", 22f),
+        ),
+      ),
+    ),
+    modifier = modifier.height(300.dp).fillMaxWidth(),
+  )
+}
+```
+
+## Stream Graph Chart
+
+```kotlin
+@Composable
+fun StreamGraphChartExample(colors: List<Color>, modifier: Modifier = Modifier) {
+  StreamGraphChart(
+    renderer = StreamGraphChartRenderer(
+      StreamData(
+        labels = listOf("Jan", "Feb", "Mar", "Apr", "May", "Jun"),
+        series = listOf(
+          StreamSeries("A", listOf(10f, 14f, 12f, 18f, 16f, 22f), colors[0]),
+          StreamSeries("B", listOf(8f, 10f, 16f, 12f, 18f, 14f), colors[1]),
+          StreamSeries("C", listOf(6f, 9f, 8f, 14f, 11f, 16f), colors[2]),
+        ),
+      ),
+    ),
+    modifier = modifier.height(300.dp).fillMaxWidth(),
+  )
+}
+```
+
+## Theming
+
+All charts read their palette and light/dark colors from `DrafterTheme`. Wrap your charts once to apply a consistent look (or supply a custom palette):
+
+```kotlin
+DrafterTheme(dark = isSystemInDarkTheme()) {
+  // charts here pick up LocalDrafterTheme
+  BarChart(renderer = renderer)
+}
+```
+
+Every renderer also implements the shared `ChartRenderer` contract, so you can hold and pass them uniformly.
+
+## Sample apps
+
+- **Desktop (JVM):** `./gradlew :desktopApp:run` — a scrollable gallery of all 27 charts.
+- **Web (Wasm):** `./gradlew :webApp:wasmJsBrowserRun` — the same gallery in the browser.
 
 ## Contributing
 

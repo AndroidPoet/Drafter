@@ -89,6 +89,7 @@ public final class io/androidpoet/drafter/baselineprofile/app/manager/ChartTheme
 }
 
 public final class io/androidpoet/drafter/baselineprofile/app/manager/ChartThemeManager$ColorTheme : java/lang/Enum {
+	public static final field JETCO Lio/androidpoet/drafter/baselineprofile/app/manager/ChartThemeManager$ColorTheme;
 	public static final field MATERIAL Lio/androidpoet/drafter/baselineprofile/app/manager/ChartThemeManager$ColorTheme;
 	public static final field MODERN Lio/androidpoet/drafter/baselineprofile/app/manager/ChartThemeManager$ColorTheme;
 	public static final field NATURE Lio/androidpoet/drafter/baselineprofile/app/manager/ChartThemeManager$ColorTheme;

@@ -13,12 +13,7 @@ kotlin {
 
 dependencies {
   implementation(compose.desktop.currentOs)
-  implementation(compose.foundation)
-  implementation(compose.material3)
-  implementation(compose.ui)
-  implementation(compose.materialIconsExtended)
-  implementation(libs.kotlinx.datetime)
-  implementation(project(":drafter"))
+  implementation(project(":sample"))
 }
 
 compose.desktop {

@@ -16,7 +16,6 @@
 package io.androidpoet.drafter.heatmap
 
 import androidx.compose.runtime.Immutable
-
 import androidx.compose.ui.graphics.Color
 import kotlinx.datetime.Instant
 

@@ -18,6 +18,8 @@ dependencyResolutionManagement {
 rootProject.name = "DrafterDemo"
 include(":app")
 include(":drafter")
+include(":sample")
 include(":desktopApp")
+include(":webApp")
 include(":baselineprofile-app")
 include(":baselineprofile")

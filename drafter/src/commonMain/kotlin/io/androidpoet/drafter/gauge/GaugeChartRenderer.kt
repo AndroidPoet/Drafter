@@ -1,7 +1,21 @@
+/*
+ * Designed and developed by 2024 androidpoet (Ranbir Singh)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package io.androidpoet.drafter.gauge
 
 import androidx.compose.runtime.Immutable
-
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Brush
@@ -102,12 +116,25 @@ public class GaugeChartRenderer(
     val labelStyle =
       TextStyle(
         fontSize = 13.sp,
-        color = if (isSystemInDarkTheme) Color.White.copy(alpha = 0.72f) else Color(0xFF1B1E25).copy(alpha = 0.6f),
+        color = if (isSystemInDarkTheme) {
+          Color.White.copy(
+            alpha = 0.72f,
+          )
+        } else {
+          Color(0xFF1B1E25).copy(alpha = 0.6f)
+        },
       )
 
     val valueLayout: TextLayoutResult = textMeasurer.measure(valueText, valueStyle)
     val hasLabel = data.label.isNotEmpty()
-    val labelLayout: TextLayoutResult? = if (hasLabel) textMeasurer.measure(data.label, labelStyle) else null
+    val labelLayout: TextLayoutResult? = if (hasLabel) {
+      textMeasurer.measure(
+        data.label,
+        labelStyle,
+      )
+    } else {
+      null
+    }
     val labelH = labelLayout?.size?.height ?: 0
     val totalH = valueLayout.size.height + (if (hasLabel) labelH + 6 else 0)
     val blockTop = centerY - totalH / 2f
@@ -123,7 +150,10 @@ public class GaugeChartRenderer(
         textMeasurer = textMeasurer,
         text = data.label,
         style = labelStyle,
-        topLeft = Offset(centerX - labelLayout.size.width / 2f, blockTop + valueLayout.size.height + 6f),
+        topLeft = Offset(
+          centerX - labelLayout.size.width / 2f,
+          blockTop + valueLayout.size.height + 6f,
+        ),
       )
     }
 
@@ -133,8 +163,20 @@ public class GaugeChartRenderer(
         fontSize = 11.sp,
         color = if (isSystemInDarkTheme) DrafterColors.LabelDark else DrafterColors.LabelLight,
       )
-    drawEndLabel(drawScope, textMeasurer, formatValue(data.min), startAngle, centerX, centerY, arcRadius, strokeWidth, endStyle)
-    drawEndLabel(drawScope, textMeasurer, formatValue(data.max), startAngle + sweepAngle, centerX, centerY, arcRadius, strokeWidth, endStyle)
+    drawEndLabel(
+      drawScope, textMeasurer,
+      formatValue(
+        data.min,
+      ),
+      startAngle, centerX, centerY, arcRadius, strokeWidth, endStyle,
+    )
+    drawEndLabel(
+      drawScope, textMeasurer,
+      formatValue(
+        data.max,
+      ),
+      startAngle + sweepAngle, centerX, centerY, arcRadius, strokeWidth, endStyle,
+    )
   }
 
   private fun drawEndLabel(
@@ -163,8 +205,8 @@ public class GaugeChartRenderer(
 
   private fun Float.toRadians(): Float = this * (kotlin.math.PI.toFloat() / 180f)
 
-  private fun formatValue(value: Float): String {
-    val rounded = (value * 100f).toInt() / 100f
-    return if (rounded % 1f == 0f) rounded.toInt().toString() else rounded.toString()
-  }
+  private fun formatValue(value: Float): String = io.androidpoet.drafter.core.formatChartValue(
+    value,
+    decimals = 2,
+  )
 }

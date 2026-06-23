@@ -118,7 +118,7 @@ internal fun DrawScope.drawYAxisLabels(
     .sorted()
     .forEach { value ->
       val y = bottom - (value / maxY) * (bottom - top)
-      val label = value.toString()
+      val label = io.androidpoet.drafter.core.formatChartValue(value, decimals = 1)
       val textLayoutResult = textMeasurer.measure(label, style)
 
       drawText(
@@ -156,7 +156,7 @@ internal fun DrawScope.drawXAxisLabels(
     .sorted()
     .forEach { value ->
       val x = left + (value / maxX) * width
-      val label = value.toString()
+      val label = io.androidpoet.drafter.core.formatChartValue(value, decimals = 1)
       val textLayoutResult = textMeasurer.measure(label, style)
 
       drawText(

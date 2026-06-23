@@ -16,7 +16,6 @@
 package io.androidpoet.drafter.gantt
 
 import androidx.compose.runtime.Immutable
-
 import androidx.compose.ui.graphics.Color
 
 @Immutable
