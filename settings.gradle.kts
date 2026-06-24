@@ -18,6 +18,9 @@ dependencyResolutionManagement {
 rootProject.name = "DrafterDemo"
 include(":app")
 include(":drafter")
+include(":drafter-finance-engine")
+include(":drafter-finance-compose")
+include(":financeDesktopApp")
 include(":sample")
 include(":desktopApp")
 include(":webApp")

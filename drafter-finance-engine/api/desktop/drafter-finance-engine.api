@@ -1,0 +1,315 @@
+public final class io/androidpoet/drafter/finance/engine/CandleStyle {
+	public fun <init> (Lio/androidpoet/drafter/finance/engine/scene/ChartColor;Lio/androidpoet/drafter/finance/engine/scene/ChartColor;FFLjava/util/List;)V
+	public synthetic fun <init> (Lio/androidpoet/drafter/finance/engine/scene/ChartColor;Lio/androidpoet/drafter/finance/engine/scene/ChartColor;FFLjava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lio/androidpoet/drafter/finance/engine/scene/ChartColor;
+	public final fun component2 ()Lio/androidpoet/drafter/finance/engine/scene/ChartColor;
+	public final fun component3 ()F
+	public final fun component4 ()F
+	public final fun component5 ()Ljava/util/List;
+	public final fun copy (Lio/androidpoet/drafter/finance/engine/scene/ChartColor;Lio/androidpoet/drafter/finance/engine/scene/ChartColor;FFLjava/util/List;)Lio/androidpoet/drafter/finance/engine/CandleStyle;
+	public static synthetic fun copy$default (Lio/androidpoet/drafter/finance/engine/CandleStyle;Lio/androidpoet/drafter/finance/engine/scene/ChartColor;Lio/androidpoet/drafter/finance/engine/scene/ChartColor;FFLjava/util/List;ILjava/lang/Object;)Lio/androidpoet/drafter/finance/engine/CandleStyle;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBodyWidthRatio ()F
+	public final fun getDown ()Lio/androidpoet/drafter/finance/engine/scene/ChartColor;
+	public final fun getMovingAverages ()Ljava/util/List;
+	public final fun getUp ()Lio/androidpoet/drafter/finance/engine/scene/ChartColor;
+	public final fun getWickWidth ()F
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class io/androidpoet/drafter/finance/engine/CandleWindow {
+	public fun <init> (II)V
+	public final fun component1 ()I
+	public final fun component2 ()I
+	public final fun copy (II)Lio/androidpoet/drafter/finance/engine/CandleWindow;
+	public static synthetic fun copy$default (Lio/androidpoet/drafter/finance/engine/CandleWindow;IIILjava/lang/Object;)Lio/androidpoet/drafter/finance/engine/CandleWindow;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCount ()I
+	public final fun getFirstIndex ()I
+	public final fun getLastIndex ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class io/androidpoet/drafter/finance/engine/CandlestickEngine {
+	public static final field INSTANCE Lio/androidpoet/drafter/finance/engine/CandlestickEngine;
+	public final fun build (Ljava/util/List;Lio/androidpoet/drafter/finance/engine/CandleWindow;Lio/androidpoet/drafter/finance/engine/geometry/FRect;Lio/androidpoet/drafter/finance/engine/CandleStyle;)Lio/androidpoet/drafter/finance/engine/scene/Scene;
+}
+
+public final class io/androidpoet/drafter/finance/engine/MaConfig {
+	public fun <init> (ILio/androidpoet/drafter/finance/engine/scene/ChartColor;)V
+	public final fun component1 ()I
+	public final fun component2 ()Lio/androidpoet/drafter/finance/engine/scene/ChartColor;
+	public final fun copy (ILio/androidpoet/drafter/finance/engine/scene/ChartColor;)Lio/androidpoet/drafter/finance/engine/MaConfig;
+	public static synthetic fun copy$default (Lio/androidpoet/drafter/finance/engine/MaConfig;ILio/androidpoet/drafter/finance/engine/scene/ChartColor;ILjava/lang/Object;)Lio/androidpoet/drafter/finance/engine/MaConfig;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getColor ()Lio/androidpoet/drafter/finance/engine/scene/ChartColor;
+	public final fun getPeriod ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class io/androidpoet/drafter/finance/engine/crosshair/Crosshair {
+	public static final field INSTANCE Lio/androidpoet/drafter/finance/engine/crosshair/Crosshair;
+	public final fun resolve (FLjava/util/List;Lio/androidpoet/drafter/finance/engine/CandleWindow;Lio/androidpoet/drafter/finance/engine/geometry/FRect;)Lio/androidpoet/drafter/finance/engine/crosshair/CrosshairResult;
+}
+
+public final class io/androidpoet/drafter/finance/engine/crosshair/CrosshairResult {
+	public fun <init> (IFLio/androidpoet/drafter/finance/engine/model/Candle;)V
+	public final fun component1 ()I
+	public final fun component2 ()F
+	public final fun component3 ()Lio/androidpoet/drafter/finance/engine/model/Candle;
+	public final fun copy (IFLio/androidpoet/drafter/finance/engine/model/Candle;)Lio/androidpoet/drafter/finance/engine/crosshair/CrosshairResult;
+	public static synthetic fun copy$default (Lio/androidpoet/drafter/finance/engine/crosshair/CrosshairResult;IFLio/androidpoet/drafter/finance/engine/model/Candle;ILjava/lang/Object;)Lio/androidpoet/drafter/finance/engine/crosshair/CrosshairResult;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCandle ()Lio/androidpoet/drafter/finance/engine/model/Candle;
+	public final fun getIndex ()I
+	public final fun getSnappedX ()F
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class io/androidpoet/drafter/finance/engine/geometry/FPoint {
+	public fun <init> (FF)V
+	public final fun component1 ()F
+	public final fun component2 ()F
+	public final fun copy (FF)Lio/androidpoet/drafter/finance/engine/geometry/FPoint;
+	public static synthetic fun copy$default (Lio/androidpoet/drafter/finance/engine/geometry/FPoint;FFILjava/lang/Object;)Lio/androidpoet/drafter/finance/engine/geometry/FPoint;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getX ()F
+	public final fun getY ()F
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class io/androidpoet/drafter/finance/engine/geometry/FRect {
+	public fun <init> (FFFF)V
+	public final fun component1 ()F
+	public final fun component2 ()F
+	public final fun component3 ()F
+	public final fun component4 ()F
+	public final fun copy (FFFF)Lio/androidpoet/drafter/finance/engine/geometry/FRect;
+	public static synthetic fun copy$default (Lio/androidpoet/drafter/finance/engine/geometry/FRect;FFFFILjava/lang/Object;)Lio/androidpoet/drafter/finance/engine/geometry/FRect;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBottom ()F
+	public final fun getHeight ()F
+	public final fun getLeft ()F
+	public final fun getRight ()F
+	public final fun getTop ()F
+	public final fun getWidth ()F
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class io/androidpoet/drafter/finance/engine/indicator/BollingerBands {
+	public fun <init> (Ljava/util/List;Ljava/util/List;Ljava/util/List;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun component2 ()Ljava/util/List;
+	public final fun component3 ()Ljava/util/List;
+	public final fun copy (Ljava/util/List;Ljava/util/List;Ljava/util/List;)Lio/androidpoet/drafter/finance/engine/indicator/BollingerBands;
+	public static synthetic fun copy$default (Lio/androidpoet/drafter/finance/engine/indicator/BollingerBands;Ljava/util/List;Ljava/util/List;Ljava/util/List;ILjava/lang/Object;)Lio/androidpoet/drafter/finance/engine/indicator/BollingerBands;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getLower ()Ljava/util/List;
+	public final fun getMiddle ()Ljava/util/List;
+	public final fun getUpper ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class io/androidpoet/drafter/finance/engine/indicator/Indicators {
+	public static final field INSTANCE Lio/androidpoet/drafter/finance/engine/indicator/Indicators;
+	public final fun bollinger (Ljava/util/List;IF)Lio/androidpoet/drafter/finance/engine/indicator/BollingerBands;
+	public static synthetic fun bollinger$default (Lio/androidpoet/drafter/finance/engine/indicator/Indicators;Ljava/util/List;IFILjava/lang/Object;)Lio/androidpoet/drafter/finance/engine/indicator/BollingerBands;
+	public final fun ema (Ljava/util/List;I)Ljava/util/List;
+	public final fun macd (Ljava/util/List;III)Lio/androidpoet/drafter/finance/engine/indicator/MacdResult;
+	public static synthetic fun macd$default (Lio/androidpoet/drafter/finance/engine/indicator/Indicators;Ljava/util/List;IIIILjava/lang/Object;)Lio/androidpoet/drafter/finance/engine/indicator/MacdResult;
+	public final fun rsi (Ljava/util/List;I)Ljava/util/List;
+	public static synthetic fun rsi$default (Lio/androidpoet/drafter/finance/engine/indicator/Indicators;Ljava/util/List;IILjava/lang/Object;)Ljava/util/List;
+	public final fun sma (Ljava/util/List;I)Ljava/util/List;
+}
+
+public final class io/androidpoet/drafter/finance/engine/indicator/MacdResult {
+	public fun <init> (Ljava/util/List;Ljava/util/List;Ljava/util/List;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun component2 ()Ljava/util/List;
+	public final fun component3 ()Ljava/util/List;
+	public final fun copy (Ljava/util/List;Ljava/util/List;Ljava/util/List;)Lio/androidpoet/drafter/finance/engine/indicator/MacdResult;
+	public static synthetic fun copy$default (Lio/androidpoet/drafter/finance/engine/indicator/MacdResult;Ljava/util/List;Ljava/util/List;Ljava/util/List;ILjava/lang/Object;)Lio/androidpoet/drafter/finance/engine/indicator/MacdResult;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getHistogram ()Ljava/util/List;
+	public final fun getMacd ()Ljava/util/List;
+	public final fun getSignal ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class io/androidpoet/drafter/finance/engine/model/Candle {
+	public fun <init> (JFFFFF)V
+	public synthetic fun <init> (JFFFFFILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()J
+	public final fun component2 ()F
+	public final fun component3 ()F
+	public final fun component4 ()F
+	public final fun component5 ()F
+	public final fun component6 ()F
+	public final fun copy (JFFFFF)Lio/androidpoet/drafter/finance/engine/model/Candle;
+	public static synthetic fun copy$default (Lio/androidpoet/drafter/finance/engine/model/Candle;JFFFFFILjava/lang/Object;)Lio/androidpoet/drafter/finance/engine/model/Candle;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getClose ()F
+	public final fun getHigh ()F
+	public final fun getLow ()F
+	public final fun getOpen ()F
+	public final fun getTime ()J
+	public final fun getVolume ()F
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class io/androidpoet/drafter/finance/engine/scale/LinearScale {
+	public fun <init> (FFFF)V
+	public final fun getDomainMax ()F
+	public final fun getDomainMin ()F
+	public final fun getRangeEnd ()F
+	public final fun getRangeStart ()F
+	public final fun toPixel (F)F
+	public final fun toValue (F)F
+}
+
+public final class io/androidpoet/drafter/finance/engine/scene/ChartColor {
+	public static final field Companion Lio/androidpoet/drafter/finance/engine/scene/ChartColor$Companion;
+	public fun <init> (J)V
+	public final fun component1 ()J
+	public final fun copy (J)Lio/androidpoet/drafter/finance/engine/scene/ChartColor;
+	public static synthetic fun copy$default (Lio/androidpoet/drafter/finance/engine/scene/ChartColor;JILjava/lang/Object;)Lio/androidpoet/drafter/finance/engine/scene/ChartColor;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAlpha ()I
+	public final fun getArgb ()J
+	public final fun getBlue ()I
+	public final fun getGreen ()I
+	public final fun getRed ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class io/androidpoet/drafter/finance/engine/scene/ChartColor$Companion {
+	public final fun rgba (IIII)Lio/androidpoet/drafter/finance/engine/scene/ChartColor;
+	public static synthetic fun rgba$default (Lio/androidpoet/drafter/finance/engine/scene/ChartColor$Companion;IIIIILjava/lang/Object;)Lio/androidpoet/drafter/finance/engine/scene/ChartColor;
+}
+
+public abstract interface class io/androidpoet/drafter/finance/engine/scene/DrawCommand {
+}
+
+public final class io/androidpoet/drafter/finance/engine/scene/FillPathCmd : io/androidpoet/drafter/finance/engine/scene/DrawCommand {
+	public fun <init> (Ljava/util/List;Lio/androidpoet/drafter/finance/engine/scene/ChartColor;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun component2 ()Lio/androidpoet/drafter/finance/engine/scene/ChartColor;
+	public final fun copy (Ljava/util/List;Lio/androidpoet/drafter/finance/engine/scene/ChartColor;)Lio/androidpoet/drafter/finance/engine/scene/FillPathCmd;
+	public static synthetic fun copy$default (Lio/androidpoet/drafter/finance/engine/scene/FillPathCmd;Ljava/util/List;Lio/androidpoet/drafter/finance/engine/scene/ChartColor;ILjava/lang/Object;)Lio/androidpoet/drafter/finance/engine/scene/FillPathCmd;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getColor ()Lio/androidpoet/drafter/finance/engine/scene/ChartColor;
+	public final fun getPoints ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class io/androidpoet/drafter/finance/engine/scene/LineCmd : io/androidpoet/drafter/finance/engine/scene/DrawCommand {
+	public fun <init> (FFFFLio/androidpoet/drafter/finance/engine/scene/ChartColor;F)V
+	public final fun component1 ()F
+	public final fun component2 ()F
+	public final fun component3 ()F
+	public final fun component4 ()F
+	public final fun component5 ()Lio/androidpoet/drafter/finance/engine/scene/ChartColor;
+	public final fun component6 ()F
+	public final fun copy (FFFFLio/androidpoet/drafter/finance/engine/scene/ChartColor;F)Lio/androidpoet/drafter/finance/engine/scene/LineCmd;
+	public static synthetic fun copy$default (Lio/androidpoet/drafter/finance/engine/scene/LineCmd;FFFFLio/androidpoet/drafter/finance/engine/scene/ChartColor;FILjava/lang/Object;)Lio/androidpoet/drafter/finance/engine/scene/LineCmd;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getColor ()Lio/androidpoet/drafter/finance/engine/scene/ChartColor;
+	public final fun getStrokeWidth ()F
+	public final fun getX1 ()F
+	public final fun getX2 ()F
+	public final fun getY1 ()F
+	public final fun getY2 ()F
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class io/androidpoet/drafter/finance/engine/scene/PolylineCmd : io/androidpoet/drafter/finance/engine/scene/DrawCommand {
+	public fun <init> (Ljava/util/List;Lio/androidpoet/drafter/finance/engine/scene/ChartColor;F)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun component2 ()Lio/androidpoet/drafter/finance/engine/scene/ChartColor;
+	public final fun component3 ()F
+	public final fun copy (Ljava/util/List;Lio/androidpoet/drafter/finance/engine/scene/ChartColor;F)Lio/androidpoet/drafter/finance/engine/scene/PolylineCmd;
+	public static synthetic fun copy$default (Lio/androidpoet/drafter/finance/engine/scene/PolylineCmd;Ljava/util/List;Lio/androidpoet/drafter/finance/engine/scene/ChartColor;FILjava/lang/Object;)Lio/androidpoet/drafter/finance/engine/scene/PolylineCmd;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getColor ()Lio/androidpoet/drafter/finance/engine/scene/ChartColor;
+	public final fun getPoints ()Ljava/util/List;
+	public final fun getStrokeWidth ()F
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class io/androidpoet/drafter/finance/engine/scene/RectCmd : io/androidpoet/drafter/finance/engine/scene/DrawCommand {
+	public fun <init> (Lio/androidpoet/drafter/finance/engine/geometry/FRect;Lio/androidpoet/drafter/finance/engine/scene/ChartColor;ZFF)V
+	public synthetic fun <init> (Lio/androidpoet/drafter/finance/engine/geometry/FRect;Lio/androidpoet/drafter/finance/engine/scene/ChartColor;ZFFILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lio/androidpoet/drafter/finance/engine/geometry/FRect;
+	public final fun component2 ()Lio/androidpoet/drafter/finance/engine/scene/ChartColor;
+	public final fun component3 ()Z
+	public final fun component4 ()F
+	public final fun component5 ()F
+	public final fun copy (Lio/androidpoet/drafter/finance/engine/geometry/FRect;Lio/androidpoet/drafter/finance/engine/scene/ChartColor;ZFF)Lio/androidpoet/drafter/finance/engine/scene/RectCmd;
+	public static synthetic fun copy$default (Lio/androidpoet/drafter/finance/engine/scene/RectCmd;Lio/androidpoet/drafter/finance/engine/geometry/FRect;Lio/androidpoet/drafter/finance/engine/scene/ChartColor;ZFFILjava/lang/Object;)Lio/androidpoet/drafter/finance/engine/scene/RectCmd;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getColor ()Lio/androidpoet/drafter/finance/engine/scene/ChartColor;
+	public final fun getCornerRadius ()F
+	public final fun getFill ()Z
+	public final fun getRect ()Lio/androidpoet/drafter/finance/engine/geometry/FRect;
+	public final fun getStrokeWidth ()F
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class io/androidpoet/drafter/finance/engine/scene/Scene {
+	public fun <init> (Ljava/util/List;Lio/androidpoet/drafter/finance/engine/geometry/FRect;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun component2 ()Lio/androidpoet/drafter/finance/engine/geometry/FRect;
+	public final fun copy (Ljava/util/List;Lio/androidpoet/drafter/finance/engine/geometry/FRect;)Lio/androidpoet/drafter/finance/engine/scene/Scene;
+	public static synthetic fun copy$default (Lio/androidpoet/drafter/finance/engine/scene/Scene;Ljava/util/List;Lio/androidpoet/drafter/finance/engine/geometry/FRect;ILjava/lang/Object;)Lio/androidpoet/drafter/finance/engine/scene/Scene;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCommands ()Ljava/util/List;
+	public final fun getPlot ()Lio/androidpoet/drafter/finance/engine/geometry/FRect;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class io/androidpoet/drafter/finance/engine/scene/TextAlign : java/lang/Enum {
+	public static final field Center Lio/androidpoet/drafter/finance/engine/scene/TextAlign;
+	public static final field End Lio/androidpoet/drafter/finance/engine/scene/TextAlign;
+	public static final field Start Lio/androidpoet/drafter/finance/engine/scene/TextAlign;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lio/androidpoet/drafter/finance/engine/scene/TextAlign;
+	public static fun values ()[Lio/androidpoet/drafter/finance/engine/scene/TextAlign;
+}
+
+public final class io/androidpoet/drafter/finance/engine/scene/TextCmd : io/androidpoet/drafter/finance/engine/scene/DrawCommand {
+	public fun <init> (Ljava/lang/String;FFLio/androidpoet/drafter/finance/engine/scene/ChartColor;FLio/androidpoet/drafter/finance/engine/scene/TextAlign;)V
+	public synthetic fun <init> (Ljava/lang/String;FFLio/androidpoet/drafter/finance/engine/scene/ChartColor;FLio/androidpoet/drafter/finance/engine/scene/TextAlign;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()F
+	public final fun component3 ()F
+	public final fun component4 ()Lio/androidpoet/drafter/finance/engine/scene/ChartColor;
+	public final fun component5 ()F
+	public final fun component6 ()Lio/androidpoet/drafter/finance/engine/scene/TextAlign;
+	public final fun copy (Ljava/lang/String;FFLio/androidpoet/drafter/finance/engine/scene/ChartColor;FLio/androidpoet/drafter/finance/engine/scene/TextAlign;)Lio/androidpoet/drafter/finance/engine/scene/TextCmd;
+	public static synthetic fun copy$default (Lio/androidpoet/drafter/finance/engine/scene/TextCmd;Ljava/lang/String;FFLio/androidpoet/drafter/finance/engine/scene/ChartColor;FLio/androidpoet/drafter/finance/engine/scene/TextAlign;ILjava/lang/Object;)Lio/androidpoet/drafter/finance/engine/scene/TextCmd;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAlign ()Lio/androidpoet/drafter/finance/engine/scene/TextAlign;
+	public final fun getColor ()Lio/androidpoet/drafter/finance/engine/scene/ChartColor;
+	public final fun getSizeSp ()F
+	public final fun getText ()Ljava/lang/String;
+	public final fun getX ()F
+	public final fun getY ()F
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+

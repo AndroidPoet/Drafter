@@ -82,6 +82,7 @@ import io.androidpoet.drafter.candlestick.CandlestickChartRenderer
 import io.androidpoet.drafter.candlestick.model.Candle
 import io.androidpoet.drafter.candlestick.model.CandlestickData
 import io.androidpoet.drafter.candlestick.model.MovingAverage
+import io.androidpoet.drafter.finance.compose.FinanceCandlestickChart
 import io.androidpoet.drafter.funnel.FunnelChart
 import io.androidpoet.drafter.funnel.FunnelChartRenderer
 import io.androidpoet.drafter.funnel.model.FunnelData
@@ -143,6 +144,7 @@ import kotlinx.datetime.Clock
 import kotlin.math.roundToInt
 import kotlin.random.Random
 import kotlin.time.Duration.Companion.days
+import io.androidpoet.drafter.finance.engine.model.Candle as FinanceCandle
 
 private val palette: List<Color> = DrafterColors.palette
 private const val DARK = false
@@ -160,6 +162,23 @@ private val pieSlices: List<PieChartData.Slice> = listOf(
 )
 
 private data class ChartEntry(val title: String, val content: @Composable () -> Unit)
+
+/** A deterministic 30-bar OHLC series for the interactive finance-engine demo. */
+private fun financeSampleCandles(): List<FinanceCandle> {
+  val closes = listOf(
+    44f, 42f, 44f, 49f, 47f, 48f, 53f, 51f, 49f, 51f,
+    57f, 55f, 52f, 53f, 59f, 58f, 56f, 57f, 63f, 62f,
+    60f, 62f, 68f, 70f, 67f, 69f, 74f, 72f, 75f, 78f,
+  )
+  var prevClose = 43f
+  return closes.mapIndexed { i, close ->
+    val open = prevClose
+    val high = maxOf(open, close) + 2f
+    val low = minOf(open, close) - 2f
+    prevClose = close
+    FinanceCandle(time = i.toLong(), open = open, high = high, low = low, close = close)
+  }
+}
 
 private fun chartEntries(): List<ChartEntry> = listOf(
   ChartEntry("Bar") {
@@ -501,6 +520,12 @@ private fun chartEntries(): List<ChartEntry> = listOf(
       modifier = chartModifier(),
       isSystemInDarkTheme = DARK,
       animate = true,
+    )
+  },
+  ChartEntry("K-Line Pro · drag to scrub") {
+    FinanceCandlestickChart(
+      candles = financeSampleCandles(),
+      modifier = chartModifier(),
     )
   },
   ChartEntry("Bullet") {

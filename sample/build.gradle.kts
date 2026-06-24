@@ -25,6 +25,7 @@ kotlin {
         implementation(compose.ui)
         implementation(libs.kotlinx.datetime)
         implementation(project(":drafter"))
+        implementation(project(":drafter-finance-compose"))
       }
     }
   }

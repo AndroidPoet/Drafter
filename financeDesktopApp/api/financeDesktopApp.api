@@ -1,0 +1,14 @@
+public final class io/androidpoet/financedemo/ComposableSingletons$FinanceMainKt {
+	public static final field INSTANCE Lio/androidpoet/financedemo/ComposableSingletons$FinanceMainKt;
+	public static field lambda-1 Lkotlin/jvm/functions/Function3;
+	public static field lambda-2 Lkotlin/jvm/functions/Function3;
+	public fun <init> ()V
+	public final fun getLambda-1$financeDesktopApp ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda-2$financeDesktopApp ()Lkotlin/jvm/functions/Function3;
+}
+
+public final class io/androidpoet/financedemo/FinanceMainKt {
+	public static final fun main ()V
+	public static synthetic fun main ([Ljava/lang/String;)V
+}
+
