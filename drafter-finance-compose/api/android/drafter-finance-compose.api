@@ -4,6 +4,15 @@ public final class io/androidpoet/drafter/finance/compose/FinanceCandlestickChar
 	public static synthetic fun defaultCandleStyle$default (ZILjava/lang/Object;)Lio/androidpoet/drafter/finance/engine/CandleStyle;
 }
 
+public final class io/androidpoet/drafter/finance/compose/FinanceSeriesChartsKt {
+	public static final fun FinanceAreaChart (Ljava/util/List;Landroidx/compose/ui/Modifier;Lio/androidpoet/drafter/finance/engine/AreaSeriesStyle;Landroidx/compose/runtime/Composer;II)V
+	public static final fun FinanceBarChart (Ljava/util/List;Landroidx/compose/ui/Modifier;Lio/androidpoet/drafter/finance/engine/BarSeriesStyle;Landroidx/compose/runtime/Composer;II)V
+	public static final fun FinanceBaselineChart (Ljava/util/List;FLandroidx/compose/ui/Modifier;Lio/androidpoet/drafter/finance/engine/BaselineSeriesStyle;Landroidx/compose/runtime/Composer;II)V
+	public static final fun FinanceHistogramChart (Ljava/util/List;Landroidx/compose/ui/Modifier;Lio/androidpoet/drafter/finance/engine/HistogramSeriesStyle;Landroidx/compose/runtime/Composer;II)V
+	public static final fun FinanceLineChart (Ljava/util/List;Landroidx/compose/ui/Modifier;Lio/androidpoet/drafter/finance/engine/LineSeriesStyle;Landroidx/compose/runtime/Composer;II)V
+	public static final fun FinanceVolumeChart (Ljava/util/List;Landroidx/compose/ui/Modifier;Lio/androidpoet/drafter/finance/engine/VolumeStyle;Landroidx/compose/runtime/Composer;II)V
+}
+
 public final class io/androidpoet/drafter/finance/compose/SceneRendererKt {
 	public static final fun drawScene (Landroidx/compose/ui/graphics/drawscope/DrawScope;Lio/androidpoet/drafter/finance/engine/scene/Scene;Landroidx/compose/ui/text/TextMeasurer;)V
 }

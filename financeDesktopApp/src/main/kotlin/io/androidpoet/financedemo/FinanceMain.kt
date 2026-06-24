@@ -20,10 +20,13 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicText
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -33,14 +36,20 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
+import io.androidpoet.drafter.finance.compose.FinanceAreaChart
+import io.androidpoet.drafter.finance.compose.FinanceBarChart
+import io.androidpoet.drafter.finance.compose.FinanceBaselineChart
 import io.androidpoet.drafter.finance.compose.FinanceCandlestickChart
+import io.androidpoet.drafter.finance.compose.FinanceHistogramChart
+import io.androidpoet.drafter.finance.compose.FinanceLineChart
+import io.androidpoet.drafter.finance.compose.FinanceVolumeChart
 import io.androidpoet.drafter.finance.engine.model.Candle
 
 fun main() = application {
   Window(
     onCloseRequest = ::exitApplication,
-    state = rememberWindowState(width = 1100.dp, height = 720.dp),
-    title = "Drafter Finance — Native K-Line (no WebView)",
+    state = rememberWindowState(width = 1100.dp, height = 860.dp),
+    title = "Drafter Finance — Native trading charts (no WebView)",
   ) {
     FinanceDashboard()
   }
@@ -48,40 +57,70 @@ fun main() = application {
 
 @Composable
 private fun FinanceDashboard() {
-  Box(
-    Modifier
-      .fillMaxSize()
-      .background(Color(0xFFF4F6FA))
-      .padding(20.dp),
-  ) {
-    Column(Modifier.fillMaxSize()) {
-      BasicText(
-        text = "BTC / USDT · 1D",
-        style = TextStyle(fontSize = 18.sp, color = Color(0xFF1B1E25)),
-      )
+  val candles = rememberCandles
+  val closes = candles.map { it.close }
+  val changes = candles.map { it.close - it.open }
+  val base = closes.average().toFloat()
+
+  Box(Modifier.fillMaxSize().background(Color(0xFFF4F6FA))) {
+    Column(
+      Modifier
+        .fillMaxSize()
+        .verticalScroll(rememberScrollState())
+        .padding(20.dp),
+    ) {
+      BasicText("BTC / USDT · 1D", style = TextStyle(fontSize = 18.sp, color = Color(0xFF1B1E25)))
       Spacer(Modifier.height(2.dp))
       BasicText(
-        text = "Native Compose · engine-driven · MA5/10/20 · drag to scrub the crosshair",
+        text = "Native Compose · one shared engine · 6 series + MA + crosshair · no WebView",
         style = TextStyle(fontSize = 12.sp, color = Color(0xFF8A92A2)),
       )
-      Spacer(Modifier.height(14.dp))
-      Box(
-        Modifier
-          .fillMaxSize()
-          .background(Color.White, RoundedCornerShape(16.dp))
-          .padding(10.dp),
-      ) {
-        FinanceCandlestickChart(
-          candles = demoCandles(),
-          modifier = Modifier.fillMaxSize(),
-        )
+      Spacer(Modifier.height(16.dp))
+
+      ChartCard("Candlestick · K-Line (drag to scrub)", height = 300) {
+        FinanceCandlestickChart(candles = candles, modifier = Modifier.fillMaxSize())
+      }
+      ChartCard("Volume", height = 120) {
+        FinanceVolumeChart(candles = candles, modifier = Modifier.fillMaxSize())
+      }
+      ChartCard("Bar · OHLC", height = 220) {
+        FinanceBarChart(candles = candles, modifier = Modifier.fillMaxSize())
+      }
+      ChartCard("Line", height = 170) {
+        FinanceLineChart(values = closes, modifier = Modifier.fillMaxSize())
+      }
+      ChartCard("Area", height = 170) {
+        FinanceAreaChart(values = closes, modifier = Modifier.fillMaxSize())
+      }
+      ChartCard("Baseline", height = 170) {
+        FinanceBaselineChart(values = closes, baseValue = base, modifier = Modifier.fillMaxSize())
+      }
+      ChartCard("Histogram · change", height = 150) {
+        FinanceHistogramChart(values = changes, modifier = Modifier.fillMaxSize())
       }
     }
   }
 }
 
-/** A deterministic ~60-bar OHLC walk so the chart looks like a real instrument. */
-private fun demoCandles(): List<Candle> {
+@Composable
+private fun ChartCard(title: String, height: Int, content: @Composable () -> Unit) {
+  Column(Modifier.fillMaxWidth().padding(bottom = 14.dp)) {
+    BasicText(title, style = TextStyle(fontSize = 13.sp, color = Color(0xFF515A6B)))
+    Spacer(Modifier.height(6.dp))
+    Box(
+      Modifier
+        .fillMaxWidth()
+        .height(height.dp)
+        .background(Color.White, RoundedCornerShape(14.dp))
+        .padding(10.dp),
+    ) {
+      content()
+    }
+  }
+}
+
+/** A deterministic ~60-bar OHLC walk so the charts look like a real instrument. */
+private val rememberCandles: List<Candle> = run {
   val closes = listOf(
     100f, 102f, 101f, 104f, 108f, 106f, 109f, 113f, 111f, 110f,
     114f, 118f, 116f, 115f, 119f, 123f, 121f, 124f, 128f, 126f,
@@ -91,7 +130,7 @@ private fun demoCandles(): List<Candle> {
     148f, 152f, 150f, 149f, 153f, 157f, 155f, 158f, 162f, 160f,
   )
   var prevClose = 99f
-  return closes.mapIndexed { i, close ->
+  closes.mapIndexed { i, close ->
     val open = prevClose
     val swing = if (i % 3 == 0) 3f else 2f
     val high = maxOf(open, close) + swing
