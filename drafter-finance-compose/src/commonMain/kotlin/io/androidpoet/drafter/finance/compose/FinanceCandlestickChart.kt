@@ -35,32 +35,16 @@ import androidx.compose.ui.unit.sp
 import io.androidpoet.drafter.finance.engine.CandleStyle
 import io.androidpoet.drafter.finance.engine.CandleWindow
 import io.androidpoet.drafter.finance.engine.CandlestickEngine
-import io.androidpoet.drafter.finance.engine.MaConfig
+import io.androidpoet.drafter.finance.engine.DrafterTheme
 import io.androidpoet.drafter.finance.engine.crosshair.Crosshair
 import io.androidpoet.drafter.finance.engine.geometry.FRect
 import io.androidpoet.drafter.finance.engine.model.Candle
-import io.androidpoet.drafter.finance.engine.scene.ChartColor
 import io.androidpoet.drafter.finance.engine.scene.Scene
 import kotlin.math.round
 
-private val UpColor = ChartColor.rgba(0x49, 0xC1, 0x7A)
-private val DownColor = ChartColor.rgba(0xF2, 0x76, 0x6B)
-private val Ma5 = ChartColor.rgba(0xF6, 0xB2, 0x4C)
-private val Ma10 = ChartColor.rgba(0x4C, 0x8D, 0xF6)
-private val Ma20 = ChartColor.rgba(0x7C, 0x6B, 0xF2)
-
 /** Default trading style — green/coral candles with MA5/MA10/MA20 overlays. */
 public fun defaultCandleStyle(withMovingAverages: Boolean = true): CandleStyle =
-  CandleStyle(
-    up = UpColor,
-    down = DownColor,
-    movingAverages =
-    if (withMovingAverages) {
-      listOf(MaConfig(5, Ma5), MaConfig(10, Ma10), MaConfig(20, Ma20))
-    } else {
-      emptyList()
-    },
-  )
+  DrafterTheme.candle(withMovingAverages)
 
 /**
  * An interactive candlestick / K-line chart. All geometry and indicator math

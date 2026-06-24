@@ -108,6 +108,31 @@ public final class io/androidpoet/drafter/finance/engine/CandlestickEngine {
 	public final fun build (Ljava/util/List;Lio/androidpoet/drafter/finance/engine/CandleWindow;Lio/androidpoet/drafter/finance/engine/geometry/FRect;Lio/androidpoet/drafter/finance/engine/CandleStyle;)Lio/androidpoet/drafter/finance/engine/scene/Scene;
 }
 
+public final class io/androidpoet/drafter/finance/engine/DrafterTheme : io/androidpoet/drafter/finance/engine/FinanceTheme {
+	public static final field INSTANCE Lio/androidpoet/drafter/finance/engine/DrafterTheme;
+	public fun area ()Lio/androidpoet/drafter/finance/engine/AreaSeriesStyle;
+	public fun bar ()Lio/androidpoet/drafter/finance/engine/BarSeriesStyle;
+	public fun baseline (F)Lio/androidpoet/drafter/finance/engine/BaselineSeriesStyle;
+	public fun candle (Z)Lio/androidpoet/drafter/finance/engine/CandleStyle;
+	public fun histogram ()Lio/androidpoet/drafter/finance/engine/HistogramSeriesStyle;
+	public fun line ()Lio/androidpoet/drafter/finance/engine/LineSeriesStyle;
+	public fun volume ()Lio/androidpoet/drafter/finance/engine/VolumeStyle;
+}
+
+public abstract interface class io/androidpoet/drafter/finance/engine/FinanceTheme {
+	public abstract fun area ()Lio/androidpoet/drafter/finance/engine/AreaSeriesStyle;
+	public abstract fun bar ()Lio/androidpoet/drafter/finance/engine/BarSeriesStyle;
+	public abstract fun baseline (F)Lio/androidpoet/drafter/finance/engine/BaselineSeriesStyle;
+	public abstract fun candle (Z)Lio/androidpoet/drafter/finance/engine/CandleStyle;
+	public abstract fun histogram ()Lio/androidpoet/drafter/finance/engine/HistogramSeriesStyle;
+	public abstract fun line ()Lio/androidpoet/drafter/finance/engine/LineSeriesStyle;
+	public abstract fun volume ()Lio/androidpoet/drafter/finance/engine/VolumeStyle;
+}
+
+public final class io/androidpoet/drafter/finance/engine/FinanceTheme$DefaultImpls {
+	public static synthetic fun candle$default (Lio/androidpoet/drafter/finance/engine/FinanceTheme;ZILjava/lang/Object;)Lio/androidpoet/drafter/finance/engine/CandleStyle;
+}
+
 public final class io/androidpoet/drafter/finance/engine/HistogramSeriesEngine {
 	public static final field INSTANCE Lio/androidpoet/drafter/finance/engine/HistogramSeriesEngine;
 	public final fun build (Ljava/util/List;Lio/androidpoet/drafter/finance/engine/CandleWindow;Lio/androidpoet/drafter/finance/engine/geometry/FRect;Lio/androidpoet/drafter/finance/engine/HistogramSeriesStyle;)Lio/androidpoet/drafter/finance/engine/scene/Scene;
@@ -159,6 +184,17 @@ public final class io/androidpoet/drafter/finance/engine/MaConfig {
 	public final fun getPeriod ()I
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
+}
+
+public final class io/androidpoet/drafter/finance/engine/TradingViewTheme : io/androidpoet/drafter/finance/engine/FinanceTheme {
+	public static final field INSTANCE Lio/androidpoet/drafter/finance/engine/TradingViewTheme;
+	public fun area ()Lio/androidpoet/drafter/finance/engine/AreaSeriesStyle;
+	public fun bar ()Lio/androidpoet/drafter/finance/engine/BarSeriesStyle;
+	public fun baseline (F)Lio/androidpoet/drafter/finance/engine/BaselineSeriesStyle;
+	public fun candle (Z)Lio/androidpoet/drafter/finance/engine/CandleStyle;
+	public fun histogram ()Lio/androidpoet/drafter/finance/engine/HistogramSeriesStyle;
+	public fun line ()Lio/androidpoet/drafter/finance/engine/LineSeriesStyle;
+	public fun volume ()Lio/androidpoet/drafter/finance/engine/VolumeStyle;
 }
 
 public final class io/androidpoet/drafter/finance/engine/VolumeEngine {

@@ -27,6 +27,7 @@ import io.androidpoet.drafter.finance.engine.BarSeriesStyle
 import io.androidpoet.drafter.finance.engine.BaselineSeriesEngine
 import io.androidpoet.drafter.finance.engine.BaselineSeriesStyle
 import io.androidpoet.drafter.finance.engine.CandleWindow
+import io.androidpoet.drafter.finance.engine.DrafterTheme
 import io.androidpoet.drafter.finance.engine.HistogramSeriesEngine
 import io.androidpoet.drafter.finance.engine.HistogramSeriesStyle
 import io.androidpoet.drafter.finance.engine.LineSeriesEngine
@@ -35,7 +36,6 @@ import io.androidpoet.drafter.finance.engine.VolumeEngine
 import io.androidpoet.drafter.finance.engine.VolumeStyle
 import io.androidpoet.drafter.finance.engine.geometry.FRect
 import io.androidpoet.drafter.finance.engine.model.Candle
-import io.androidpoet.drafter.finance.engine.scene.ChartColor
 
 private fun plotOf(width: Float, height: Float): FRect =
   FRect(left = 8f, top = 8f, right = width - 8f, bottom = height - 8f)
@@ -45,7 +45,7 @@ private fun plotOf(width: Float, height: Float): FRect =
 public fun FinanceLineChart(
   values: List<Float>,
   modifier: Modifier = Modifier,
-  style: LineSeriesStyle = LineSeriesStyle(color = ChartColor.rgba(0x4C, 0x8D, 0xF6)),
+  style: LineSeriesStyle = DrafterTheme.line(),
 ) {
   val textMeasurer = rememberTextMeasurer()
   Canvas(modifier.fillMaxSize()) {
@@ -61,10 +61,7 @@ public fun FinanceLineChart(
 public fun FinanceAreaChart(
   values: List<Float>,
   modifier: Modifier = Modifier,
-  style: AreaSeriesStyle = AreaSeriesStyle(
-    lineColor = ChartColor.rgba(0x5B, 0x6B, 0xF0),
-    fillColor = ChartColor.rgba(0x5B, 0x6B, 0xF0, 0x2E),
-  ),
+  style: AreaSeriesStyle = DrafterTheme.area(),
 ) {
   val textMeasurer = rememberTextMeasurer()
   Canvas(modifier.fillMaxSize()) {
@@ -81,13 +78,7 @@ public fun FinanceBaselineChart(
   values: List<Float>,
   baseValue: Float,
   modifier: Modifier = Modifier,
-  style: BaselineSeriesStyle = BaselineSeriesStyle(
-    baseValue = baseValue,
-    topLineColor = ChartColor.rgba(0x49, 0xC1, 0x7A),
-    topFillColor = ChartColor.rgba(0x49, 0xC1, 0x7A, 0x26),
-    bottomLineColor = ChartColor.rgba(0xF2, 0x76, 0x6B),
-    bottomFillColor = ChartColor.rgba(0xF2, 0x76, 0x6B, 0x26),
-  ),
+  style: BaselineSeriesStyle = DrafterTheme.baseline(baseValue),
 ) {
   val textMeasurer = rememberTextMeasurer()
   Canvas(modifier.fillMaxSize()) {
@@ -103,7 +94,7 @@ public fun FinanceBaselineChart(
 public fun FinanceHistogramChart(
   values: List<Float>,
   modifier: Modifier = Modifier,
-  style: HistogramSeriesStyle = HistogramSeriesStyle(color = ChartColor.rgba(0x2F, 0xC4, 0xC0)),
+  style: HistogramSeriesStyle = DrafterTheme.histogram(),
 ) {
   val textMeasurer = rememberTextMeasurer()
   Canvas(modifier.fillMaxSize()) {
@@ -119,10 +110,7 @@ public fun FinanceHistogramChart(
 public fun FinanceBarChart(
   candles: List<Candle>,
   modifier: Modifier = Modifier,
-  style: BarSeriesStyle = BarSeriesStyle(
-    up = ChartColor.rgba(0x49, 0xC1, 0x7A),
-    down = ChartColor.rgba(0xF2, 0x76, 0x6B),
-  ),
+  style: BarSeriesStyle = DrafterTheme.bar(),
 ) {
   val textMeasurer = rememberTextMeasurer()
   Canvas(modifier.fillMaxSize()) {
@@ -138,10 +126,7 @@ public fun FinanceBarChart(
 public fun FinanceVolumeChart(
   candles: List<Candle>,
   modifier: Modifier = Modifier,
-  style: VolumeStyle = VolumeStyle(
-    up = ChartColor.rgba(0x49, 0xC1, 0x7A, 0xCC),
-    down = ChartColor.rgba(0xF2, 0x76, 0x6B, 0xCC),
-  ),
+  style: VolumeStyle = DrafterTheme.volume(),
 ) {
   val textMeasurer = rememberTextMeasurer()
   Canvas(modifier.fillMaxSize()) {
