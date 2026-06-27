@@ -5,6 +5,7 @@
   <a href="https://android-arsenal.com/api?level=21"><img alt="API" src="https://img.shields.io/badge/API-21%2B-brightgreen.svg?style=flat"/></a>
   <a href="https://github.com/androidpoet/Drafter/actions/workflows/android.yml"><img alt="Build Status" 
   src="https://github.com/androidpoet/Drafter/actions/workflows/android.yml/badge.svg"/></a>
+  <a href="https://pub.dev/packages/drafter"><img alt="Flutter on pub.dev" src="https://img.shields.io/pub/v/drafter.svg?label=flutter%20%7C%20pub.dev&color=blue"/></a>
   
 </p>
 
